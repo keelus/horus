@@ -322,12 +322,33 @@
 			{{ end }}
 		</div>
 	</div>
+
+	<div class="darker">
+		<div class="modal" activeMode="">
+			<div class="title">Create new color</div>
+			<div class="inputBox">
+				<div class="text">Hex code:</div>
+				<div>#<input type="text" placeholder="XXXXXX" id="newHex" maxlength="6"></div>
+			</div>
+			<div class="doubleButton">
+				<button class="blancoNegro" id="cancelAddColor">Cancel</button>
+				<button id="addColor">Add color</button>
+			</div>
+		</div>
+	</div>
 </body>
 </html>
 
 
 
 <script>
+
+	
+	if (window.location.search.indexOf('added') !== -1) {
+		showPopup("Color added.", 3000, "success")
+		window.history.replaceState(null, null, window.location.href.split("?")[0]);
+	}
+
 	$(".botonGuardar").on("click", (e) => {
 		category = $(e.target).closest(".category").attr("category")
 		$(`[category='${category}']`).find(".hasError").removeClass("hasError")
@@ -440,7 +461,7 @@
 	})
 
 	
-	$(".color").on("click", (e) => {
+	$(".color:not(.color.new)").on("click", (e) => {
 		e.preventDefault()
 
 		if($(e.target).hasClass("delete") || $(e.target).is("svg")){
@@ -490,5 +511,35 @@
 				showPopup(r.responseJSON.details, 3000, "error")
 			}
 		});
+	})
+
+	$(".color.new").on("click", (e) => {
+		mode = $(e.target).closest(".option").attr("mode")
+		$(".modal").attr("activeMode", mode)
+		$(".darker").addClass("show")
+	})
+	
+	$("#addColor").on("click", (e) => {
+		mode = $(".modal").attr("activeMode")
+		hex = $("#newHex").val()
+		
+		$.ajax({
+			type: "POST",
+			url: `/back/ledControl/add/${mode}/${hex}`,
+			// data: postData,
+			success: function (r) {
+				showPopup(`Color added.`, 3000, "success")
+				
+  				window.location.href = window.location.href + "?added";
+			},
+			error: function(r) {
+				showPopup(r.responseJSON.details, 3000, "error")
+			}
+		});
+	})
+
+	$("#cancelAddColor").on("click", (e) => {
+		mode = $(".modal").attr("activeMode", "")
+		$(".darker").removeClass("show")
 	})
 </script>

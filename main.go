@@ -566,7 +566,7 @@ func isLogged(c *gin.Context) bool {
 func loadUserConfiguration() (Configuration, error) {
 	var config Configuration
 
-	data, err := ioutil.ReadFile("userConfig.json")
+	data, err := ioutil.ReadFile("data/userConfig.json")
 	if err != nil {
 		fmt.Println("Error reading JSON file:", err)
 		return config, err
@@ -588,7 +588,7 @@ func saveUserConfiguration() error {
 		return err
 	}
 
-	err = ioutil.WriteFile("userConfig.json", data, 0644)
+	err = ioutil.WriteFile("data/userConfig.json", data, 0644)
 	if err != nil {
 		fmt.Println("Error writing JSON file:", err)
 		return err
@@ -600,7 +600,7 @@ func saveUserConfiguration() error {
 func loadLedPresets() (LedPresets, error) {
 	var presets LedPresets
 
-	data, err := ioutil.ReadFile("ledPresets.json")
+	data, err := ioutil.ReadFile("data/ledPresets.json")
 	if err != nil {
 		fmt.Println("Error reading JSON file:", err)
 		return presets, err
@@ -622,7 +622,7 @@ func saveLedPresets() error {
 		return err
 	}
 
-	err = ioutil.WriteFile("ledPresets.json", data, 0644)
+	err = ioutil.WriteFile("data/ledPresets.json", data, 0644)
 	if err != nil {
 		fmt.Println("Error writing JSON file:", err)
 		return err
@@ -634,7 +634,7 @@ func saveLedPresets() error {
 func loadLedActive() (LedActive, error) {
 	var active LedActive
 
-	data, err := ioutil.ReadFile("ledActive.json")
+	data, err := ioutil.ReadFile("data/ledActive.json")
 	if err != nil {
 		fmt.Println("Error reading JSON file:", err)
 		return active, err
@@ -656,7 +656,7 @@ func saveLedActive() error {
 		return err
 	}
 
-	err = ioutil.WriteFile("ledActive.json", data, 0644)
+	err = ioutil.WriteFile("data/ledActive.json", data, 0644)
 	if err != nil {
 		fmt.Println("Error writing JSON file:", err)
 		return err

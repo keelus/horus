@@ -461,6 +461,7 @@ body > .subtitle {
   justify-content: center;
   align-items: center;
   transition: all 0.1s linear;
+  border: 1px solid #101010;
 }
 .option .content .colors .color > .delete > svg {
   width: 14px;
@@ -640,6 +641,70 @@ input[type=checkbox]:hover, input[type=radio]:hover {
 }
 input[type=checkbox]:hover:disabled, input[type=radio]:hover:disabled {
   cursor: not-allowed;
+}
+
+.darker {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background-color: rgba(16, 16, 16, 0.95);
+  z-index: 998;
+  display: none;
+}
+.darker.show {
+  display: block;
+}
+
+.modal {
+  position: fixed;
+  width: 500px;
+  background-color: #171717;
+  z-index: 999;
+  display: flex;
+  flex-direction: column;
+  border-radius: 10px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 20px;
+  box-sizing: border-box;
+}
+.modal .title {
+  color: #FFFFFF;
+  font-size: 1.25em;
+  font-weight: bold;
+}
+.modal .doubleButton {
+  margin-top: 15px;
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+}
+.modal .inputBox {
+  width: 100%;
+  display: flex;
+  padding: 2px 20px;
+}
+.modal .inputBox > .text {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  min-width: 150px;
+}
+.modal .inputBox > *:nth-child(2) {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+.modal .inputBox > *:nth-child(2) > input {
+  width: 80%;
+}
+.modal .inputBox .note {
+  padding-left: 10px;
+  font-size: 0.75rem;
 }
 
 /*# sourceMappingURL=panel.css.map */
