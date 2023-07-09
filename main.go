@@ -167,7 +167,7 @@ func main() {
 			return
 		}
 
-		latestVersion := "1.3.1"
+		latestVersion := "0.5.0" // TODO
 		usingLatest := true
 
 		if latestVersion > userConfiguration.Version {
