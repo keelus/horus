@@ -1,0 +1,221 @@
+@import 'variables.scss';
+@import url("https://fonts.googleapis.com/css2?family=Familjen+Grotesk:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap");
+
+
+body {
+	background: $background;
+	color:rgba(255, 255, 255, .7);
+	padding:0;
+	margin:0;
+	font-family: "Familjen Grotesk", sans-serif;
+}
+
+.recortado { 
+	max-width:1400px;
+}
+
+
+.cuerpo {
+	max-width:1400px;
+	margin: 0 auto;
+}
+@media (max-width:1500px) {
+	.cuerpo {
+		width:95%;
+		padding:0 auto;
+	}
+}
+
+
+
+.render-link, .render-link:link, .render-link:visited {
+	text-decoration: none;
+	color: transparent;
+	font-weight: 800;
+	color:red;
+	position: relative;
+
+	&::after {
+		content: "";
+		position: absolute;
+		left: 0;
+		bottom: -2px;
+		width: 100%;
+		height: 1px;
+		background-color:red;
+		transform: scaleY(0);
+		transform-origin: left center;
+		transition: transform 0.3s;
+	}
+	&:hover {
+		cursor:pointer;
+		&::after {
+			transform: scaleY(1);
+		}
+	}
+}
+
+.noSelect {
+	-webkit-user-select: none; /* Safari */
+	-ms-user-select: none; /* IE 10 and IE 11 */
+	user-select: none; /* Standard syntax */
+}
+
+button, .button, .button:link, .button:visited {
+	text-decoration: none;
+	border-radius: 3px;
+	outline: none;
+	border: none;
+	outline: none;
+	padding: 5px 20px;
+	color: white;
+	font-family: "Familjen Grotesk", sans-serif;
+	font-size: 16px;
+	height: 44px;
+	position: relative;
+	background-color: transparent;
+	display:inline-flex;
+	justify-content: center;
+	align-items: center;
+	box-sizing: border-box;
+	z-index: 1;
+
+  
+	&::before,
+	&::after {
+		content: '';
+		display: block;
+		position: absolute;
+		left: 0;
+		top: 0;
+		bottom: 0;
+		right: 0;
+		background: linear-gradient(to bottom right, $accent, $accent2);
+		border-radius: 3px;
+		z-index: -1;
+	}
+
+	&::after {
+		opacity: 0;
+		background: linear-gradient(to top left, $accent, $accent2);
+		transition: opacity .3s ease-in-out;
+	}
+
+	&:hover {
+		cursor:pointer;
+	}
+	&:hover::after {
+		opacity: 1;
+	}
+
+
+
+	&:disabled {
+		&::before, &::after {
+			all:unset !important;
+		}
+
+		background:gray !important;
+		&:hover {
+			cursor:default;
+		}
+	}
+
+	&.secundario {
+		&::before, &::after {
+			all:unset !important;
+		}
+
+		background:$background3 !important;
+		&:hover {
+			background:$background2 !important;
+		}
+		transition: background .3s ease-in-out;
+	}
+
+	&.blancoNegro {
+		&::before, &::after {
+			all:unset !important;
+		}
+
+		background:$white !important;
+		color:$background !important;
+		border:0;
+		&:hover {
+			background:$background !important;
+			color:$white !important;
+		}
+		transition: all .2s linear !important;
+	}
+
+	&.blancoRojo {
+		&::before, &::after {
+			all:unset !important;
+		}
+
+		background:$white !important;
+		color:$error !important;
+		border:0;
+		&:hover {
+			background:$error !important;
+			color:$white !important;
+		}
+		transition: all .2s linear !important;
+	}
+}
+
+
+input[type="text"],
+input[type="password"],
+input[type="number"],
+input[type="email"],
+input[type="url"],
+input[type="tel"],
+input[type="search"],
+input[type="date"],
+input[type="time"],
+input[type="datetime"],
+input[type="datetime-local"],
+input[type="month"],
+input[type="week"] {
+	margin:0;
+	padding:5px 10px;
+	background:#171717;
+	border:1px solid #303030;
+	border-radius:5px;
+	font-size:16px;
+	padding:10px 15px;
+	outline:none;
+	color:white;
+	font-family: 'Familjen Grotesk', sans-serif;
+
+	
+
+	&[type="password"] {
+		letter-spacing: .2em;
+		&:placeholder-shown {
+			letter-spacing: 0;
+		}
+	}
+
+	&.hasError {
+		border:1px solid #c70a0a;
+	}
+}
+
+select {
+	margin:0;
+	padding:5px 10px;
+	background:#303030;
+	border:1px solid #171717;
+	border-radius:5px;
+	font-size:16px;
+	padding:10px 15px;
+	outline:none;
+	color:white;
+	font-family: 'Familjen Grotesk', sans-serif;
+
+	&:hover {
+		cursor:pointer;
+	}
+}

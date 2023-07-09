@@ -1,0 +1,37 @@
+{
+	"Version":"1.3.1",
+	"UserInfo":{
+		"Username":"keelus",
+		"Password":"1234kira"
+	},
+	"SessionSettings":{
+		"Lifespan":-1,
+		"Unit":""
+	},
+	"LedControl":[false, true],
+	"SystemStats":[true, false, true, false, false],
+	"Logging":true,
+	"Security":{
+		"UserInput":false
+	},
+	"Units":{
+		"TimeMode12":true,
+		"TemperatureC":true
+	},
+	"Design":{
+		"Accent":[
+			"#fdc830",
+			"#f37335"
+		],
+		"Fonts":[
+			{
+				"Title":"Familjen Grotesk",
+				"Source":"https://fonts.googleapis.com/css2?family=Familjen+Grotesk:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap"
+			},
+			{
+				"Title":"Fira Code",
+				"Source":"#"
+			}
+		]
+	}
+}

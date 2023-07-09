@@ -1,0 +1,296 @@
+@import url("https://fonts.googleapis.com/css2?family=Familjen+Grotesk:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap");
+body {
+  background: #101010;
+  color: rgba(255, 255, 255, 0.7);
+  padding: 0;
+  margin: 0;
+  font-family: "Familjen Grotesk", sans-serif;
+}
+
+.recortado {
+  max-width: 1400px;
+}
+
+.cuerpo {
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+@media (max-width: 1500px) {
+  .cuerpo {
+    width: 95%;
+    padding: 0 auto;
+  }
+}
+.render-link, .render-link:link, .render-link:visited {
+  text-decoration: none;
+  color: transparent;
+  font-weight: 800;
+  color: red;
+  position: relative;
+}
+.render-link::after, .render-link:link::after, .render-link:visited::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  width: 100%;
+  height: 1px;
+  background-color: red;
+  transform: scaleY(0);
+  transform-origin: left center;
+  transition: transform 0.3s;
+}
+.render-link:hover, .render-link:link:hover, .render-link:visited:hover {
+  cursor: pointer;
+}
+.render-link:hover::after, .render-link:link:hover::after, .render-link:visited:hover::after {
+  transform: scaleY(1);
+}
+
+.noSeleccion {
+  -webkit-user-select: none; /* Safari */
+  -ms-user-select: none; /* IE 10 and IE 11 */
+  user-select: none; /* Standard syntax */
+}
+
+button, .button, .button:link, .button:visited {
+  text-decoration: none;
+  border-radius: 3px;
+  outline: none;
+  border: none;
+  outline: none;
+  padding: 5px 20px;
+  color: white;
+  font-family: "Familjen Grotesk", sans-serif;
+  font-size: 16px;
+  height: 44px;
+  position: relative;
+  background-color: transparent;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+  z-index: 1;
+}
+button::before, button::after, .button::before, .button::after, .button:link::before, .button:link::after, .button:visited::before, .button:visited::after {
+  content: "";
+  display: block;
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  background: linear-gradient(to bottom right, #fdc830, #f37335);
+  border-radius: 3px;
+  z-index: -1;
+}
+button::after, .button::after, .button:link::after, .button:visited::after {
+  opacity: 0;
+  background: linear-gradient(to top left, #fdc830, #f37335);
+  transition: opacity 0.3s ease-in-out;
+}
+button:hover, .button:hover, .button:link:hover, .button:visited:hover {
+  cursor: pointer;
+}
+button:hover::after, .button:hover::after, .button:link:hover::after, .button:visited:hover::after {
+  opacity: 1;
+}
+button:disabled, .button:disabled, .button:link:disabled, .button:visited:disabled {
+  background: gray !important;
+}
+button:disabled::before, button:disabled::after, .button:disabled::before, .button:disabled::after, .button:link:disabled::before, .button:link:disabled::after, .button:visited:disabled::before, .button:visited:disabled::after {
+  all: unset !important;
+}
+button:disabled:hover, .button:disabled:hover, .button:link:disabled:hover, .button:visited:disabled:hover {
+  cursor: default;
+}
+button.secundario, .button.secundario, .button:link.secundario, .button:visited.secundario {
+  background: #222222 !important;
+  transition: background 0.3s ease-in-out;
+}
+button.secundario::before, button.secundario::after, .button.secundario::before, .button.secundario::after, .button:link.secundario::before, .button:link.secundario::after, .button:visited.secundario::before, .button:visited.secundario::after {
+  all: unset !important;
+}
+button.secundario:hover, .button.secundario:hover, .button:link.secundario:hover, .button:visited.secundario:hover {
+  background: #171717 !important;
+}
+button.blancoNegro, .button.blancoNegro, .button:link.blancoNegro, .button:visited.blancoNegro {
+  background: #FFFFFF !important;
+  color: #101010 !important;
+  border: 0;
+  transition: all 0.2s linear !important;
+}
+button.blancoNegro::before, button.blancoNegro::after, .button.blancoNegro::before, .button.blancoNegro::after, .button:link.blancoNegro::before, .button:link.blancoNegro::after, .button:visited.blancoNegro::before, .button:visited.blancoNegro::after {
+  all: unset !important;
+}
+button.blancoNegro:hover, .button.blancoNegro:hover, .button:link.blancoNegro:hover, .button:visited.blancoNegro:hover {
+  background: #101010 !important;
+  color: #FFFFFF !important;
+}
+button.blancoRojo, .button.blancoRojo, .button:link.blancoRojo, .button:visited.blancoRojo {
+  background: #FFFFFF !important;
+  color: #c70a0a !important;
+  border: 0;
+  transition: all 0.2s linear !important;
+}
+button.blancoRojo::before, button.blancoRojo::after, .button.blancoRojo::before, .button.blancoRojo::after, .button:link.blancoRojo::before, .button:link.blancoRojo::after, .button:visited.blancoRojo::before, .button:visited.blancoRojo::after {
+  all: unset !important;
+}
+button.blancoRojo:hover, .button.blancoRojo:hover, .button:link.blancoRojo:hover, .button:visited.blancoRojo:hover {
+  background: #c70a0a !important;
+  color: #FFFFFF !important;
+}
+
+input[type=text],
+input[type=password],
+input[type=number],
+input[type=email],
+input[type=url],
+input[type=tel],
+input[type=search],
+input[type=date],
+input[type=time],
+input[type=datetime],
+input[type=datetime-local],
+input[type=month],
+input[type=week] {
+  margin: 0;
+  padding: 5px 10px;
+  background: #171717;
+  border: 1px solid #303030;
+  border-radius: 5px;
+  font-size: 16px;
+  padding: 10px 15px;
+  outline: none;
+  color: white;
+  font-family: "Familjen Grotesk", sans-serif;
+}
+input[type=text][type=password],
+input[type=password][type=password],
+input[type=number][type=password],
+input[type=email][type=password],
+input[type=url][type=password],
+input[type=tel][type=password],
+input[type=search][type=password],
+input[type=date][type=password],
+input[type=time][type=password],
+input[type=datetime][type=password],
+input[type=datetime-local][type=password],
+input[type=month][type=password],
+input[type=week][type=password] {
+  letter-spacing: 0.2em;
+}
+input[type=text][type=password]:placeholder-shown,
+input[type=password][type=password]:placeholder-shown,
+input[type=number][type=password]:placeholder-shown,
+input[type=email][type=password]:placeholder-shown,
+input[type=url][type=password]:placeholder-shown,
+input[type=tel][type=password]:placeholder-shown,
+input[type=search][type=password]:placeholder-shown,
+input[type=date][type=password]:placeholder-shown,
+input[type=time][type=password]:placeholder-shown,
+input[type=datetime][type=password]:placeholder-shown,
+input[type=datetime-local][type=password]:placeholder-shown,
+input[type=month][type=password]:placeholder-shown,
+input[type=week][type=password]:placeholder-shown {
+  letter-spacing: 0;
+}
+input[type=text].hasError,
+input[type=password].hasError,
+input[type=number].hasError,
+input[type=email].hasError,
+input[type=url].hasError,
+input[type=tel].hasError,
+input[type=search].hasError,
+input[type=date].hasError,
+input[type=time].hasError,
+input[type=datetime].hasError,
+input[type=datetime-local].hasError,
+input[type=month].hasError,
+input[type=week].hasError {
+  border: 1px solid #c70a0a;
+}
+
+html, body {
+  background: #0E121A;
+  background: #101010;
+  font-family: "Familjen Grotesk", sans-serif;
+}
+
+h1 {
+  margin-bottom: 0;
+  color: #fdc830;
+  font-weight: bold;
+}
+
+h2 {
+  margin-top: 0;
+  margin-bottom: 0.5em;
+  color: white;
+  font-weight: normal;
+}
+
+form {
+  cursor: default;
+  left: 50%;
+  top: 40%;
+  transform: translate(-50%, -40%);
+  position: absolute;
+  text-align: center;
+}
+form .card {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 0;
+  background: #1a1f29;
+  background: #171717;
+  border-radius: 10px;
+}
+form .card .avatar {
+  width: 50px;
+  height: 50px;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  border-radius: 5px;
+  margin-left: 20px;
+  background-image: url("/static/images/avatar.jpg");
+}
+form .card .username {
+  flex: 1;
+  color: white;
+  font-size: 1em;
+  margin-right: 20px;
+  font-family: "Fira Code", monospace;
+}
+form input {
+  margin-bottom: 15px !important;
+}
+form button {
+  font-family: "Familjen Grotesk", sans-serif;
+  color: white;
+  background-image: linear-gradient(to right, #fdc830, #f37335);
+  width: 100%;
+  padding: 10px 10px;
+  border-radius: 10px;
+  font-size: 16px;
+  border: none;
+}
+form button:hover {
+  cursor: pointer;
+}
+form .message {
+  color: #c70a0a;
+  margin-top: 0.5em;
+  margin-bottom: 0.2em;
+  max-height: 0;
+  transition: all 0.3s linear;
+}
+form .message.show {
+  max-height: 2em;
+}
+
+/*# sourceMappingURL=login.css.map */

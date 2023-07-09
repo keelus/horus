@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Login :: Horus</title>
+	<link rel="stylesheet" href="/static/sass/compilado/login.css">
+	<script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
+	<link rel="shortcut icon" href="/static/images/favicon.ico" type="image/x-icon">
+</head>
+<body>
+	<form id="loginForm">
+		<h1>Horus</h1>
+		<h2>Log in</h2>
+		{{if .UserConfiguration.Security.UserInput}}
+			<div class="message">Incorrect credentials.</div>
+			<input type="text" placeholder="Username" id="usernameInput"> <br>
+		{{else}}
+			<div class="card">
+				<div class="avatar"></div>
+				<div class="username">keelus</div>
+			</div>
+			<div class="message">Incorrect password.</div>
+		{{end}}
+		<input type="password" placeholder="Password" id="passwordInput"> <br>
+		<button type="submit" style="width:230px;">Login</button>
+	</form>
+</body>
+</html>
+
+<script>
+	$("#loginForm").submit((e) => {
+		e.preventDefault()
+		$("input").removeClass("hasError")
+		$(".message").removeClass("show")
+		
+
+		$.ajax({
+			type: "POST",
+			url: "/back/login",
+			data: {
+				"Username":$("#usernameInput").val(),
+				"Password":$("#passwordInput").val()
+			},
+			success: function (r) {
+				window.location.href = "/"
+			},
+			error: function(r) {
+				console.log(r)
+				$("#usernameInput").addClass("hasError")
+				$("#passwordInput").addClass("hasError")
+			$(".message").addClass("show")
+			}
+		});
+	})
+
+</script>
