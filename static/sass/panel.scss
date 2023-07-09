@@ -1,14 +1,14 @@
 @import 'base.scss';
 
 
-
+//calc(100vh - calc(40px + 30px + 20px + 10px + 20px))
 body > .title {
 	& > a {
 		text-decoration: none;
 		color:$accent;
 	}
 	text-align: center;
-	margin:10px 0;
+	margin:30px 0;
 	margin-bottom: 0;
 }
 body > .subtitle {
@@ -25,16 +25,18 @@ body > .subtitle {
 	height:100%;
 	display:flex;
 	max-width:1000px !important;
-	padding-top:120px;
+	padding-top:20px;
 
 	& > .leftNav {
-		width:200px;;
-		height:100%;
+		width:200px;
+		// height:100%;
 		display:flex;
 		flex-direction: column;
 		align-items: center;
-		height:450px;
+		// height:450px;
 		padding-bottom:20px;
+
+		height:calc(100vh - calc(40px + 30px + 20px + 10px + 20px + 50px));
 
 		& > .elemento {
 			&, & * {
@@ -136,7 +138,10 @@ body > .subtitle {
 		padding-bottom:40px;
 		box-sizing: border-box;
 
-
+		
+		height:calc(100vh - calc(40px + 30px + 20px + 10px + 20px + 50px));
+		overflow:hidden;
+		overflow-y:auto;
 
 		& > * {
 			display:flex;
@@ -199,6 +204,62 @@ body > .subtitle {
 
 	.content {
 		padding:10px 30px;
+
+		.colors {
+			display:grid;
+			grid-template-columns: repeat(auto-fill, 75px);
+			grid-gap: 15px;
+
+			.color {
+				width:75px;
+				height:75px;
+				border-radius:6px;
+				outline: 2px solid rgba(0, 0, 0, 0);
+				outline-offset: 2px;
+				transition: all .1s linear;
+				position:relative;
+
+				& > .delete {
+					width:15px;
+					height:15px;
+					border-radius: 100%;
+					color:$error;
+					background:$white2;
+					position: absolute;
+					top:-5px;
+					right:-5px;
+					display: flex;
+					justify-content: center;
+					align-items: center;
+				}
+
+				&.selected {
+					outline-color:$accent;
+				}
+
+				&:not(.new):not(.selected):hover {
+					outline-color:rgba($accent, .5);
+					cursor:pointer;
+				}
+
+				&.new {
+					border:2px dashed $accent;
+					color:$accent;
+					opacity: .7;
+					box-sizing: border-box;
+					display: flex;
+					justify-content: center;
+					align-items: center;
+					font-size: 2em;
+					line-height: 2em;
+
+					&:hover {
+						cursor:pointer;
+						opacity:1;
+					}
+				}
+			}
+		}
 	}
 
 	.checkLine {
@@ -282,24 +343,19 @@ body > .subtitle {
 		}
 
 
-		&.userInfo {
+		&.UserInfo {
 			.avatar {
 				width:50px;
 				height:50px;
 				border-radius:.25rem;
 				display:inline-block;
-				background-image: url("/static/images/avatar.jpg");
 				background-position: center;
 				background-size: cover;
 				background-repeat: no-repeat;
 			}
 		}
 
-		&.sessionSettings {
-
-		}
-
-		&.systemStats {
+		&.SystemStats {
 			.note {
 				display:none;
 				color:$error;

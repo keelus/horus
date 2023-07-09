@@ -197,10 +197,9 @@ input[type="week"] {
 			letter-spacing: 0;
 		}
 	}
-
-	&.hasError {
-		border:1px solid #c70a0a;
-	}
+}
+.hasError {
+	border:1px solid #c70a0a;
 }
 
 select {

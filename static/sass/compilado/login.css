@@ -48,7 +48,7 @@ body {
   transform: scaleY(1);
 }
 
-.noSeleccion {
+.noSelect {
   -webkit-user-select: none; /* Safari */
   -ms-user-select: none; /* IE 10 and IE 11 */
   user-select: none; /* Standard syntax */
@@ -196,20 +196,25 @@ input[type=month][type=password]:placeholder-shown,
 input[type=week][type=password]:placeholder-shown {
   letter-spacing: 0;
 }
-input[type=text].hasError,
-input[type=password].hasError,
-input[type=number].hasError,
-input[type=email].hasError,
-input[type=url].hasError,
-input[type=tel].hasError,
-input[type=search].hasError,
-input[type=date].hasError,
-input[type=time].hasError,
-input[type=datetime].hasError,
-input[type=datetime-local].hasError,
-input[type=month].hasError,
-input[type=week].hasError {
+
+.hasError {
   border: 1px solid #c70a0a;
+}
+
+select {
+  margin: 0;
+  padding: 5px 10px;
+  background: #303030;
+  border: 1px solid #171717;
+  border-radius: 5px;
+  font-size: 16px;
+  padding: 10px 15px;
+  outline: none;
+  color: white;
+  font-family: "Familjen Grotesk", sans-serif;
+}
+select:hover {
+  cursor: pointer;
 }
 
 html, body {
@@ -257,7 +262,6 @@ form .card .avatar {
   background-repeat: no-repeat;
   border-radius: 5px;
   margin-left: 20px;
-  background-image: url("/static/images/avatar.jpg");
 }
 form .card .username {
   flex: 1;
