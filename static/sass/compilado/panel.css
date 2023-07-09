@@ -198,7 +198,7 @@ input[type=week][type=password]:placeholder-shown {
 }
 
 .hasError {
-  border: 1px solid #c70a0a;
+  border: 1px solid #c70a0a !important;
 }
 
 select {
@@ -215,6 +215,39 @@ select {
 }
 select:hover {
   cursor: pointer;
+}
+
+.popupMessage {
+  z-index: 999;
+  opacity: 0;
+  position: fixed;
+  background-color: #FFFFFF;
+  color: #101010;
+  max-width: 350px;
+  padding: 13px;
+  top: -50px;
+  right: 10px;
+  border-radius: 3px;
+  transition: all 0.1s linear;
+}
+.popupMessage::first-letter {
+  text-transform: capitalize;
+}
+.popupMessage.show {
+  top: 10px;
+  opacity: 1;
+}
+.popupMessage.hide {
+  top: -100px;
+  opacity: 0;
+}
+.popupMessage.type-error {
+  background-color: #c70a0a;
+  color: white;
+}
+.popupMessage.type-success {
+  background-color: #23A55A;
+  color: white;
 }
 
 body > .title {
@@ -384,6 +417,7 @@ body > .subtitle {
   width: 100%;
   display: flex;
   flex-direction: column;
+  margin-bottom: 10px;
 }
 .option .content {
   padding: 10px 30px;
@@ -397,30 +431,43 @@ body > .subtitle {
   width: 75px;
   height: 75px;
   border-radius: 6px;
+  position: relative;
+}
+.option .content .colors .color > .background {
+  width: 100%;
+  height: 100%;
+  border-radius: 6px;
   outline: 2px solid rgba(0, 0, 0, 0);
   outline-offset: 2px;
   transition: all 0.1s linear;
-  position: relative;
+}
+.option .content .colors .color:not(.noInteraction).selected > .background {
+  outline-color: #fdc830;
+}
+.option .content .colors .color:not(.noInteraction):not(.new):not(.selected) > .background:hover {
+  outline-color: rgba(253, 200, 48, 0.5);
+  cursor: pointer;
 }
 .option .content .colors .color > .delete {
-  width: 15px;
-  height: 15px;
+  width: 20px;
+  height: 20px;
   border-radius: 100%;
   color: #c70a0a;
-  background: #bbbbbb;
+  background: #FFFFFF;
   position: absolute;
   top: -5px;
   right: -5px;
   display: flex;
   justify-content: center;
   align-items: center;
+  transition: all 0.1s linear;
 }
-.option .content .colors .color.selected {
-  outline-color: #fdc830;
+.option .content .colors .color > .delete > svg {
+  width: 14px;
 }
-.option .content .colors .color:not(.new):not(.selected):hover {
-  outline-color: rgba(253, 200, 48, 0.5);
+.option .content .colors .color > .delete:hover {
   cursor: pointer;
+  background: #bbbbbb;
 }
 .option .content .colors .color.new {
   border: 2px dashed #fdc830;
@@ -437,6 +484,57 @@ body > .subtitle {
   cursor: pointer;
   opacity: 1;
 }
+.option > .checkLine {
+  display: flex;
+  align-items: center;
+}
+.option > .checkLine .checkbox {
+  margin-right: 0.3em;
+  width: 1.25em;
+  height: 1.25em;
+  display: inline-block;
+  overflow: hidden;
+}
+.option > .checkLine .checkbox .on > svg, .option > .checkLine .checkbox .off > svg {
+  width: 1.25em;
+  height: 1.25em;
+  fill: #FFFFFF;
+}
+.option > .checkLine .checkbox .off > svg {
+  fill: #bbbbbb;
+}
+.option > .checkLine .checkbox .on {
+  display: none;
+}
+.option > .checkLine .checkbox .off {
+  display: block;
+}
+.option.active > .checkLine > .checkbox > .on {
+  display: block;
+}
+.option.active > .checkLine > .checkbox > .off {
+  display: none;
+}
+.option.active > .checkLine > .text {
+  color: #FFFFFF;
+  position: relative;
+}
+.option.active > .checkLine > .text::after {
+  content: "- Active";
+  display: inline-block;
+  padding-left: 10px;
+  font-weight: bold;
+  color: #fdc830;
+}
+.option:not(.active) > .checkLine > .text {
+  color: #bbbbbb;
+}
+.option:not(.active) > .checkLine, .option:not(.active) > .checkLine > *:hover {
+  cursor: pointer;
+}
+.option:not(.active) > .content {
+  display: none;
+}
 .option .checkLine > .text {
   color: #FFFFFF;
 }
@@ -445,15 +543,6 @@ body > .subtitle {
 }
 .option .checkLine, .option .checkLine > *:hover {
   cursor: default;
-}
-.option:not(:has(input:checked)) .checkLine .text {
-  color: #bbbbbb;
-}
-.option:not(:has(input:checked)) .checkLine, .option:not(:has(input:checked)) .checkLine > *:hover {
-  cursor: pointer;
-}
-.option:not(:has(input:checked)) .content {
-  display: none;
 }
 
 .botonGuardar {

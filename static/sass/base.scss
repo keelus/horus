@@ -199,7 +199,7 @@ input[type="week"] {
 	}
 }
 .hasError {
-	border:1px solid #c70a0a;
+	border:1px solid #c70a0a !important;
 }
 
 select {
@@ -216,5 +216,43 @@ select {
 
 	&:hover {
 		cursor:pointer;
+	}
+}
+
+
+
+.popupMessage {
+	&::first-letter {
+		text-transform:capitalize;
+	}
+	z-index: 999;
+	opacity: 0;
+	position: fixed;
+	background-color: $white;
+	color: $background;
+	max-width: 350px;
+	padding: 13px;
+	top: -50px;
+	right: 10px;
+	border-radius: 3px;
+	transition: all 0.1s linear;
+
+	&.show {
+		top: 10px;
+		opacity: 1;
+	}
+	&.hide {
+		top: -100px;
+		opacity: 0;
+	}
+
+	
+	&.type-error {
+		background-color: $error;
+		color:white;
+	}
+	&.type-success {
+		background-color: $success;
+		color:white;
 	}
 }

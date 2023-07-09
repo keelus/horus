@@ -24,8 +24,8 @@ import (
 //		Led management[save on a JSON and load in memory]
 //		Struct for types of LED [static, rainbow, gradient]
 //		For -static: just hex
-//		For -rainbow: if all-> just save mode. if specific-> save color spectrum
-//		For -gradient: if all-> just save mode. if specific-> save color spectrum
+//		For -Colors cycling: if all-> just save mode. if specific-> save color spectrum
+//		For -Pulsating color: specific. Custom speed
 //
 //		{
 //				"mode":"X",
@@ -81,6 +81,23 @@ type FontDetails struct {
 
 var userConfiguration Configuration
 
+type LedPresets struct {
+	StaticColor    []string
+	CyclingColors  []string
+	PulsatingColor []string
+}
+
+var ledPresets LedPresets
+
+type LedActive struct {
+	ActiveMode string
+	Color      []string
+	Brightness int
+	Cooldown   int
+}
+
+var ledActive LedActive
+
 func renderer() multitemplate.Renderer {
 	r := multitemplate.NewRenderer()
 
@@ -109,6 +126,16 @@ func init() {
 	userConfiguration, err = loadUserConfiguration()
 	if err != nil {
 		fmt.Println("User configuration could not be loaded...")
+	}
+
+	ledPresets, err = loadLedPresets()
+	if err != nil {
+		fmt.Println("Led presets could not be loaded...")
+	}
+
+	ledActive, err = loadLedActive()
+	if err != nil {
+		fmt.Println("Active led presets could not be loaded...")
 	}
 }
 func main() {
@@ -167,12 +194,14 @@ func main() {
 			return
 		}
 
-		latestVersion := "0.5.0" // TODO
+		latestVersion := "0.6.0" // TODO
 		usingLatest := true
 
 		if latestVersion > userConfiguration.Version {
 			usingLatest = false
 		}
+
+		// colors := []string{"#48d051", "#c05bef", "#0fcbdc", "#8c799c", "#12c670", "#7a53a7", "#7d29a2", "#5f552b", "#5191f2", "#03ba62", "#f69d97", "#4cc856", "#a1e180", "#c30113", "#85b864", "#b5b437", "#d51bf5", "#e13ad1", "#466acd", "#ecc95f", "#703fdc"}
 
 		category := c.Param("category")
 		c.HTML(http.StatusOK, "panel", gin.H{
@@ -181,6 +210,8 @@ func main() {
 			"LatestVersion":     latestVersion,
 			"UsingLatest":       usingLatest,
 			"CurrentLED":        "#00FF00",
+			"LedPresets":        ledPresets,
+			"LedActive":         ledActive,
 		})
 	})
 
@@ -364,6 +395,158 @@ func main() {
 		c.JSON(http.StatusBadRequest, returnError)
 	})
 
+	r.POST("/back/ledControl/activate/:mode", func(c *gin.Context) {
+		mode := c.Param("mode")
+
+		if mode == "StaticColor" {
+			// By default first color is activated. Always will be one at least.
+			active := 0
+
+			ledActive.ActiveMode = "StaticColor"
+			ledActive.Color = []string{ledPresets.StaticColor[active]}
+			ledActive.Brightness = 255 // TODO
+			ledActive.Cooldown = 0
+		} else if mode == "CyclingColors" {
+			ledActive.ActiveMode = "CyclingColors"
+			ledActive.Color = ledPresets.PulsatingColor // All colors are activated on Cycling Colors
+			ledActive.Brightness = 255                  // TODO
+			ledActive.Cooldown = 0
+		} else if mode == "PulsatingColor" {
+			// By default first color is activated. Always will be one at least.
+			active := 0
+
+			ledActive.ActiveMode = "PulsatingColor"
+			ledActive.Color = []string{ledPresets.PulsatingColor[active]}
+			ledActive.Brightness = 255 // TODO
+			ledActive.Cooldown = 0
+		}
+
+		saveLedActive()
+		c.JSON(http.StatusOK, gin.H{"Color": ledActive.Color, "Brightness": ledActive.Brightness, "Cooldown": ledActive.Cooldown})
+	})
+
+	r.POST("/back/ledControl/activate/:mode/:hex", func(c *gin.Context) {
+		mode := c.Param("mode")
+		hex := c.Param("hex")
+
+		if mode == "CyclingColors" {
+			c.JSON(http.StatusBadGateway, gin.H{"details": "Unexpected error."}) // All are activated by default.
+		} else {
+			ledActive.Color = []string{hex}
+		}
+
+		saveLedActive()
+		c.Status(http.StatusOK)
+	})
+
+	r.POST("/back/ledControl/delete/:mode/:hex", func(c *gin.Context) {
+		mode := c.Param("mode")
+		hex := c.Param("hex")
+
+		if mode == "StaticColor" {
+			if len(ledPresets.StaticColor) == 1 {
+				c.JSON(http.StatusBadRequest, gin.H{"details": "There must be at least 1 preset color."})
+				return
+			}
+			newPreset := []string{}
+
+			for _, color := range ledPresets.StaticColor {
+				if color != hex {
+					newPreset = append(newPreset, color)
+				}
+			}
+
+			if ledActive.Color[0] == hex {
+				ledActive.Color[0] = newPreset[0]
+			}
+
+			ledPresets.StaticColor = newPreset
+		} else if mode == "PulsatingColor" {
+			if len(ledPresets.PulsatingColor) == 1 {
+				c.JSON(http.StatusBadRequest, gin.H{"details": "There must be at least 1 preset color."})
+				return
+			}
+			newPreset := []string{}
+
+			for _, color := range ledPresets.PulsatingColor {
+				if color != hex {
+					newPreset = append(newPreset, color)
+				}
+			}
+
+			if ledActive.Color[0] == hex {
+				ledActive.Color[0] = newPreset[0]
+			}
+
+			ledPresets.PulsatingColor = newPreset
+		} else if mode == "CyclingColors" {
+			if len(ledPresets.CyclingColors) == 2 {
+				c.JSON(http.StatusBadRequest, gin.H{"details": "There must be at least 2 preset colors."})
+				return
+			}
+
+			newPreset := []string{}
+			for _, color := range ledPresets.CyclingColors {
+				if color != hex {
+					newPreset = append(newPreset, color)
+				}
+			}
+
+			ledActive.Color = newPreset
+			ledPresets.CyclingColors = newPreset
+		}
+
+		saveLedActive()
+		saveLedPresets()
+		c.Status(http.StatusOK)
+	})
+
+	r.POST("/back/ledControl/add/:mode/:hex", func(c *gin.Context) {
+		mode := c.Param("mode")
+		hex := c.Param("hex")
+
+		if mode == "StaticColor" {
+			if sliceutil.Contains(ledPresets.StaticColor, hex) {
+				c.JSON(http.StatusBadRequest, gin.H{"details": "That color has been already added to this mode."})
+				return
+			}
+
+			newPreset := ledPresets.StaticColor
+			newPreset = append(newPreset, hex)
+
+			ledActive.Color = []string{hex}
+			ledPresets.StaticColor = newPreset
+
+		} else if mode == "PulsatingColor" {
+			if sliceutil.Contains(ledPresets.PulsatingColor, hex) {
+				c.JSON(http.StatusBadRequest, gin.H{"details": "That color has been already added to this mode."})
+				return
+			}
+
+			newPreset := ledPresets.PulsatingColor
+			newPreset = append(newPreset, hex)
+
+			ledActive.Color = []string{hex}
+			ledPresets.PulsatingColor = newPreset
+
+		} else if mode == "CyclingColors" {
+			if sliceutil.Contains(ledPresets.CyclingColors, hex) {
+				c.JSON(http.StatusBadRequest, gin.H{"details": "That color has been already added to this mode."})
+				return
+			}
+
+			newPreset := ledPresets.CyclingColors
+			newPreset = append(newPreset, hex)
+
+			ledActive.Color = newPreset
+			ledPresets.CyclingColors = newPreset
+		}
+
+		saveLedActive()
+		saveLedPresets()
+		c.Status(http.StatusOK)
+	})
+
 	r.Run(":80")
 }
 
@@ -406,6 +589,74 @@ func saveUserConfiguration() error {
 	}
 
 	err = ioutil.WriteFile("userConfig.json", data, 0644)
+	if err != nil {
+		fmt.Println("Error writing JSON file:", err)
+		return err
+	}
+
+	return nil
+}
+
+func loadLedPresets() (LedPresets, error) {
+	var presets LedPresets
+
+	data, err := ioutil.ReadFile("ledPresets.json")
+	if err != nil {
+		fmt.Println("Error reading JSON file:", err)
+		return presets, err
+	}
+
+	err = json.Unmarshal(data, &presets)
+	if err != nil {
+		fmt.Println("Error unmarshaling JSON:", err)
+		return presets, err
+	}
+
+	return presets, nil
+}
+
+func saveLedPresets() error {
+	data, err := json.MarshalIndent(ledPresets, "", "	")
+	if err != nil {
+		fmt.Println("Error marshaling JSON:", err)
+		return err
+	}
+
+	err = ioutil.WriteFile("ledPresets.json", data, 0644)
+	if err != nil {
+		fmt.Println("Error writing JSON file:", err)
+		return err
+	}
+
+	return nil
+}
+
+func loadLedActive() (LedActive, error) {
+	var active LedActive
+
+	data, err := ioutil.ReadFile("ledActive.json")
+	if err != nil {
+		fmt.Println("Error reading JSON file:", err)
+		return active, err
+	}
+
+	err = json.Unmarshal(data, &active)
+	if err != nil {
+		fmt.Println("Error unmarshaling JSON:", err)
+		return active, err
+	}
+
+	return active, nil
+}
+
+func saveLedActive() error {
+	data, err := json.MarshalIndent(ledActive, "", "	")
+	if err != nil {
+		fmt.Println("Error marshaling JSON:", err)
+		return err
+	}
+
+	err = ioutil.WriteFile("ledActive.json", data, 0644)
 	if err != nil {
 		fmt.Println("Error writing JSON file:", err)
 		return err

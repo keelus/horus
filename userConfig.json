@@ -1,15 +1,15 @@
 {
-	"Version": "0.5.0",
+	"Version": "0.6.0",
 	"UserInfo": {
 		"Username": "keelus",
 		"Password": "1234example"
 	},
 	"SessionSettings": {
-		"Lifespan": -1,
-		"Unit": ""
+		"Lifespan": 365,
+		"Unit": "day"
 	},
 	"LedControl": [
-		false,
+		true,
 		true
 	],
 	"SystemStats": [

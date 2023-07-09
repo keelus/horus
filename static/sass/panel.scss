@@ -201,6 +201,7 @@ body > .subtitle {
 	width:100%;
 	display:flex;
 	flex-direction: column;
+	margin-bottom:10px;
 
 	.content {
 		padding:10px 30px;
@@ -214,33 +215,51 @@ body > .subtitle {
 				width:75px;
 				height:75px;
 				border-radius:6px;
-				outline: 2px solid rgba(0, 0, 0, 0);
-				outline-offset: 2px;
-				transition: all .1s linear;
 				position:relative;
 
+				& > .background {
+					width:100%;
+					height:100%;
+					border-radius:6px;
+					outline: 2px solid rgba(0, 0, 0, 0);
+					outline-offset: 2px;
+					transition: all .1s linear;
+				}
+
+				&:not(.noInteraction){
+					&.selected > .background {
+						outline-color:$accent;
+					}
+	
+					&:not(.new):not(.selected) > .background:hover {
+						outline-color:rgba($accent, .5);
+						cursor:pointer;
+					}
+				}
+
 				& > .delete {
-					width:15px;
-					height:15px;
+					width:20px;
+					height:20px;
 					border-radius: 100%;
 					color:$error;
-					background:$white2;
+					background:$white;
 					position: absolute;
 					top:-5px;
 					right:-5px;
 					display: flex;
 					justify-content: center;
 					align-items: center;
+					transition: all .1s linear;
+
+					& > svg {
+						width: 14px;
+					}
+					&:hover {
+						cursor:pointer;
+						background:$white2;
+					}
 				}
 
-				&.selected {
-					outline-color:$accent;
-				}
-
-				&:not(.new):not(.selected):hover {
-					outline-color:rgba($accent, .5);
-					cursor:pointer;
-				}
 
 				&.new {
 					border:2px dashed $accent;
@@ -262,6 +281,71 @@ body > .subtitle {
 		}
 	}
 
+	& > .checkLine {
+		display:flex;
+		align-items: center;
+		.checkbox {
+			margin-right:.3em;
+			width:1.25em;
+			height:1.25em;
+			display:inline-block;
+			overflow:hidden;
+
+			.on > svg, .off > svg {
+				width:1.25em;
+				height:1.25em;
+				fill:$white;
+			}
+
+			.off > svg {
+				fill:$white2;
+			}
+
+			.on {
+				display:none;
+			}
+			.off {
+				display:block;
+			}
+		}
+	}
+
+	&.active {
+		& > .checkLine {
+			& > .checkbox > .on {
+				display:block;
+			}
+			& > .checkbox > .off {
+				display:none;
+			}
+
+		}
+		& > .checkLine > .text {
+			color:$white;
+			position:relative;
+
+			&::after {
+				content:"- Active";
+				display:inline-block;
+				padding-left:10px;
+				font-weight: bold;
+				color:$accent;
+			}
+		}
+	}
+
+	&:not(.active) {
+		& > .checkLine > .text {
+			color:$white2;
+		}
+		& > .checkLine, & > .checkLine > *:hover {
+			cursor:pointer;
+		}
+		& > .content {
+			display:none;
+		}
+	}
+
 	.checkLine {
 		& > .text {
 			color:$white;
@@ -272,21 +356,6 @@ body > .subtitle {
 
 		&, & > *:hover {
 			cursor:default;
-		}
-	}
-
-
-	&:not(:has(input:checked)) {
-		.checkLine {
-			.text {
-				color:$white2;
-			}
-			&, & > *:hover {
-				cursor:pointer;
-			}
-		}
-		.content {
-			display:none;
 		}
 	}
 }
@@ -411,3 +480,5 @@ input[type="checkbox"], input[type="radio"] {
 		}
 	}
 }
+
+

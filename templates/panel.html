@@ -7,11 +7,14 @@
 	<link rel="stylesheet" href="/static/sass/compilado/panel.css">
 	<link rel="shortcut icon" href="/static/images/favicon.ico" type="image/x-icon">
 	<script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
+	<script src="/static/js/errorManager.js"></script>
 	
 
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-contextmenu/2.7.1/jquery.contextMenu.min.css">
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-contextmenu/2.7.1/jquery.contextMenu.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-contextmenu/2.7.1/jquery.ui.position.js"></script>
+	<style>
+	</style>
 
 
 	{{ if eq .Active "LedControl" }}
@@ -67,47 +70,71 @@
 			{{ else if eq .Active "LedControl" }}
 				<div class="ledControlPane">
 					<div class="title"><div class="icono"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="var(--svg)"><path d="M12 2c5.514 0 10 4.486 10 10s-4.486 10-10 10-10-4.486-10-10 4.486-10 10-10zm0-2c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm-2 19l1.5-5h-4.5l7-9-1.5 5h4.5l-7 9z"/></svg></div>Led control</div>
-					<div class="option active">
+					<div class="option{{if eq .LedActive.ActiveMode "StaticColor"}} active{{end}}" mode="StaticColor">
 						<div class="checkLine">
-							<input type="radio" name="ledOption" id="staticColor" checked> <label for="staticColor" class="text">Static color</label>
+							<div class="checkbox">
+								<div class="on"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M0 0v24h24v-24h-24zm11 17l-5-5.299 1.399-1.43 3.574 3.736 6.572-7.007 1.455 1.403-8 8.597z"/></svg></div>
+								<div class="off"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M22 2v20h-20v-20h20zm2-2h-24v24h24v-24z"/></svg></div>
+							</div>
+							<label for="staticColor" class="text">Static color</label>
 						</div>
 						<div class="content">
 							<!-- <input type="color" value="{{.CurrentLED}}"> -->
 							<div class="colors">
-								<div class="color" style="background-color:aqua"><div class="delete">x</div></div>
-								<div class="color" style="background-color:brown"><div class="delete">x</div></div>
-								<div class="color" style="background-color:coral"><div class="delete">x</div></div>
-								<div class="color" style="background-color:darkmagenta"><div class="delete">x</div></div>
-								<div class="color selected" style="background-color:aqua"><div class="delete">x</div></div>
-								<div class="color" style="background-color:brown"><div class="delete">x</div></div>
-								<div class="color" style="background-color:coral"><div class="delete">x</div></div>
-								<div class="color" style="background-color:darkmagenta"><div class="delete">x</div></div>
-								<div class="color" style="background-color:aqua"><div class="delete">x</div></div>
-								<div class="color" style="background-color:brown"><div class="delete">x</div></div>
-								<div class="color" style="background-color:coral"><div class="delete">x</div></div>
-								<div class="color" style="background-color:darkmagenta"><div class="delete">x</div></div>
-								<div class="color" style="background-color:aqua"><div class="delete">x</div></div>
-								<div class="color" style="background-color:brown"><div class="delete">x</div></div>
-								<div class="color" style="background-color:coral"><div class="delete">x</div></div>
-								<div class="color" style="background-color:darkmagenta"><div class="delete">x</div></div>
+								{{ range $i, $color := .LedPresets.StaticColor}}
+									<div class="color {{if eq $color (index $.LedActive.Color 0)}}selected{{end}}" hex="{{$color}}">
+										<div class="delete"><svg clip-rule="evenodd" fill-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m12 10.93 5.719-5.72c.146-.146.339-.219.531-.219.404 0 .75.324.75.749 0 .193-.073.385-.219.532l-5.72 5.719 5.719 5.719c.147.147.22.339.22.531 0 .427-.349.75-.75.75-.192 0-.385-.073-.531-.219l-5.719-5.719-5.719 5.719c-.146.146-.339.219-.531.219-.401 0-.75-.323-.75-.75 0-.192.073-.384.22-.531l5.719-5.719-5.72-5.719c-.146-.147-.219-.339-.219-.532 0-.425.346-.749.75-.749.192 0 .385.073.531.219z"/></svg></div>
+										<div class="background" style="background-color:#{{$color}}"></div>
+									</div>
+								{{ end }}
 								<div class="color new">+</div>
 							</div>
 						</div>
 					</div>
 					{{if index .UserConfiguration.LedControl 0}}
-						<div class="option">
+						<div class="option{{if eq .LedActive.ActiveMode "CyclingColors"}} active{{end}}" mode="CyclingColors">
 							<div class="checkLine">
-								<input type="radio" name="ledOption" id="rainbow"> <label for="rainbow" class="text">Rainbow</label>
+								<div class="checkbox">
+									<div class="on"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M0 0v24h24v-24h-24zm11 17l-5-5.299 1.399-1.43 3.574 3.736 6.572-7.007 1.455 1.403-8 8.597z"/></svg></div>
+									<div class="off"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M22 2v20h-20v-20h20zm2-2h-24v24h24v-24z"/></svg></div>
+								</div>
+								<label for="cyclingColors" class="text">Cycling colors</label>
 							</div>
-							<div class="content">##</div>
+							<div class="content">
+								<!-- <input type="color" value="{{.CurrentLED}}"> -->
+								<div class="colors">
+									{{ range $i, $color := .LedPresets.CyclingColors}}
+										<div class="color noInteraction" hex="{{$color}}">
+											<div class="delete"><svg clip-rule="evenodd" fill-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m12 10.93 5.719-5.72c.146-.146.339-.219.531-.219.404 0 .75.324.75.749 0 .193-.073.385-.219.532l-5.72 5.719 5.719 5.719c.147.147.22.339.22.531 0 .427-.349.75-.75.75-.192 0-.385-.073-.531-.219l-5.719-5.719-5.719 5.719c-.146.146-.339.219-.531.219-.401 0-.75-.323-.75-.75 0-.192.073-.384.22-.531l5.719-5.719-5.72-5.719c-.146-.147-.219-.339-.219-.532 0-.425.346-.749.75-.749.192 0 .385.073.531.219z"/></svg></div>
+											<div class="background" style="background-color:#{{$color}}"></div>
+										</div>
+									{{ end }}
+									<div class="color new">+</div>
+								</div>
+							</div>
 						</div>
 					{{end}}
 					{{if index .UserConfiguration.LedControl 1}}
-						<div class="option">
+						<div class="option{{if eq .LedActive.ActiveMode "PulsatingColor"}} active{{end}}" mode="PulsatingColor">
 							<div class="checkLine">
-								<input type="radio" name="ledOption" id="smoothGradient"> <label for="smoothGradient" class="text">Smooth gradient</label>
+								<div class="checkbox">
+									<div class="on"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M0 0v24h24v-24h-24zm11 17l-5-5.299 1.399-1.43 3.574 3.736 6.572-7.007 1.455 1.403-8 8.597z"/></svg></div>
+									<div class="off"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M22 2v20h-20v-20h20zm2-2h-24v24h24v-24z"/></svg></div>
+								</div>
+								<label for="pulsatingColor" class="text">Pulsating color</label>
 							</div>
-							<div class="content">##2</div>
+							<div class="content">
+								<!-- <input type="color" value="{{.CurrentLED}}"> -->
+								<div class="colors">
+									{{ range $i, $color := .LedPresets.PulsatingColor}}
+										<div class="color {{if eq $color (index $.LedActive.Color 0)}}selected{{end}}" hex="{{$color}}">
+											<div class="delete"><svg clip-rule="evenodd" fill-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m12 10.93 5.719-5.72c.146-.146.339-.219.531-.219.404 0 .75.324.75.749 0 .193-.073.385-.219.532l-5.72 5.719 5.719 5.719c.147.147.22.339.22.531 0 .427-.349.75-.75.75-.192 0-.385-.073-.531-.219l-5.719-5.719-5.719 5.719c-.146.146-.339.219-.531.219-.401 0-.75-.323-.75-.75 0-.192.073-.384.22-.531l5.719-5.719-5.72-5.719c-.146-.147-.219-.339-.219-.532 0-.425.346-.749.75-.749.192 0 .385.073.531.219z"/></svg></div>
+											<div class="background" style="background-color:#{{$color}}"></div>
+										</div>
+									{{ end }}
+									<div class="color new">+</div>
+								</div>
+							</div>
 						</div>
 					{{end}}
 					<button class="botonGuardar">Save changes</button>
@@ -190,8 +217,8 @@
 							<div class="details">Choose what options you want to see in <b>Led Control</b> tab.</div>
 							<div class="content">
 								<input type="checkbox" disabled checked> <label for="">Show static</label><br>
-								<input type="checkbox" id="ledControl0" {{if index .UserConfiguration.LedControl 0 }}checked{{end}}> <label for="ledControl0">Show rainbow</label><br>
-								<input type="checkbox" id="ledControl1" {{if index .UserConfiguration.LedControl 1 }}checked{{end}}> <label for="ledControl1">Show slow gradient</label>
+								<input type="checkbox" id="ledControl0" {{if index .UserConfiguration.LedControl 0 }}checked{{end}}> <label for="ledControl0">Show cycling colors</label><br>
+								<input type="checkbox" id="ledControl1" {{if index .UserConfiguration.LedControl 1 }}checked{{end}}> <label for="ledControl1">Show pulsating color</label>
 							</div>
 							<button class="botonGuardar">Apply changes</button>
 						</div>
@@ -353,22 +380,115 @@
 			url: `/back/saveConfiguration/${category}`,
 			data: postData,
 			success: function (r) {
-				console.log("ok")
+				showPopup(`${category} saved.`, 3000, "success")
 			},
 			error: function(r) {
-				console.log(r)
+				popupMessage = ""
 				for(i=0;i<r.responseJSON.length;i++){
 					console.error(r.responseJSON[i].details)
+					popupMessage += `• ${r.responseJSON[i].details}<br>`
+					
 
 					field = r.responseJSON[i].field
 					if(field != "") {
 						$(`#${field}`).addClass("hasError")
 					}
 				}
+
+				showPopup(popupMessage, 3000, "error")
 			}
 		});
 	})
 	
 
+	// $(".color > .delete").on("click", (e) => {
+	// 	e.preventDefault()
+	// 	$(e.target).closest(".color").remove()
+	// })
 
+	// $(".color").on("click", (e) => {
+	// 	$(".color.selected").removeClass("selected")
+	// 	$(e.target).closest(".color").addClass("selected")
+	// })
+
+
+
+	$(".checkLine").on("click", (e) => {
+		e.preventDefault()
+		$(".color.selected").removeClass("selected")
+
+		mode = $(e.target).closest(".option").attr("mode")
+
+		
+		$.ajax({
+			type: "POST",
+			url: `/back/ledControl/activate/${mode}`,
+			// data: postData,
+			success: function (r) {
+				$(".option.active").removeClass("active")
+				$(e.target).closest(".option").addClass("active")
+				if (mode != "CyclingColors") {
+					$($(e.target).closest(".option").find(".color")[0]).addClass("selected")
+				}
+				showPopup(`Led mode applied.`, 3000, "success")
+				console.log(r)
+			},
+			error: function(r) {
+				showPopup(r.responseJSON, 3000, "error")
+			}
+		});
+	})
+
+	
+	$(".color").on("click", (e) => {
+		e.preventDefault()
+
+		if($(e.target).hasClass("delete") || $(e.target).is("svg")){
+			return false
+		}
+
+		$(".color.selected").removeClass("selected")
+
+		mode = $(e.target).closest(".option").attr("mode")
+		hex = $(e.target).closest(".color").attr("hex")
+
+		if (mode == "CyclingColors")
+			return false
+
+		
+		$.ajax({
+			type: "POST",
+			url: `/back/ledControl/activate/${mode}/${hex}`,
+			// data: postData,
+			success: function (r) {
+				$(e.target).closest(".color").addClass("selected")
+				showPopup(`Led color applied.`, 3000, "success")
+			},
+			error: function(r) {
+				showPopup(r.responseJSON, 3000, "error")
+			}
+		});
+	})
+
+	$(".color .delete").on("click", (e) => {
+		mode = $(e.target).closest(".option").attr("mode")
+		hex = $(e.target).closest(".color").attr("hex")
+
+		$.ajax({
+			type: "POST",
+			url: `/back/ledControl/delete/${mode}/${hex}`,
+			// data: postData,
+			success: function (r) {
+				$(".color.selected").removeClass("selected")
+				option = $(e.target).closest(".option")
+				$(e.target).closest(".color").remove()
+				if(mode != "CyclingColors")
+					$($(option).find(".color")[0]).addClass("selected")
+				showPopup(`Color removed.`, 3000, "success")
+			},
+			error: function(r) {
+				showPopup(r.responseJSON.details, 3000, "error")
+			}
+		});
+	})
 </script>
