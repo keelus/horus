@@ -216,6 +216,7 @@ body > .subtitle {
 				height:75px;
 				border-radius:6px;
 				position:relative;
+				transition: all .1s linear;
 
 				& > .background {
 					width:100%;

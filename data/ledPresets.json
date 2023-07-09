@@ -1,18 +1,12 @@
 {
 	"StaticColor": [
-		"eb4034",
-		"0eb38f",
-		"9c46e3",
-		"ffff00",
-		"121212"
+		"eb4034"
 	],
 	"CyclingColors": [
 		"9c46e3",
 		"F000F0"
 	],
 	"PulsatingColor": [
-		"F000F0",
-		"9c46e3",
-		"ffffff"
+		"F000F0"
 	]
 }

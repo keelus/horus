@@ -432,6 +432,7 @@ body > .subtitle {
   height: 75px;
   border-radius: 6px;
   position: relative;
+  transition: all 0.1s linear;
 }
 .option .content .colors .color > .background {
   width: 100%;

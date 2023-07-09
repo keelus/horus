@@ -14,14 +14,14 @@
 	],
 	"SystemStats": [
 		true,
-		false,
 		true,
-		false,
-		false
+		true,
+		true,
+		true
 	],
 	"Logging": true,
 	"Security": {
-		"UserInput": false
+		"UserInput": true
 	},
 	"Units": {
 		"TimeMode12": true,
