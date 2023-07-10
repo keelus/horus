@@ -3,7 +3,6 @@ package main
 import (
 	"encoding/json"
 	"fmt"
-	"io/ioutil"
 	"math/rand"
 	"net/http"
 	"strconv"
@@ -16,6 +15,9 @@ import (
 	"github.com/gin-contrib/sessions"
 	"github.com/gin-contrib/sessions/cookie"
 	"github.com/gin-gonic/gin"
+
+	"horus/internal"
+	"horus/models"
 )
 
 //
@@ -38,67 +40,13 @@ import (
 //		Load and save system. Compatibility with scss/css
 //
 
-const CUR_VERSION = "0.6.1 "
+const CUR_VERSION = "0.6.5"
 
-type Configuration struct {
-	Version         string
-	UserInfo        UserInfo
-	SessionSettings SessionSettings
-	LedControl      [2]bool
-	SystemStats     [5]bool
-	Logging         bool
-	Security        Security
-	Units           Units
-	Design          Design
-}
+var userConfiguration models.Configuration
 
-type UserInfo struct {
-	Username string
-	Password string
-}
+var ledPresets models.LedPresets
 
-type SessionSettings struct {
-	Lifespan int
-	Unit     string
-}
-
-type Security struct {
-	UserInput bool
-}
-
-type Units struct {
-	TimeMode12   bool
-	TemperatureC bool
-}
-
-type Design struct {
-	Accent []string
-	Fonts  []FontDetails
-}
-
-type FontDetails struct {
-	Title  string
-	Source string
-}
-
-var userConfiguration Configuration
-
-type LedPresets struct {
-	StaticColor    []string
-	CyclingColors  []string
-	PulsatingColor []string
-}
-
-var ledPresets LedPresets
-
-type LedActive struct {
-	ActiveMode string
-	Color      []string
-	Brightness int
-	Cooldown   int
-}
-
-var ledActive LedActive
+var ledActive models.LedActive
 
 func renderer() multitemplate.Renderer {
 	r := multitemplate.NewRenderer()
@@ -117,25 +65,25 @@ func renderer() multitemplate.Renderer {
 		},
 	}
 
-	r.AddFromFilesFuncs("login", funcs, "templates/login.html")
-	r.AddFromFilesFuncs("panel", funcs, "templates/panel.html", "templates/panels/LedControl.html", "templates/panels/SystemStats.html", "templates/panels/Settings.html")
+	r.AddFromFilesFuncs("login", funcs, "web/templates/login.html")
+	r.AddFromFilesFuncs("panel", funcs, "web/templates/panel.html", "web/templates/panels/LedControl.html", "web/templates/panels/SystemStats.html", "web/templates/panels/Settings.html")
 
 	return r
 }
 
 func init() {
 	var err error
-	userConfiguration, err = loadUserConfiguration()
+	userConfiguration, err = internal.LoadUserConfiguration()
 	if err != nil {
 		fmt.Println("User configuration could not be loaded...")
 	}
 
-	ledPresets, err = loadLedPresets()
+	ledPresets, err = internal.LoadLedPresets()
 	if err != nil {
 		fmt.Println("Led presets could not be loaded...")
 	}
 
-	ledActive, err = loadLedActive()
+	ledActive, err = internal.LoadLedActive()
 	if err != nil {
 		fmt.Println("Active led presets could not be loaded...")
 	}
@@ -172,7 +120,7 @@ func main() {
 	r.HTMLRender = renderer()
 	r.Use(gin.Recovery())
 
-	r.Static("/static", "./static")
+	r.Static("/static", "web/static")
 
 	// ##### FRONT PAGES #####
 	r.GET("/", func(c *gin.Context) {
@@ -182,7 +130,7 @@ func main() {
 		c.Redirect(http.StatusPermanentRedirect, "/panel/main")
 	})
 	r.GET("/login", func(c *gin.Context) {
-		if isLogged(c) {
+		if internal.IsLogged(c) {
 			c.Redirect(http.StatusTemporaryRedirect, "/panel/main")
 			return
 		}
@@ -191,7 +139,7 @@ func main() {
 		})
 	})
 	r.GET("/panel/:category", func(c *gin.Context) {
-		if !isLogged(c) {
+		if !internal.IsLogged(c) {
 			c.Redirect(http.StatusTemporaryRedirect, "/login")
 			return
 		}
@@ -257,7 +205,7 @@ func main() {
 	})
 
 	r.POST("/back/saveConfiguration/:category", func(c *gin.Context) {
-		if !isLogged(c) {
+		if !internal.IsLogged(c) {
 			c.JSON(http.StatusForbidden, gin.H{"details": "User not logged in.", "field": ""})
 			return
 		}
@@ -390,7 +338,7 @@ func main() {
 		}
 
 		if len(returnError) == 0 {
-			err := saveUserConfiguration()
+			err := internal.SaveUserConfiguration(userConfiguration)
 			if err != nil {
 				c.JSON(http.StatusInternalServerError, map[string]string{"details": "Error while saving the user configuration. 500", "field": ""})
 			} else {
@@ -403,7 +351,7 @@ func main() {
 	})
 
 	r.POST("/back/ledControl/activate/:mode", func(c *gin.Context) {
-		if !isLogged(c) {
+		if !internal.IsLogged(c) {
 			c.JSON(http.StatusForbidden, gin.H{"details": "User not logged in."})
 			return
 		}
@@ -433,12 +381,12 @@ func main() {
 			ledActive.Cooldown = 0
 		}
 
-		saveLedActive()
+		internal.SaveLedActive(ledActive)
 		c.JSON(http.StatusOK, gin.H{"Color": ledActive.Color, "Brightness": ledActive.Brightness, "Cooldown": ledActive.Cooldown})
 	})
 
 	r.POST("/back/ledControl/activate/:mode/:hex", func(c *gin.Context) {
-		if !isLogged(c) {
+		if !internal.IsLogged(c) {
 			c.JSON(http.StatusForbidden, gin.H{"details": "User not logged in."})
 			return
 		}
@@ -452,12 +400,12 @@ func main() {
 			ledActive.Color = []string{hex}
 		}
 
-		saveLedActive()
+		internal.SaveLedActive(ledActive)
 		c.Status(http.StatusOK)
 	})
 
 	r.POST("/back/ledControl/delete/:mode/:hex", func(c *gin.Context) {
-		if !isLogged(c) {
+		if !internal.IsLogged(c) {
 			c.JSON(http.StatusForbidden, gin.H{"details": "User not logged in."})
 			return
 		}
@@ -518,13 +466,13 @@ func main() {
 			ledPresets.CyclingColors = newPreset
 		}
 
-		saveLedActive()
-		saveLedPresets()
+		internal.SaveLedActive(ledActive)
+		internal.SaveLedPresets(ledPresets)
 		c.Status(http.StatusOK)
 	})
 
 	r.POST("/back/ledControl/add/:mode/:hex", func(c *gin.Context) {
-		if !isLogged(c) {
+		if !internal.IsLogged(c) {
 			c.JSON(http.StatusForbidden, gin.H{"details": "User not logged in."})
 			return
 		}
@@ -583,8 +531,8 @@ func main() {
 			ledPresets.CyclingColors = newPreset
 		}
 
-		saveLedActive()
-		saveLedPresets()
+		internal.SaveLedActive(ledActive)
+		internal.SaveLedPresets(ledPresets)
 		c.Status(http.StatusOK)
 	})
 
@@ -592,134 +540,14 @@ func main() {
 		// c.Status(http.StatusBadGateway)
 
 		c.JSON(http.StatusOK, gin.H{ // TODO : Change to receive real data. Placeholder for now.
-			"Temperature": randomValue(0, 85),
-			"CPU":         randomValue(0, 100),
-			"RAM":         randomValue(0, 100),
-			"Disk":        randomValue(0, 120000), // MB
-			"DiskMax":     120000,                 // MB
-			"Uptime":      randomValue(0, 100000),
+			"Temperature": internal.RandomValue(0, 85),
+			"CPU":         internal.RandomValue(0, 100),
+			"RAM":         internal.RandomValue(0, 100),
+			"Disk":        internal.RandomValue(0, 120000), // MB
+			"DiskMax":     120000,                          // MB
+			"Uptime":      internal.RandomValue(0, 100000),
 		})
 	})
 
 	r.Run(":80")
-}
-
-func isLogged(c *gin.Context) bool {
-	session := sessions.Default(c)
-
-	status := session.Get("LoggedIn")
-	if status == nil {
-		return false
-	}
-	if status.(bool) {
-		return true
-	}
-	return false
-}
-
-func loadUserConfiguration() (Configuration, error) {
-	var config Configuration
-
-	data, err := ioutil.ReadFile("data/userConfig.json")
-	if err != nil {
-		fmt.Println("Error reading JSON file:", err)
-		return config, err
-	}
-
-	err = json.Unmarshal(data, &config)
-	if err != nil {
-		fmt.Println("Error unmarshaling JSON:", err)
-		return config, err
-	}
-
-	return config, nil
-}
-
-func saveUserConfiguration() error {
-	data, err := json.MarshalIndent(userConfiguration, "", "	")
-	if err != nil {
-		fmt.Println("Error marshaling JSON:", err)
-		return err
-	}
-
-	err = ioutil.WriteFile("data/userConfig.json", data, 0644)
-	if err != nil {
-		fmt.Println("Error writing JSON file:", err)
-		return err
-	}
-
-	return nil
-}
-
-func loadLedPresets() (LedPresets, error) {
-	var presets LedPresets
-
-	data, err := ioutil.ReadFile("data/ledPresets.json")
-	if err != nil {
-		fmt.Println("Error reading JSON file:", err)
-		return presets, err
-	}
-
-	err = json.Unmarshal(data, &presets)
-	if err != nil {
-		fmt.Println("Error unmarshaling JSON:", err)
-		return presets, err
-	}
-
-	return presets, nil
-}
-
-func saveLedPresets() error {
-	data, err := json.MarshalIndent(ledPresets, "", "	")
-	if err != nil {
-		fmt.Println("Error marshaling JSON:", err)
-		return err
-	}
-
-	err = ioutil.WriteFile("data/ledPresets.json", data, 0644)
-	if err != nil {
-		fmt.Println("Error writing JSON file:", err)
-		return err
-	}
-
-	return nil
-}
-
-func loadLedActive() (LedActive, error) {
-	var active LedActive
-
-	data, err := ioutil.ReadFile("data/ledActive.json")
-	if err != nil {
-		fmt.Println("Error reading JSON file:", err)
-		return active, err
-	}
-
-	err = json.Unmarshal(data, &active)
-	if err != nil {
-		fmt.Println("Error unmarshaling JSON:", err)
-		return active, err
-	}
-
-	return active, nil
-}
-
-func saveLedActive() error {
-	data, err := json.MarshalIndent(ledActive, "", "	")
-	if err != nil {
-		fmt.Println("Error marshaling JSON:", err)
-		return err
-	}
-
-	err = ioutil.WriteFile("data/ledActive.json", data, 0644)
-	if err != nil {
-		fmt.Println("Error writing JSON file:", err)
-		return err
-	}
-
-	return nil
-}
-
-func randomValue(min, max int) int {
-	rand.Seed(time.Now().UnixNano())
-	return rand.Intn(max-min+1) + min
 }
