@@ -38,7 +38,7 @@ import (
 //		Load and save system. Compatibility with scss/css
 //
 
-const CUR_VERSION = "0.6.1"
+const CUR_VERSION = "0.6.1 "
 
 type Configuration struct {
 	Version         string
