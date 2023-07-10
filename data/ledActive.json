@@ -1,7 +1,7 @@
 {
-	"ActiveMode": "PulsatingColor",
+	"ActiveMode": "StaticColor",
 	"Color": [
-		"F000F0"
+		"eb4034"
 	],
 	"Brightness": 255,
 	"Cooldown": 0

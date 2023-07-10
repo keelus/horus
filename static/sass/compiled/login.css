@@ -198,7 +198,7 @@ input[type=week][type=password]:placeholder-shown {
 }
 
 .hasError {
-  border: 1px solid #c70a0a;
+  border: 1px solid #c70a0a !important;
 }
 
 select {
@@ -215,6 +215,39 @@ select {
 }
 select:hover {
   cursor: pointer;
+}
+
+.popupMessage {
+  z-index: 999;
+  opacity: 0;
+  position: fixed;
+  background-color: #FFFFFF;
+  color: #101010;
+  max-width: 350px;
+  padding: 13px;
+  top: -50px;
+  right: 10px;
+  border-radius: 3px;
+  transition: all 0.1s linear;
+}
+.popupMessage::first-letter {
+  text-transform: capitalize;
+}
+.popupMessage.show {
+  top: 10px;
+  opacity: 1;
+}
+.popupMessage.hide {
+  top: -100px;
+  opacity: 0;
+}
+.popupMessage.type-error {
+  background-color: #c70a0a;
+  color: white;
+}
+.popupMessage.type-success {
+  background-color: #23A55A;
+  color: white;
 }
 
 html, body {

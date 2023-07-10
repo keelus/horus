@@ -38,6 +38,8 @@ import (
 //		Load and save system. Compatibility with scss/css
 //
 
+const CUR_VERSION = "0.6.1"
+
 type Configuration struct {
 	Version         string
 	UserInfo        UserInfo
@@ -116,7 +118,7 @@ func renderer() multitemplate.Renderer {
 	}
 
 	r.AddFromFilesFuncs("login", funcs, "templates/login.html")
-	r.AddFromFilesFuncs("panel", funcs, "templates/panel.html")
+	r.AddFromFilesFuncs("panel", funcs, "templates/panel.html", "templates/panels/LedControl.html", "templates/panels/SystemStats.html", "templates/panels/Settings.html")
 
 	return r
 }
@@ -194,7 +196,7 @@ func main() {
 			return
 		}
 
-		latestVersion := "0.6.0" // TODO
+		latestVersion := "X.X.X" // TODO
 		usingLatest := true
 
 		if latestVersion > userConfiguration.Version {
@@ -255,6 +257,11 @@ func main() {
 	})
 
 	r.POST("/back/saveConfiguration/:category", func(c *gin.Context) {
+		if !isLogged(c) {
+			c.JSON(http.StatusForbidden, gin.H{"details": "User not logged in.", "field": ""})
+			return
+		}
+
 		category := c.Param("category")
 
 		returnError := []map[string]string{}
@@ -396,6 +403,11 @@ func main() {
 	})
 
 	r.POST("/back/ledControl/activate/:mode", func(c *gin.Context) {
+		if !isLogged(c) {
+			c.JSON(http.StatusForbidden, gin.H{"details": "User not logged in."})
+			return
+		}
+
 		mode := c.Param("mode")
 
 		if mode == "StaticColor" {
@@ -426,6 +438,11 @@ func main() {
 	})
 
 	r.POST("/back/ledControl/activate/:mode/:hex", func(c *gin.Context) {
+		if !isLogged(c) {
+			c.JSON(http.StatusForbidden, gin.H{"details": "User not logged in."})
+			return
+		}
+
 		mode := c.Param("mode")
 		hex := c.Param("hex")
 
@@ -440,6 +457,11 @@ func main() {
 	})
 
 	r.POST("/back/ledControl/delete/:mode/:hex", func(c *gin.Context) {
+		if !isLogged(c) {
+			c.JSON(http.StatusForbidden, gin.H{"details": "User not logged in."})
+			return
+		}
+
 		mode := c.Param("mode")
 		hex := c.Param("hex")
 
@@ -502,8 +524,27 @@ func main() {
 	})
 
 	r.POST("/back/ledControl/add/:mode/:hex", func(c *gin.Context) {
+		if !isLogged(c) {
+			c.JSON(http.StatusForbidden, gin.H{"details": "User not logged in."})
+			return
+		}
+
 		mode := c.Param("mode")
-		hex := c.Param("hex")
+		hex := strings.ToUpper(c.Param("hex"))
+
+		hexChars := []byte{'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'}
+
+		bytes := []byte(hex)
+
+		fmt.Println(bytes)
+		fmt.Println(len(bytes))
+
+		for _, b := range bytes {
+			if !sliceutil.Contains(hexChars, b) {
+				c.JSON(http.StatusForbidden, gin.H{"details": fmt.Sprintf("Hex byte '%c' not allowed.", b)})
+				return
+			}
+		}
 
 		if mode == "StaticColor" {
 			if sliceutil.Contains(ledPresets.StaticColor, hex) {
@@ -545,6 +586,19 @@ func main() {
 		saveLedActive()
 		saveLedPresets()
 		c.Status(http.StatusOK)
+	})
+
+	r.GET("/back/getStats", func(c *gin.Context) {
+		// c.Status(http.StatusBadGateway)
+
+		c.JSON(http.StatusOK, gin.H{ // TODO : Change to receive real data. Placeholder for now.
+			"Temperature": randomValue(0, 85),
+			"CPU":         randomValue(0, 100),
+			"RAM":         randomValue(0, 100),
+			"Disk":        randomValue(0, 120000), // MB
+			"DiskMax":     120000,                 // MB
+			"Uptime":      randomValue(0, 100000),
+		})
 	})
 
 	r.Run(":80")
@@ -663,4 +717,9 @@ func saveLedActive() error {
 	}
 
 	return nil
+}
+
+func randomValue(min, max int) int {
+	rand.Seed(time.Now().UnixNano())
+	return rand.Intn(max-min+1) + min
 }
