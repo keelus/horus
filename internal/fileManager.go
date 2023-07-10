@@ -10,7 +10,7 @@ import (
 func LoadUserConfiguration() (models.Configuration, error) {
 	var config models.Configuration
 
-	data, err := ioutil.ReadFile("data/userConfig.json")
+	data, err := ioutil.ReadFile("internal/data/userConfig.json")
 	if err != nil {
 		fmt.Println("Error reading JSON file:", err)
 		return config, err
@@ -32,7 +32,7 @@ func SaveUserConfiguration(userConfiguration models.Configuration) error {
 		return err
 	}
 
-	err = ioutil.WriteFile("data/userConfig.json", data, 0644)
+	err = ioutil.WriteFile("internal/data/userConfig.json", data, 0644)
 	if err != nil {
 		fmt.Println("Error writing JSON file:", err)
 		return err
@@ -44,7 +44,7 @@ func SaveUserConfiguration(userConfiguration models.Configuration) error {
 func LoadLedPresets() (models.LedPresets, error) {
 	var presets models.LedPresets
 
-	data, err := ioutil.ReadFile("data/ledPresets.json")
+	data, err := ioutil.ReadFile("internal/data/ledPresets.json")
 	if err != nil {
 		fmt.Println("Error reading JSON file:", err)
 		return presets, err
@@ -66,7 +66,7 @@ func SaveLedPresets(ledPresets models.LedPresets) error {
 		return err
 	}
 
-	err = ioutil.WriteFile("data/ledPresets.json", data, 0644)
+	err = ioutil.WriteFile("internal/data/ledPresets.json", data, 0644)
 	if err != nil {
 		fmt.Println("Error writing JSON file:", err)
 		return err
@@ -78,7 +78,7 @@ func SaveLedPresets(ledPresets models.LedPresets) error {
 func LoadLedActive() (models.LedActive, error) {
 	var active models.LedActive
 
-	data, err := ioutil.ReadFile("data/ledActive.json")
+	data, err := ioutil.ReadFile("internal/data/ledActive.json")
 	if err != nil {
 		fmt.Println("Error reading JSON file:", err)
 		return active, err
@@ -100,7 +100,7 @@ func SaveLedActive(ledActive models.LedActive) error {
 		return err
 	}
 
-	err = ioutil.WriteFile("data/ledActive.json", data, 0644)
+	err = ioutil.WriteFile("internal/data/ledActive.json", data, 0644)
 	if err != nil {
 		fmt.Println("Error writing JSON file:", err)
 		return err
