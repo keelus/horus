@@ -752,14 +752,14 @@ body > .mainContent > .rightNav {
   overflow: hidden;
   overflow-y: auto;
 }
-body > .mainContent > .rightNav > * {
+body > .mainContent > .rightNav > *:not(.darker) {
   display: flex;
   flex-direction: column;
   align-items: center;
   width: 100%;
   height: auto;
 }
-body > .mainContent > .rightNav > * > .title {
+body > .mainContent > .rightNav > *:not(.darker) > .title {
   font-family: "Familjen Grotesk", sans-serif;
   font-weight: bold;
   font-size: 25px;
@@ -772,7 +772,7 @@ body > .mainContent > .rightNav > * > .title {
   justify-content: center;
   align-items: center;
 }
-body > .mainContent > .rightNav > * > .title .icono {
+body > .mainContent > .rightNav > *:not(.darker) > .title .icono {
   line-height: 25px;
   height: 25px;
   margin-right: 5px;

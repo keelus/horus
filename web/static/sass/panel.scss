@@ -146,7 +146,7 @@ body {
 			overflow:hidden;
 			overflow-y:auto;
 	
-			& > * {
+			& > *:not(.darker) {
 				display:flex;
 				flex-direction: column;
 				align-items: center;
