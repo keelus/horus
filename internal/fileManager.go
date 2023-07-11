@@ -26,10 +26,17 @@ func FileName(fileType interface{}) string {
 	return filename
 }
 
-func LoadFile(loadLocation interface{}) error {
+func LoadFile(loadLocation interface{}, fromDefaults bool) error {
+	var location string
 	filename := FileName(loadLocation)
 
-	data, err := ioutil.ReadFile(fmt.Sprintf("config/%s", filename))
+	if fromDefaults {
+		location = fmt.Sprintf("config/defaults/%s", filename)
+	} else {
+		location = fmt.Sprintf("config/%s", filename)
+	}
+
+	data, err := ioutil.ReadFile(fmt.Sprintf("%s", location))
 	if err != nil {
 		fmt.Println("Error reading YAML file:", err)
 		return err
@@ -43,6 +50,7 @@ func LoadFile(loadLocation interface{}) error {
 
 	return nil
 }
+
 func SaveFile(saveData interface{}) error {
 	filename := FileName(saveData)
 
