@@ -100,7 +100,7 @@ $(".color.new").on("click", (e) => {
 	$(".darker").addClass("show")
 })
 
-$("#addColor").on("click", (e) => {
+$(document).on("click", "#addColor", (e) => {
 	mode = $(".modal").attr("activeMode")
 	hex =  $("#newHex").val() ? $("#newHex").val() : "000000"
 	
