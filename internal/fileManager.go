@@ -1,10 +1,11 @@
 package internal
 
 import (
-	"encoding/json"
 	"fmt"
 	"horus/models"
 	"io/ioutil"
+
+	"gopkg.in/yaml.v3"
 )
 
 func FileName(fileType interface{}) string {
@@ -12,13 +13,13 @@ func FileName(fileType interface{}) string {
 
 	switch fileType.(type) {
 	case *models.Configuration:
-		filename = "userConfig.json"
+		filename = "userConfig.yaml"
 		break
 	case *models.LedActive:
-		filename = "ledActive.json"
+		filename = "ledActive.yaml"
 		break
 	case *models.LedPresets:
-		filename = "ledPresets.json"
+		filename = "ledPresets.yaml"
 		break
 	}
 
@@ -30,13 +31,13 @@ func LoadFile(loadLocation interface{}) error {
 
 	data, err := ioutil.ReadFile(fmt.Sprintf("config/%s", filename))
 	if err != nil {
-		fmt.Println("Error reading JSON file:", err)
+		fmt.Println("Error reading YAML file:", err)
 		return err
 	}
 
-	err = json.Unmarshal(data, loadLocation)
+	err = yaml.Unmarshal(data, loadLocation)
 	if err != nil {
-		fmt.Println("Error unmarshaling JSON:", err)
+		fmt.Println("Error unmarshaling YAML:", err)
 		return err
 	}
 
@@ -45,15 +46,15 @@ func LoadFile(loadLocation interface{}) error {
 func SaveFile(saveData interface{}) error {
 	filename := FileName(saveData)
 
-	data, err := json.MarshalIndent(saveData, "", "	")
+	data, err := yaml.Marshal(saveData)
 	if err != nil {
-		fmt.Println("Error marshaling JSON:", err)
+		fmt.Println("Error marshaling YAML:", err)
 		return err
 	}
 
 	err = ioutil.WriteFile(fmt.Sprintf("config/%s", filename), data, 0644)
 	if err != nil {
-		fmt.Println("Error writing JSON file:", err)
+		fmt.Println("Error writing YAML file:", err)
 		return err
 	}
 
