@@ -14,6 +14,7 @@ import (
 	"github.com/gin-contrib/sessions"
 	"github.com/gin-contrib/sessions/cookie"
 	"github.com/gin-gonic/gin"
+	"golang.org/x/crypto/bcrypt"
 )
 
 func Init() {
@@ -99,6 +100,13 @@ func Init() {
 		username := c.PostForm("Username")
 		password := c.PostForm("Password")
 
+		// cryptedPassword, err := bcrypt.GenerateFromPassword([]byte(password), bcrypt.DefaultCost)
+		// if err != nil {
+		// 	c.JSON(http.StatusInternalServerError, gin.H{
+		// 		"Status": "error",
+		// 	})
+		// }
+
 		hasError := false
 
 		if config.UserConfiguration.Security.UserInput {
@@ -107,7 +115,8 @@ func Init() {
 			}
 		}
 
-		if password != config.UserConfiguration.UserInfo.Password {
+		err := bcrypt.CompareHashAndPassword([]byte(config.UserConfiguration.UserInfo.Password), []byte(password))
+		if err != nil {
 			hasError = true
 		}
 
@@ -158,9 +167,16 @@ func Init() {
 			}
 
 			if len(returnError) == 0 {
-				config.UserConfiguration.UserInfo.Username = username
 				if strings.TrimSpace(password) != "" {
-					config.UserConfiguration.UserInfo.Password = password
+					cryptedPassword, err := bcrypt.GenerateFromPassword([]byte(password), bcrypt.DefaultCost)
+					if err != nil {
+						returnError = append(returnError, map[string]string{"details": "The password must be at least 4 characters long.", "field": "userInfo1"})
+					} else { // If we have no error, we will store the username, as well as the password
+						config.UserConfiguration.UserInfo.Username = username
+						config.UserConfiguration.UserInfo.Password = string(cryptedPassword)
+					}
+				} else { // If there is no password to store, username will always be store
+					config.UserConfiguration.UserInfo.Username = username
 				}
 			}
 			break
@@ -411,9 +427,6 @@ func Init() {
 		hexChars := []byte{'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'}
 
 		bytes := []byte(hex)
-
-		fmt.Println(bytes)
-		fmt.Println(len(bytes))
 
 		for _, b := range bytes {
 			if !sliceutil.Contains(hexChars, b) {
