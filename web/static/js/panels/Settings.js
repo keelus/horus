@@ -54,7 +54,7 @@ $(".botonGuardar").on("click", (e) => {
 			showPopup(`${category} saved.`, 3000, "success")
 			switch(category) {
 				case "UserInfo":
-					$(".nombre").text(postData.Username)
+					$(".username").text(postData.Username)
 					break
 				case "SessionSettings":
 					break
