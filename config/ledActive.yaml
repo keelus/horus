@@ -1,7 +1,5 @@
-ActiveMode: CyclingColors
+ActiveMode: StaticColor
 Color:
-    - F000F0
-    - FFFFFF
-    - ABCDEF
+    - F37335
 Brightness: 255
 Cooldown: 0

@@ -1,9 +1,7 @@
 StaticColor:
-  - eb4034
+    - F37335
 CyclingColors:
-  - 9c46e3
-  - F000F0
+    - FDC830
+    - F37335
 PulsatingColor:
-  - F000F0
-  - FFFFFF
-  - ABCDEF
+    - F37335
