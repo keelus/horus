@@ -578,6 +578,12 @@ select:hover {
 .categories > .category.SystemStats:not(:has(*:checked)) .note {
   display: block;
 }
+.categories > .category.SessionSettings .note {
+  margin: 0.5em 0;
+  text-align: center;
+  padding-left: 10px;
+  font-size: 0.75rem;
+}
 .categories > .category .inputBox {
   width: 100%;
   display: flex;

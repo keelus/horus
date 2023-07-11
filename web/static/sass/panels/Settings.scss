@@ -69,6 +69,15 @@
 			}
 		}
 
+		&.SessionSettings {
+			.note {
+				margin:.5em 0;
+				text-align: center;
+				padding-left:10px;
+				font-size:.75rem;
+			}
+		}
+
 		.inputBox {
 			width:100%;
 			display:flex;
