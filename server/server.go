@@ -266,7 +266,7 @@ func Init() {
 		}
 
 		if len(returnError) == 0 {
-			err := internal.SaveUserConfiguration(config.UserConfiguration)
+			err := internal.SaveFile(&config.UserConfiguration)
 			if err != nil {
 				c.JSON(http.StatusInternalServerError, map[string]string{"details": "Error while saving the user configuration. 500", "field": ""})
 			} else {
@@ -309,7 +309,7 @@ func Init() {
 			config.LedActive.Cooldown = 0
 		}
 
-		internal.SaveLedActive(config.LedActive)
+		internal.SaveFile(&config.LedActive)
 		c.JSON(http.StatusOK, gin.H{"Color": config.LedActive.Color, "Brightness": config.LedActive.Brightness, "Cooldown": config.LedActive.Cooldown})
 	})
 
@@ -328,7 +328,7 @@ func Init() {
 			config.LedActive.Color = []string{hex}
 		}
 
-		internal.SaveLedActive(config.LedActive)
+		internal.SaveFile(&config.LedActive)
 		c.Status(http.StatusOK)
 	})
 
@@ -394,8 +394,8 @@ func Init() {
 			config.LedPresets.CyclingColors = newPreset
 		}
 
-		internal.SaveLedActive(config.LedActive)
-		internal.SaveLedPresets(config.LedPresets)
+		internal.SaveFile(&config.LedActive)
+		internal.SaveFile(&config.LedPresets)
 		c.Status(http.StatusOK)
 	})
 
@@ -459,8 +459,8 @@ func Init() {
 			config.LedPresets.CyclingColors = newPreset
 		}
 
-		internal.SaveLedActive(config.LedActive)
-		internal.SaveLedPresets(config.LedPresets)
+		internal.SaveFile(&config.LedActive)
+		internal.SaveFile(&config.LedPresets)
 		c.Status(http.StatusOK)
 	})
 

@@ -12,18 +12,17 @@ var LedActive models.LedActive
 
 func Init() {
 	var err error
-	UserConfiguration, err = internal.LoadUserConfiguration()
+
+	err = internal.LoadFile(&UserConfiguration)
 	if err != nil {
 		fmt.Println("User configuration could not be loaded...")
 	}
-
-	LedPresets, err = internal.LoadLedPresets()
+	err = internal.LoadFile(&LedPresets)
 	if err != nil {
 		fmt.Println("Led presets could not be loaded...")
 	}
-
-	LedActive, err = internal.LoadLedActive()
+	err = internal.LoadFile(&LedActive)
 	if err != nil {
-		fmt.Println("Active led presets could not be loaded...")
+		fmt.Println("Led active could not be loaded...")
 	}
 }
