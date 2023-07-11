@@ -1,7 +1,6 @@
 package config
 
 import (
-	"fmt"
 	"horus/internal"
 	"horus/models"
 )
@@ -13,16 +12,23 @@ var LedActive models.LedActive
 func Init() {
 	var err error
 
-	err = internal.LoadFile(&UserConfiguration)
-	if err != nil {
-		fmt.Println("User configuration could not be loaded...")
+	// TODO : By default LoadFile will load defaults if file not found
+	err = internal.LoadFile(&UserConfiguration, false)
+	if err != nil { // File not found. Use template
+		err = internal.LoadFile(&UserConfiguration, true)
 	}
-	err = internal.LoadFile(&LedPresets)
+	err = internal.LoadFile(&LedPresets, false)
 	if err != nil {
-		fmt.Println("Led presets could not be loaded...")
+		err = internal.LoadFile(&LedPresets, true)
 	}
-	err = internal.LoadFile(&LedActive)
+	err = internal.LoadFile(&LedActive, false)
 	if err != nil {
-		fmt.Println("Led active could not be loaded...")
+		err = internal.LoadFile(&LedActive, true)
 	}
+}
+
+func SaveAll() {
+	internal.SaveFile(&UserConfiguration)
+	internal.SaveFile(&LedPresets)
+	internal.SaveFile(&LedActive)
 }
