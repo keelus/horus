@@ -51,12 +51,37 @@ $(".botonGuardar").on("click", (e) => {
 		data: postData,
 		success: function (r) {
 			showPopup(`${category} saved.`, 3000, "success")
+			switch(category) {
+				case "UserInfo":
+					$(".nombre").text(postData.Username)
+					break
+				case "SessionSettings":
+					break
+				case "LedControl":
+					break
+				case "SystemStats":
+					break
+				case "Logging":
+					break
+				case "Security":
+					break
+				case "Units":
+					break
+				case "Design":
+					// TODO
+					break
+				case "Deletion":
+					// TODO
+					break
+			}
 		},
 		error: function(r) {
 			popupMessage = ""
 			for(i=0;i<r.responseJSON.length;i++){
 				console.error(r.responseJSON[i].details)
 				popupMessage += `• ${r.responseJSON[i].details}<br>`
+
+
 				
 
 				field = r.responseJSON[i].field

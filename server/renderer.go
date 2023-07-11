@@ -2,6 +2,7 @@ package server
 
 import (
 	"fmt"
+	"horus/config"
 	"html/template"
 	"math/rand"
 	"time"
@@ -23,6 +24,16 @@ func Renderer() multitemplate.Renderer {
 			}
 
 			return fmt.Sprintf("?preventCaching=%s", string(randomBytes))
+		},
+		"showSystemStats": func() bool { // System Stats tab will show only if at least 1 element is shown.
+			show := false
+			for _, stat := range config.UserConfiguration.SystemStats {
+				if stat {
+					show = true
+				}
+			}
+
+			return show
 		},
 	}
 

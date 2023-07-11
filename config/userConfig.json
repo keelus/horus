@@ -1,7 +1,7 @@
 {
 	"Version": "0.6.6",
 	"UserInfo": {
-		"Username": "keelus",
+		"Username": "keelus3",
 		"Password": "1234example"
 	},
 	"SessionSettings": {
@@ -14,10 +14,10 @@
 	],
 	"SystemStats": [
 		true,
-		true,
-		true,
-		true,
-		true
+		false,
+		false,
+		false,
+		false
 	],
 	"Logging": true,
 	"Security": {

@@ -139,6 +139,7 @@ func Init() {
 		}
 
 		category := c.Param("category")
+		newInfo := make(map[string]string)
 
 		returnError := []map[string]string{}
 
