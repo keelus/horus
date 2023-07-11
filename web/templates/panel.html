@@ -19,36 +19,36 @@
 <body class="noSelect">
 	<h1 class="title"><a href="/">Horus</a></h1>
 	<h2 class="subtitle">v{{.UserConfiguration.Version}}</h2>
-	<div class="cuerpo">
+	<div class="mainContent">
 		<div class="leftNav">
-			<a class="elemento perfil">
+			<a class="element user">
 				<div class='avatar' style="background-image:url('/static/images/avatar.jpg{{fPreventCaching}}')"></div>
-				<div class="textos">
-					<div class="nombre">{{.UserConfiguration.UserInfo.Username}}</div>
-					<div class="accion">Online</div>
+				<div class="texts">
+					<div class="username">{{.UserConfiguration.UserInfo.Username}}</div>
+					<div class="status">Online</div>
 				</div>
 			</a>
-			<a class="elemento" href="/panel/LedControl">
+			<a class="element" href="/panel/LedControl">
 				<div class="icono">
 					<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="var(--svg)"><path d="M12 2c5.514 0 10 4.486 10 10s-4.486 10-10 10-10-4.486-10-10 4.486-10 10-10zm0-2c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm-2 19l1.5-5h-4.5l7-9-1.5 5h4.5l-7 9z"/></svg>
 				</div>
 				<div class="texto">Led control</div>
 			</a>
 			{{ if showSystemStats }}
-				<a class="elemento" href="/panel/SystemStats">
+				<a class="element" href="/panel/SystemStats">
 					<div class="icono">
 						<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="var(--svg)"><path d="M13 12.414v-12.364c6.158.51 11 5.66 11 11.95 0 6.627-5.373 12-12 12-2.953 0-5.654-1.072-7.744-2.842l8.744-8.744zm-2-12.364c-6.158.51-11 5.66-11 11.95 0 2.954 1.072 5.654 2.842 7.745l1.42-1.42c-1.412-1.725-2.262-3.928-2.262-6.325 0-5.177 3.953-9.446 9-9.949v-2.001z"/></svg>
 					</div>
 					<div class="texto">System stats</div>
 				</a>
 			{{ end }}
-			<a class="elemento" href="/panel/Settings">
+			<a class="element" href="/panel/Settings">
 				<div class="icono">
 					<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"  fill="var(--svg)"><path d="M19 2c1.654 0 3 1.346 3 3v14c0 1.654-1.346 3-3 3h-14c-1.654 0-3-1.346-3-3v-14c0-1.654 1.346-3 3-3h14zm5 3c0-2.761-2.238-5-5-5h-14c-2.762 0-5 2.239-5 5v14c0 2.761 2.238 5 5 5h14c2.762 0 5-2.239 5-5v-14zm-13 12h-2v3h-2v-3h-2v-3h6v3zm-2-13h-2v8h2v-8zm10 5h-6v3h2v8h2v-8h2v-3zm-2-5h-2v3h2v-3z"/></svg>
 				</div>
 				<div class="texto">Settings</div>
 			</a>
-			<a class="elemento" href="/back/logout">
+			<a class="element" href="/back/logout">
 				<div class="icono">
 					<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="var(--rojo)"><path d="M16 12.771h-3.091c-.542 0-.82-.188-1.055-.513l-1.244-1.674-2.029 2.199 1.008 1.562c.347.548.373.922.373 1.42v4.235h-1.962v-3.981c-.016-1.1-1.695-2.143-2.313-1.253l-1.176 1.659c-.261.372-.706.498-1.139.498h-3.372v-1.906l2.532-.001c.397 0 .741-.14.928-.586l1.126-2.75c.196-.41.46-.782.782-1.102l2.625-2.6-.741-.647c-.223-.195-.521-.277-.812-.227l-2.181.381-.342-1.599 2.992-.571c.561-.107 1.042.075 1.461.462l2.882 2.66c.456.414.924 1.136 1.654 2.215.135.199.323.477.766.477h2.328v1.642zm-2.982-5.042c1.02-.195 1.688-1.182 1.493-2.201-.172-.901-.96-1.528-1.845-1.528-1.186 0-2.07 1.078-1.85 2.234.196 1.021 1.181 1.69 2.202 1.495zm4.982-5.729v15l6 5v-20h-6z"/></svg>
 				</div>

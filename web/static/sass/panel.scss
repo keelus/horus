@@ -25,7 +25,7 @@ body {
 		margin-bottom:10px;
 	}
 
-	& > .cuerpo {
+	& > .mainContent {
 		margin: 0 auto;
 		height:100%;
 		display:flex;
@@ -42,7 +42,7 @@ body {
 			// height:calc(100vh - calc(40px + 30px + 20px + 10px + 20px + 50px));
 			height:auto;
 	
-			& > .elemento {
+			& > .element {
 				&, & * {
 					text-decoration: none !important;
 				}
@@ -86,7 +86,7 @@ body {
 					}
 				}
 	
-				&.perfil {
+				&.user {
 					padding-top:0;
 					cursor:default;
 					& > .avatar {
@@ -111,18 +111,18 @@ body {
 						}
 					}
 	
-					& > .textos {
+					& > .texts {
 						display:flex;
 						flex-direction: column;
 						height:40px;
 	
-						& > .nombre {
+						& > .username {
 							color:$white;
 							font-weight: bold;
 							font-family: "Familjen Grotesk", sans-serif;
 						}
 	
-						& > .accion {
+						& > .status {
 							font-size: 14px;
 							color:$white2;
 						}

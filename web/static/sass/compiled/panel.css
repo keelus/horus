@@ -652,14 +652,14 @@ body > .subtitle {
   margin: 0;
   margin-bottom: 10px;
 }
-body > .cuerpo {
+body > .mainContent {
   margin: 0 auto;
   height: 100%;
   display: flex;
   max-width: 1000px !important;
   padding-top: 20px;
 }
-body > .cuerpo > .leftNav {
+body > .mainContent > .leftNav {
   width: 200px;
   display: flex;
   flex-direction: column;
@@ -667,7 +667,7 @@ body > .cuerpo > .leftNav {
   padding-bottom: 20px;
   height: auto;
 }
-body > .cuerpo > .leftNav > .elemento {
+body > .mainContent > .leftNav > .element {
   display: flex;
   align-items: center;
   width: 100%;
@@ -675,10 +675,10 @@ body > .cuerpo > .leftNav > .elemento {
   padding: 0.6em 22px;
   box-sizing: border-box;
 }
-body > .cuerpo > .leftNav > .elemento, body > .cuerpo > .leftNav > .elemento * {
+body > .mainContent > .leftNav > .element, body > .mainContent > .leftNav > .element * {
   text-decoration: none !important;
 }
-body > .cuerpo > .leftNav > .elemento:not(.perfil) > .icono {
+body > .mainContent > .leftNav > .element:not(.perfil) > .icono {
   width: 40px;
   height: 40px;
   background: rgb(255, 246, 230);
@@ -688,26 +688,26 @@ body > .cuerpo > .leftNav > .elemento:not(.perfil) > .icono {
   --svg:#e3b36b;
   border-radius: 0.25rem;
 }
-body > .cuerpo > .leftNav > .elemento:not(.perfil) > .texto {
+body > .mainContent > .leftNav > .element:not(.perfil) > .texto {
   color: #FFFFFF;
   flex: 1;
 }
-body > .cuerpo > .leftNav > .elemento:not(.perfil):nth-last-child(2) {
+body > .mainContent > .leftNav > .element:not(.perfil):nth-last-child(2) {
   margin-top: auto;
 }
-body > .cuerpo > .leftNav > .elemento:not(.perfil):nth-last-child(2) > .icono {
+body > .mainContent > .leftNav > .element:not(.perfil):nth-last-child(2) > .icono {
   --rojo:rgb(201 0 0);
   background: rgb(255, 236, 232);
 }
-body > .cuerpo > .leftNav > .elemento:not(.perfil):nth-last-child(1) > .icono {
+body > .mainContent > .leftNav > .element:not(.perfil):nth-last-child(1) > .icono {
   --rojo:rgb(201 0 0);
   background: rgb(255, 236, 232);
 }
-body > .cuerpo > .leftNav > .elemento.perfil {
+body > .mainContent > .leftNav > .element.user {
   padding-top: 0;
   cursor: default;
 }
-body > .cuerpo > .leftNav > .elemento.perfil > .avatar {
+body > .mainContent > .leftNav > .element.user > .avatar {
   width: 40px;
   height: 40px;
   background-size: cover;
@@ -716,7 +716,7 @@ body > .cuerpo > .leftNav > .elemento.perfil > .avatar {
   border-radius: 0.25rem;
   position: relative;
 }
-body > .cuerpo > .leftNav > .elemento.perfil > .avatar::after {
+body > .mainContent > .leftNav > .element.user > .avatar::after {
   content: "";
   display: block;
   position: absolute;
@@ -727,21 +727,21 @@ body > .cuerpo > .leftNav > .elemento.perfil > .avatar::after {
   height: 12px;
   border-radius: 100%;
 }
-body > .cuerpo > .leftNav > .elemento.perfil > .textos {
+body > .mainContent > .leftNav > .element.user > .texts {
   display: flex;
   flex-direction: column;
   height: 40px;
 }
-body > .cuerpo > .leftNav > .elemento.perfil > .textos > .nombre {
+body > .mainContent > .leftNav > .element.user > .texts > .username {
   color: #FFFFFF;
   font-weight: bold;
   font-family: "Familjen Grotesk", sans-serif;
 }
-body > .cuerpo > .leftNav > .elemento.perfil > .textos > .accion {
+body > .mainContent > .leftNav > .element.user > .texts > .status {
   font-size: 14px;
   color: #bbbbbb;
 }
-body > .cuerpo > .rightNav {
+body > .mainContent > .rightNav {
   flex: 1;
   background-color: #222222;
   border-radius: 15px;
@@ -752,14 +752,14 @@ body > .cuerpo > .rightNav {
   overflow: hidden;
   overflow-y: auto;
 }
-body > .cuerpo > .rightNav > * {
+body > .mainContent > .rightNav > * {
   display: flex;
   flex-direction: column;
   align-items: center;
   width: 100%;
   height: auto;
 }
-body > .cuerpo > .rightNav > * > .title {
+body > .mainContent > .rightNav > * > .title {
   font-family: "Familjen Grotesk", sans-serif;
   font-weight: bold;
   font-size: 25px;
@@ -772,7 +772,7 @@ body > .cuerpo > .rightNav > * > .title {
   justify-content: center;
   align-items: center;
 }
-body > .cuerpo > .rightNav > * > .title .icono {
+body > .mainContent > .rightNav > * > .title .icono {
   line-height: 25px;
   height: 25px;
   margin-right: 5px;
