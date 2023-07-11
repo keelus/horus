@@ -23,8 +23,9 @@ $(".botonGuardar").on("click", (e) => {
 		postData.LedControl = JSON.stringify([$("#ledControl0").prop("checked"),$("#ledControl0").prop("checked")])
 		break
 	case "SystemStats":
-		postData.SystemStats = JSON.stringify([$("#systemStats0").prop("checked"), $("#systemStats1").prop("checked"),
-								$("#systemStats2").prop("checked"), $("#systemStats3").prop("checked"), $("#systemStats4").prop("checked")])
+		postData.SystemStatsIgnore = [$("#systemStats0").prop("checked"), $("#systemStats1").prop("checked"),
+		$("#systemStats2").prop("checked"), $("#systemStats3").prop("checked"), $("#systemStats4").prop("checked")]
+		postData.SystemStats = JSON.stringify(postData.SystemStatsIgnore)
 		break
 	case "Logging":
 		postData.Logging = $("#logging0").prop("checked")
@@ -60,6 +61,17 @@ $(".botonGuardar").on("click", (e) => {
 				case "LedControl":
 					break
 				case "SystemStats":
+					showSystemStats = false
+					for(i=0;i<postData.SystemStatsIgnore.length;i++){
+						if(postData.SystemStatsIgnore[i])
+							showSystemStats = true
+					}
+					if (!showSystemStats) {
+						$("[element-category='SystemStats']").css("display", "none")
+					} else {
+						$("[element-category='SystemStats']").css("display", "flex")
+					}
+
 					break
 				case "Logging":
 					break

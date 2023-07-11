@@ -139,7 +139,6 @@ func Init() {
 		}
 
 		category := c.Param("category")
-		// newInfo := make(map[string]string)
 
 		returnError := []map[string]string{}
 
@@ -160,7 +159,6 @@ func Init() {
 
 			if len(returnError) == 0 {
 				config.UserConfiguration.UserInfo.Username = username
-				// newInfo[""]
 				if strings.TrimSpace(password) != "" {
 					config.UserConfiguration.UserInfo.Password = password
 				}
