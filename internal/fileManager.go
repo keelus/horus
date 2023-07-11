@@ -7,100 +7,51 @@ import (
 	"io/ioutil"
 )
 
-func LoadUserConfiguration() (models.Configuration, error) {
-	var config models.Configuration
+func FileName(fileType interface{}) string {
+	var filename string
 
-	data, err := ioutil.ReadFile("internal/data/userConfig.json")
-	if err != nil {
-		fmt.Println("Error reading JSON file:", err)
-		return config, err
+	switch fileType.(type) {
+	case *models.Configuration:
+		filename = "userConfig.json"
+		break
+	case *models.LedActive:
+		filename = "ledActive.json"
+		break
+	case *models.LedPresets:
+		filename = "ledPresets.json"
+		break
 	}
 
-	err = json.Unmarshal(data, &config)
-	if err != nil {
-		fmt.Println("Error unmarshaling JSON:", err)
-		return config, err
-	}
-
-	return config, nil
+	return filename
 }
 
-func SaveUserConfiguration(userConfiguration models.Configuration) error {
-	data, err := json.MarshalIndent(userConfiguration, "", "	")
+func LoadFile(loadLocation interface{}) error {
+	filename := FileName(loadLocation)
+
+	data, err := ioutil.ReadFile(fmt.Sprintf("config/%s", filename))
 	if err != nil {
-		fmt.Println("Error marshaling JSON:", err)
+		fmt.Println("Error reading JSON file:", err)
 		return err
 	}
 
-	err = ioutil.WriteFile("internal/data/userConfig.json", data, 0644)
+	err = json.Unmarshal(data, loadLocation)
 	if err != nil {
-		fmt.Println("Error writing JSON file:", err)
+		fmt.Println("Error unmarshaling JSON:", err)
 		return err
 	}
 
 	return nil
 }
+func SaveFile(saveData interface{}) error {
+	filename := FileName(saveData)
 
-func LoadLedPresets() (models.LedPresets, error) {
-	var presets models.LedPresets
-
-	data, err := ioutil.ReadFile("internal/data/ledPresets.json")
-	if err != nil {
-		fmt.Println("Error reading JSON file:", err)
-		return presets, err
-	}
-
-	err = json.Unmarshal(data, &presets)
-	if err != nil {
-		fmt.Println("Error unmarshaling JSON:", err)
-		return presets, err
-	}
-
-	return presets, nil
-}
-
-func SaveLedPresets(ledPresets models.LedPresets) error {
-	data, err := json.MarshalIndent(ledPresets, "", "	")
+	data, err := json.MarshalIndent(saveData, "", "	")
 	if err != nil {
 		fmt.Println("Error marshaling JSON:", err)
 		return err
 	}
 
-	err = ioutil.WriteFile("internal/data/ledPresets.json", data, 0644)
-	if err != nil {
-		fmt.Println("Error writing JSON file:", err)
-		return err
-	}
-
-	return nil
-}
-
-func LoadLedActive() (models.LedActive, error) {
-	var active models.LedActive
-
-	data, err := ioutil.ReadFile("internal/data/ledActive.json")
-	if err != nil {
-		fmt.Println("Error reading JSON file:", err)
-		return active, err
-	}
-
-	err = json.Unmarshal(data, &active)
-	if err != nil {
-		fmt.Println("Error unmarshaling JSON:", err)
-		return active, err
-	}
-
-	return active, nil
-}
-
-func SaveLedActive(ledActive models.LedActive) error {
-	data, err := json.MarshalIndent(ledActive, "", "	")
-	if err != nil {
-		fmt.Println("Error marshaling JSON:", err)
-		return err
-	}
-
-	err = ioutil.WriteFile("internal/data/ledActive.json", data, 0644)
+	err = ioutil.WriteFile(fmt.Sprintf("config/%s", filename), data, 0644)
 	if err != nil {
 		fmt.Println("Error writing JSON file:", err)
 		return err
