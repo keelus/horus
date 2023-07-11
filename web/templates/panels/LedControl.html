@@ -69,5 +69,18 @@
 			</div>
 		{{end}}
 	</div>
+	<div class="darker">
+		<div class="modal" activeMode="">
+			<div class="title">Create new color</div>
+			<div class="inputBox">
+				<div class="text">Hex code:</div>
+				<div>#<input type="text" placeholder="XXXXXX" id="newHex" maxlength="6"></div>
+			</div>
+			<div class="doubleButton">
+				<button class="blancoNegro" id="cancelAddColor">Cancel</button>
+				<button id="addColor">Add color</button>
+			</div>
+		</div>
+	</div>
 	<script src="/static/js/panels/LedControl.js"></script>
 {{ end }}
