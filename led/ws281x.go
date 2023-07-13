@@ -3,6 +3,7 @@ package led
 import (
 	"fmt"
 	"horus/config"
+	"horus/internal"
 	"strconv"
 
 	ws2811 "github.com/rpi-ws281x/rpi-ws281x-go"
@@ -33,12 +34,28 @@ func Init() {
 	}
 }
 
-func SetColor(color string) {
+func SetColor(color []string) {
+	config.LedActive.Color = color
+	internal.SaveFile(&config.LedActive)
+	// config.SaveAll()
+	Draw()
+}
+
+func SetBrightness(brightness int) {
+	config.LedActive.Brightness = brightness
+	defer LedStrip.Fini()
+	Init()
+	internal.SaveFile(&config.LedActive)
+	// config.SaveAll()
+	Draw()
+}
+
+func Draw() {
 	if LedStrip == nil {
 		fmt.Printf("LED strip is not initialized\n")
 	}
 
-	colorHex, err := strconv.ParseUint(color, 16, 32)
+	colorHex, err := strconv.ParseUint(config.LedActive.Color[0], 16, 32) // TODO
 	if err != nil {
 		fmt.Printf("error parsing color hex code: %v\n", err)
 	}
@@ -48,9 +65,4 @@ func SetColor(color string) {
 	}
 
 	LedStrip.Render()
-}
-
-func SetBrightness(brightness int) {
-	defer LedStrip.Fini()
-	Init()
 }

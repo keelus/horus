@@ -342,11 +342,10 @@ func Init() {
 		if mode == "CyclingColors" {
 			c.JSON(http.StatusBadGateway, gin.H{"details": "Unexpected error."}) // All are activated by default.
 		} else {
+			led.SetColor([]string{hex})
 			config.LedActive.Color = []string{hex}
 		}
 
-		internal.SaveFile(&config.LedActive)
-		led.SetColor(hex)
 		c.Status(http.StatusOK)
 	})
 
@@ -362,7 +361,7 @@ func Init() {
 			return
 		}
 
-		config.LedActive.Brightness = int(valuePercent * 255 / 100) // TODO
+		led.SetBrightness(int(valuePercent * 255 / 100))
 
 		internal.SaveFile(&config.LedActive)
 		c.JSON(http.StatusOK, gin.H{"Color": config.LedActive.Color, "Brightness": config.LedActive.Brightness, "Cooldown": config.LedActive.Cooldown})
