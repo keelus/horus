@@ -2,6 +2,7 @@ package led
 
 import (
 	"fmt"
+	"horus/config"
 	"strconv"
 
 	ws2811 "github.com/rpi-ws281x/rpi-ws281x-go"
@@ -18,7 +19,7 @@ func Init() {
 	var err error
 
 	options := ws2811.DefaultOptions
-	options.Channels[0].Brightness = DefaultBrightness
+	options.Channels[0].Brightness = config.LedActive.Brightness
 	options.Channels[0].LedCount = DefaultLedCount
 
 	LedStrip, err = ws2811.MakeWS2811(&options)
@@ -47,4 +48,9 @@ func SetColor(color string) {
 	}
 
 	LedStrip.Render()
+}
+
+func SetBrightness(brightness int) {
+	defer LedStrip.Fini()
+	Init()
 }
