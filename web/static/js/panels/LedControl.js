@@ -127,6 +127,7 @@ $("#cancelAddColor").on("click", (e) => {
 $("#brightness").on("change", () => {
 	brightness = parseInt($("#brightness").val())
 	console.log(brightness)
+	$("#brightnessVisual").text(brightness + "%")
 	
 	$.ajax({
 		type: "POST",

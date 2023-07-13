@@ -4,7 +4,7 @@
 	<div class="inputBox" style="padding-top:5px;padding-bottom:20px;">
 		<div class="text">Brightness:</div>
 		<div>
-			<input type="range" name="" id="brightness" max="255" value="{{.LedActive.Brightness}}">
+			<input type="range" name="" id="brightness" max="255" value="{{.LedActive.Brightness}}">&nbsp;<span id="brightnessVisual">100%</span>
 		</div>
 	</div>
 	<div class="option{{if eq .LedActive.ActiveMode "StaticColor"}} active{{end}}" mode="StaticColor">
