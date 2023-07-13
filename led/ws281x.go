@@ -37,16 +37,15 @@ func Init() {
 func SetColor(color []string) {
 	config.LedActive.Color = color
 	internal.SaveFile(&config.LedActive)
-	// config.SaveAll()
+
 	Draw()
 }
 
 func SetBrightness(brightness int) {
 	config.LedActive.Brightness = brightness
-	defer LedStrip.Fini()
-	Init()
 	internal.SaveFile(&config.LedActive)
-	// config.SaveAll()
+
+	LedStrip.SetBrightness(0, brightness)
 	Draw()
 }
 
