@@ -238,3 +238,32 @@
 		}
 	}
 }
+
+.inputBox {
+	width:100%;
+	display:flex;
+	padding:2px 0;
+
+	& > .text {
+		display:flex;
+		align-items: center;
+		justify-content: flex-start;
+		min-width:150px;
+	}
+
+	& > *:nth-child(2) {
+		flex:1;
+		display:flex;
+		align-items: center;
+		justify-content: flex-start;
+
+		& > input {
+			width:80%;
+		}
+	}
+
+	.note {
+		padding-left:10px;
+		font-size:.75rem;
+	}
+}
