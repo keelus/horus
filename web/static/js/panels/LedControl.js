@@ -126,9 +126,7 @@ $("#cancelAddColor").on("click", (e) => {
 
 $("#brightness").on("change", () => {
 	brightness = parseInt($("#brightness").val())
-	console.log(brightness)
-	$("#brightnessVisual").text(brightness + "%")
-	
+ 	
 	$.ajax({
 		type: "POST",
 		url: `/back/ledControl/brightness/${brightness}`,
@@ -139,4 +137,8 @@ $("#brightness").on("change", () => {
 			showPopup(r.responseJSON.details, 3000, "error")
 		}
 	});
+})
+$("#brightness").on("input", () => {
+	brightness = parseInt($("#brightness").val())
+	$("#brightnessVisual").text(brightness + "%")
 })
