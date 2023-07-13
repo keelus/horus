@@ -473,6 +473,10 @@ select:hover {
   font-size: 0.75rem;
 }
 
+input[type=range]:hover {
+  cursor: pointer;
+}
+
 .stats {
   width: 100%;
   height: 100%;
