@@ -350,19 +350,19 @@ func Init() {
 		c.Status(http.StatusOK)
 	})
 
-	r.POST("/back/ledControl/brightness/:value", func(c *gin.Context) {
+	r.POST("/back/ledControl/brightness/:valuePercent", func(c *gin.Context) {
 		if !internal.IsLogged(c) {
 			c.JSON(http.StatusForbidden, gin.H{"details": "User not logged in."})
 			return
 		}
 
-		value, err := strconv.Atoi(c.Param("value"))
-		if err != nil {
+		valuePercent, err := strconv.Atoi(c.Param("valuePercent"))
+		if err != nil || !(valuePercent >= 0 && valuePercent <= 100) {
 			c.JSON(http.StatusBadGateway, gin.H{"details": "Unexpected brightness value type."})
 			return
 		}
 
-		config.LedActive.Brightness = value // TODO
+		config.LedActive.Brightness = int(valuePercent * 255 / 100) // TODO
 
 		internal.SaveFile(&config.LedActive)
 		c.JSON(http.StatusOK, gin.H{"Color": config.LedActive.Color, "Brightness": config.LedActive.Brightness, "Cooldown": config.LedActive.Cooldown})
