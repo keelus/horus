@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"horus/internal"
+	"horus/led"
 	"net/http"
 	"strconv"
 	"strings"
@@ -345,6 +346,7 @@ func Init() {
 		}
 
 		internal.SaveFile(&config.LedActive)
+		led.SetColor(hex)
 		c.Status(http.StatusOK)
 	})
 

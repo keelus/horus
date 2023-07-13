@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"horus/config"
+	"horus/led"
 	"horus/server"
 	"os"
 
@@ -30,6 +31,7 @@ func init() {
 }
 func main() {
 	// config.Init()
+	led.Init()
 	server.Init()
 }
 
