@@ -18,7 +18,7 @@
 		{{else}}
 			<div class="card">
 				<div class="avatar" style="background-image: url('/static/images/avatar.jpg{{fPreventCaching}}');"></div>
-				<div class="username">keelus</div>
+				<div class="username">{{.UserConfiguration.UserInfo.Username}}</div>
 			</div>
 			<div class="message">Incorrect password.</div>
 		{{end}}
