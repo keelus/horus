@@ -15,11 +15,13 @@ const (
 var leds *ws2811.WS2811
 
 func Init() {
+	var err error
+
 	opt := ws2811.DefaultOptions
 	opt.Channels[0].Brightness = brightness
 	opt.Channels[0].LedCount = ledCounts
 
-	leds, err := ws2811.MakeWS2811(&opt)
+	leds, err = ws2811.MakeWS2811(&opt)
 	if err != nil {
 		fmt.Println("Failed initializing ws2811 strip. Err: ", err)
 		return
