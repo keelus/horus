@@ -33,6 +33,8 @@ func Init() {
 	if err != nil {
 		fmt.Printf("failed to initialize LED strip: %v\n", err)
 	}
+
+	Draw()
 }
 
 func SetColor(color []string) {
@@ -42,7 +44,7 @@ func SetColor(color []string) {
 	Draw()
 }
 
-func SetBrightness(brightness int) {
+func SetBrightness(brightness int) { // TODO: Will return true once transition is finished to avoid glitching while sending multiple SetBrightness from client
 	currentBrightness := config.LedActive.Brightness
 	duration := 1 * time.Second
 
