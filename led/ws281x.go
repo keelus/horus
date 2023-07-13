@@ -5,6 +5,7 @@ import (
 	"horus/config"
 	"horus/internal"
 	"strconv"
+	"time"
 
 	ws2811 "github.com/rpi-ws281x/rpi-ws281x-go"
 )
@@ -42,10 +43,30 @@ func SetColor(color []string) {
 }
 
 func SetBrightness(brightness int) {
-	config.LedActive.Brightness = brightness
-	internal.SaveFile(&config.LedActive)
+	currentBrightness := config.LedActive.Brightness
+	duration := 1 * time.Second
 
+	steps := 1
+	stepSize := 1
+	if brightness > currentBrightness {
+		steps = brightness - currentBrightness
+		stepSize = 1
+	} else {
+		steps = currentBrightness - brightness
+		stepSize = -1
+	}
+
+	interval := duration / time.Duration(steps)
+
+	for i := 0; i < steps; i++ {
+		newBrightness := currentBrightness + stepSize*i
+		ForceDraw(config.LedActive.Color, newBrightness)
+		time.Sleep(interval)
+	}
+
+	config.LedActive.Brightness = brightness
 	LedStrip.SetBrightness(0, brightness)
+	internal.SaveFile(&config.LedActive)
 	Draw()
 }
 
@@ -59,6 +80,24 @@ func Draw() {
 		fmt.Printf("error parsing color hex code: %v\n", err)
 	}
 
+	for i := 0; i < DefaultLedCount; i++ {
+		LedStrip.Leds(0)[i] = uint32(colorHex)
+	}
+
+	LedStrip.Render()
+}
+
+func ForceDraw(color []string, brightness int) {
+	if LedStrip == nil {
+		fmt.Printf("LED strip is not initialized\n")
+	}
+
+	colorHex, err := strconv.ParseUint(config.LedActive.Color[0], 16, 32) // TODO
+	if err != nil {
+		fmt.Printf("error parsing color hex code: %v\n", err)
+	}
+
+	LedStrip.SetBrightness(0, brightness)
 	for i := 0; i < DefaultLedCount; i++ {
 		LedStrip.Leds(0)[i] = uint32(colorHex)
 	}
