@@ -26,11 +26,12 @@ func init() {
 		setupConfig()
 		config.SaveAll()
 		// os.Exit(-1)
+	} else {
+		config.Init()
 	}
 
 }
 func main() {
-	// config.Init()
 	led.Init()
 	server.Init()
 }

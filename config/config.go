@@ -14,9 +14,9 @@ func Init() {
 
 	// TODO : By default LoadFile will load defaults if file not found
 	err = internal.LoadFile(&UserConfiguration, false)
-	if err != nil { // File not found. Use template
-		err = internal.LoadFile(&UserConfiguration, true)
-	}
+	// if err != nil { // File not found. Use template
+	// 	err = internal.LoadFile(&UserConfiguration, true)
+	// }
 	err = internal.LoadFile(&LedPresets, false)
 	if err != nil {
 		err = internal.LoadFile(&LedPresets, true)
