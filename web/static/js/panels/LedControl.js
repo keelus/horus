@@ -123,3 +123,19 @@ $("#cancelAddColor").on("click", (e) => {
 	mode = $(".modal").attr("activeMode", "")
 	$(".darker").removeClass("show")
 })
+
+$("#brightness").on("change", () => {
+	brightness = parseInt($("#brightness").val())
+	console.log(brightness)
+	
+	$.ajax({
+		type: "POST",
+		url: `/back/ledControl/brightness/${brightness}`,
+		success: function (r) {
+			showPopup(`Led color applied.`, 3000, "success")
+		},
+		error: function(r) {
+			showPopup(r.responseJSON.details, 3000, "error")
+		}
+	});
+})
