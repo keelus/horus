@@ -8,42 +8,43 @@ import (
 )
 
 const (
-	brightness = 90
-	ledCounts  = 120
+	DefaultBrightness = 90
+	DefaultLedCount   = 120
 )
 
-var leds *ws2811.WS2811
+var LedStrip *ws2811.WS2811
 
 func Init() {
-	var err error
+	options := ws2811.DefaultOptions
+	options.Channels[0].Brightness = DefaultBrightness
+	options.Channels[0].LedCount = DefaultLedCount
 
-	opt := ws2811.DefaultOptions
-	opt.Channels[0].Brightness = brightness
-	opt.Channels[0].LedCount = ledCounts
-
-	leds, err = ws2811.MakeWS2811(&opt)
+	LedStrip, err := ws2811.MakeWS2811(&options)
 	if err != nil {
-		fmt.Println("Failed initializing ws2811 strip. Err: ", err)
-		return
+		fmt.Printf("failed initializing LED strip: %v\n", err)
 	}
 
-	err = leds.Init()
+	err = LedStrip.Init()
 	if err != nil {
-		fmt.Println("Failed on leds.Init(). Err: ", err)
-		return
+		fmt.Printf("failed to initialize LED strip: %v\n", err)
 	}
-	defer leds.Fini()
+
+	defer LedStrip.Fini()
 }
 
 func SetColor(color string) {
-	colorHex, err := strconv.ParseUint(color, 16, 32)
-	if err != nil {
-		fmt.Println("Error at parsing the color hex code. Setting to #FF0000")
-		colorHex = 0xFFFFFF
+	if LedStrip == nil {
+		fmt.Printf("LED strip is not initialized\n")
 	}
 
-	for i := 0; i < ledCounts; i++ {
-		leds.Leds(0)[i] = uint32(colorHex)
+	colorHex, err := strconv.ParseUint(color, 16, 32)
+	if err != nil {
+		fmt.Printf("error parsing color hex code: %v\n", err)
 	}
-	leds.Render()
+
+	for i := 0; i < DefaultLedCount; i++ {
+		LedStrip.Leds(0)[i] = uint32(colorHex)
+	}
+
+	LedStrip.Render()
 }
