@@ -21,6 +21,15 @@ func FileName(fileType interface{}) string {
 	case *models.LedPresets:
 		filename = "ledPresets.yaml"
 		break
+	case models.Configuration:
+		filename = "userConfig.yaml"
+		break
+	case models.LedActive:
+		filename = "ledActive.yaml"
+		break
+	case models.LedPresets:
+		filename = "ledPresets.yaml"
+		break
 	}
 
 	return filename
@@ -35,6 +44,8 @@ func LoadFile(loadLocation interface{}, fromDefaults bool) error {
 	} else {
 		location = fmt.Sprintf("config/%s", filename)
 	}
+
+	fmt.Println("Loading file:", location) // Debug statement
 
 	data, err := ioutil.ReadFile(fmt.Sprintf("%s", location))
 	if err != nil {
@@ -59,6 +70,8 @@ func SaveFile(saveData interface{}) error {
 		fmt.Println("Error marshaling YAML:", err)
 		return err
 	}
+
+	fmt.Println("Saving file:", filename) // Debug statement
 
 	err = ioutil.WriteFile(fmt.Sprintf("config/%s", filename), data, 0644)
 	if err != nil {
