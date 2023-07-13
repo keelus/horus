@@ -30,8 +30,6 @@ func Init() {
 	if err != nil {
 		fmt.Printf("failed to initialize LED strip: %v\n", err)
 	}
-
-	defer LedStrip.Fini()
 }
 
 func SetColor(color string) {
