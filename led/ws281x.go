@@ -15,7 +15,7 @@ const (
 	DefaultLedCount   = 120
 )
 
-var StopRainbow = false
+var StopLoops = false
 
 var LedStrip *ws2811.WS2811
 
@@ -143,8 +143,8 @@ func Rainbow() {
 			LedStrip.Leds(0)[i] = wheel((i + j) & 255)
 		}
 
-		if config.LedActive.ActiveMode != "FadingRainbow" || StopRainbow { // TODO: Better way
-			StopRainbow = false
+		if config.LedActive.ActiveMode != "FadingRainbow" || StopLoops { // TODO: Better way
+			StopLoops = false
 			return
 		}
 		LedStrip.Render()
@@ -173,6 +173,11 @@ func PulsatingColor() {
 		fmt.Printf("Brightness: %d\n", i)
 		ForceDraw(config.LedActive.Color, i)
 		time.Sleep(time.Duration(config.LedActive.Cooldown) * time.Millisecond)
+	}
+
+	if config.LedActive.ActiveMode != "PulsatingColor" || StopLoops { // TODO: Better way
+		StopLoops = false
+		return
 	}
 
 	PulsatingColor()

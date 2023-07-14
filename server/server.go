@@ -341,15 +341,25 @@ func Init() {
 			config.LedActive.Color = config.LedPresets.PulsatingColor // All colors are activated on Fading Colors
 			config.LedActive.Cooldown = 0                             // TODO
 		} else if mode == "FadingRainbow" {
+			previousMode := config.LedActive.ActiveMode
 			config.LedActive.ActiveMode = "FadingRainbow"
 			config.LedActive.Color = []string{"000000"}
 			config.LedActive.Cooldown = config.LedPresets.FadingRainbow
 
-			go led.Rainbow()
+			if previousMode != "FadingRainbow" {
+				led.StopLoops = true
+				go led.Rainbow()
+			}
 		} else if mode == "PulsatingColor" {
+			previousMode := config.LedActive.ActiveMode
 			config.LedActive.ActiveMode = "PulsatingColor"
 			config.LedActive.Color = []string{config.LedPresets.PulsatingColor[0]} // By default first color will be initialized
 			config.LedActive.Cooldown = 0
+
+			if previousMode != "PulsatingColor" {
+				led.StopLoops = true
+				go led.Rainbow()
+			}
 		}
 
 		internal.SaveFile(&config.LedActive)
