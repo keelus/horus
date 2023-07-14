@@ -362,7 +362,7 @@ func Init() {
 				if previousMode == "FadingRainbow" {
 					led.StopRainbow = true
 				}
-				go led.Rainbow()
+				go led.PulsatingColor()
 			}
 		}
 
