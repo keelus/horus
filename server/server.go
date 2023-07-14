@@ -348,7 +348,7 @@ func Init() {
 
 			if previousMode != "FadingRainbow" {
 				if previousMode == "BreathingColor" {
-					led.stopBreathing = true
+					led.StopBreathing = true
 				}
 				go led.Rainbow()
 			}

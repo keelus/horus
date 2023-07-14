@@ -16,7 +16,7 @@ const (
 )
 
 var StopRainbow = false
-var stopBreathing = false
+var StopBreathing = false
 
 var LedStrip *ws2811.WS2811
 
@@ -173,8 +173,8 @@ func BreathingColor() {
 		fmt.Printf("Brightness: %d\n", i)
 		ForceDraw(config.LedActive.Color, i)
 		time.Sleep(time.Duration(config.LedActive.Cooldown) * time.Millisecond)
-		if config.LedActive.ActiveMode != "BreathingColor" || stopBreathing { // TODO: Better way
-			stopBreathing = false
+		if config.LedActive.ActiveMode != "BreathingColor" || StopBreathing { // TODO: Better way
+			StopBreathing = false
 			return
 		}
 	}
@@ -185,14 +185,14 @@ func BreathingColor() {
 		fmt.Printf("Brightness: %d\n", i)
 		ForceDraw(config.LedActive.Color, i)
 		time.Sleep(time.Duration(config.LedActive.Cooldown) * time.Millisecond)
-		if config.LedActive.ActiveMode != "BreathingColor" || stopBreathing { // TODO: Better way
-			stopBreathing = false
+		if config.LedActive.ActiveMode != "BreathingColor" || StopBreathing { // TODO: Better way
+			StopBreathing = false
 			return
 		}
 	}
 
-	if config.LedActive.ActiveMode != "BreathingColor" || stopBreathing { // TODO: Better way
-		stopBreathing = false
+	if config.LedActive.ActiveMode != "BreathingColor" || StopBreathing { // TODO: Better way
+		StopBreathing = false
 		return
 	}
 
