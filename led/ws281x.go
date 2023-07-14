@@ -126,7 +126,16 @@ func Rainbow() {
 		for i := 0; i < 120; i++ {
 			LedStrip.Leds(0)[i] = wheel((i + j) & 255)
 		}
+
+		if config.LedActive.ActiveMode != "FadingRainbow" { // TODO: Better way
+			return
+		}
 		LedStrip.Render()
 		time.Sleep(time.Duration(config.LedActive.Cooldown) * time.Millisecond)
+
 	}
+	if config.LedActive.ActiveMode == "FadingRainbow" { // TODO: Better way
+		Rainbow()
+	}
+
 }
