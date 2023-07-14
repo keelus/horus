@@ -11,8 +11,6 @@ import (
 )
 
 //	TODO:
-//	# USER CONFIGURATION
-//		Switch from .JSON to .YAML
 //	# DESIGN & PERSONALISATION
 //		Load and save system. Compatibility with scss/css
 
@@ -34,12 +32,6 @@ func init() {
 
 func main() {
 	led.Init()
-	// for a := 0; a < 100; a++ {
-	// 	fmt.Println("######################  RAINBOW  ######################")
-	// 	led.Rainbow()
-	// }
-	// led.Wheel(3)
-	// config.Init()
 	server.Init()
 }
 
