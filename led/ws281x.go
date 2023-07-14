@@ -36,7 +36,13 @@ func Init() {
 		fmt.Printf("failed to initialize LED strip: %v\n", err)
 	}
 
-	Draw()
+	if config.LedActive.ActiveMode == "StaticColor" {
+		Draw()
+	} else {
+		if config.LedActive.ActiveMode == "FadingRainbow" {
+			go Rainbow()
+		}
+	}
 }
 
 func SetColor(color []string) {
@@ -47,31 +53,38 @@ func SetColor(color []string) {
 }
 
 func SetBrightness(brightness int) { // TODO: Will return true once transition is finished to avoid glitching while sending multiple SetBrightness from client
-	currentBrightness := config.LedActive.Brightness
-	duration := 1 * time.Second
 
-	steps := 1
-	stepSize := 1
-	if brightness > currentBrightness {
-		steps = brightness - currentBrightness
-		stepSize = 1
+	if config.LedActive.ActiveMode == "StaticColor" { // Brightness fading will only occur on Static Color to prevent unexpected flashing
+		currentBrightness := config.LedActive.Brightness
+		duration := 1 * time.Second
+
+		steps := 1
+		stepSize := 1
+		if brightness > currentBrightness {
+			steps = brightness - currentBrightness
+			stepSize = 1
+		} else {
+			steps = currentBrightness - brightness
+			stepSize = -1
+		}
+
+		interval := duration / time.Duration(steps)
+
+		for i := 0; i < steps; i++ {
+			newBrightness := currentBrightness + stepSize*i
+			ForceDraw(config.LedActive.Color, newBrightness)
+			time.Sleep(interval)
+		}
+
+		config.LedActive.Brightness = brightness
+		LedStrip.SetBrightness(0, brightness)
+		internal.SaveFile(&config.LedActive)
+		Draw()
 	} else {
-		steps = currentBrightness - brightness
-		stepSize = -1
+		config.LedActive.Brightness = brightness
+		LedStrip.SetBrightness(0, brightness)
+		internal.SaveFile(&config.LedActive)
 	}
-
-	interval := duration / time.Duration(steps)
-
-	for i := 0; i < steps; i++ {
-		newBrightness := currentBrightness + stepSize*i
-		ForceDraw(config.LedActive.Color, newBrightness)
-		time.Sleep(interval)
-	}
-
-	config.LedActive.Brightness = brightness
-	LedStrip.SetBrightness(0, brightness)
-	internal.SaveFile(&config.LedActive)
-	Draw()
 }
 
 func Draw() {
