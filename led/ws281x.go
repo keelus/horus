@@ -168,6 +168,10 @@ func PulsatingColor() {
 		fmt.Printf("Brightness: %d\n", i)
 		ForceDraw(config.LedActive.Color, i)
 		time.Sleep(time.Duration(config.LedActive.Cooldown) * time.Millisecond)
+		if config.LedActive.ActiveMode != "PulsatingColor" || StopPulsating { // TODO: Better way
+			StopPulsating = false
+			return
+		}
 	}
 
 	// Up
@@ -176,6 +180,10 @@ func PulsatingColor() {
 		fmt.Printf("Brightness: %d\n", i)
 		ForceDraw(config.LedActive.Color, i)
 		time.Sleep(time.Duration(config.LedActive.Cooldown) * time.Millisecond)
+		if config.LedActive.ActiveMode != "PulsatingColor" || StopPulsating { // TODO: Better way
+			StopPulsating = false
+			return
+		}
 	}
 
 	if config.LedActive.ActiveMode != "PulsatingColor" || StopPulsating { // TODO: Better way
