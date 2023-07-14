@@ -5,7 +5,7 @@ type Configuration struct {
 	Version         string          `yaml:"Version"`
 	UserInfo        UserInfo        `yaml:"UserInfo"`
 	SessionSettings SessionSettings `yaml:"SessionSettings"`
-	LedControl      [2]bool         `yaml:"LedControl"`
+	LedControl      [3]bool         `yaml:"LedControl"`
 	SystemStats     [5]bool         `yaml:"SystemStats"`
 	Logging         bool            `yaml:"Logging"`
 	Security        Security        `yaml:"Security"`
@@ -45,7 +45,8 @@ type FontDetails struct {
 // LED
 type LedPresets struct {
 	StaticColor    []string `yaml:"StaticColor"`
-	CyclingColors  []string `yaml:"CyclingColors"`
+	FadingColors   []string `yaml:"FadingColors"`
+	FadingRainbow  int      `yaml:"FadingRainbow"`
 	PulsatingColor []string `yaml:"PulsatingColor"`
 }
 type LedActive struct {

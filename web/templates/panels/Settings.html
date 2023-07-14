@@ -57,8 +57,9 @@
 				<div class="details">Choose what options you want to see in <b>Led Control</b> tab.</div>
 				<div class="content">
 					<input type="checkbox" disabled checked> <label for="">Show static</label><br>
-					<input type="checkbox" id="ledControl0" {{if index .UserConfiguration.LedControl 0 }}checked{{end}}> <label for="ledControl0">Show cycling colors</label><br>
-					<input type="checkbox" id="ledControl1" {{if index .UserConfiguration.LedControl 1 }}checked{{end}}> <label for="ledControl1">Show pulsating color</label>
+					<input type="checkbox" id="ledControl0" {{if index .UserConfiguration.LedControl 0 }}checked{{end}}> <label for="ledControl0">Show fading colors</label><br>
+					<input type="checkbox" id="ledControl1" {{if index .UserConfiguration.LedControl 1 }}checked{{end}}> <label for="ledControl1">Show fading rainbow</label><br>
+					<input type="checkbox" id="ledControl2" {{if index .UserConfiguration.LedControl 2 }}checked{{end}}> <label for="ledControl2">Show pulsating color</label>
 				</div>
 				<button class="botonGuardar">Apply changes</button>
 			</div>

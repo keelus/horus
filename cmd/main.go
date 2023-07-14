@@ -34,10 +34,10 @@ func init() {
 
 func main() {
 	led.Init()
-	for a := 0; a < 100; a++ {
-		fmt.Println("######################  RAINBOW  ######################")
-		led.Rainbow()
-	}
+	// for a := 0; a < 100; a++ {
+	// 	fmt.Println("######################  RAINBOW  ######################")
+	// 	led.Rainbow()
+	// }
 	// led.Wheel(3)
 	// config.Init()
 	server.Init()

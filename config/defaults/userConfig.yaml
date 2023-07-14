@@ -8,6 +8,7 @@ SessionSettings:
 LedControl:
     - true
     - true
+    - true
 SystemStats:
     - true
     - true

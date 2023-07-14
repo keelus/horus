@@ -211,7 +211,7 @@ func Init() {
 		case "LedControl":
 			ledControlString := c.PostForm("LedControl")
 
-			var ledControl [2]bool
+			var ledControl [3]bool
 			err := json.Unmarshal([]byte(ledControlString), &ledControl)
 			if err != nil {
 				returnError = append(returnError, map[string]string{"details": "Unexpected format.", "field": ""})
@@ -295,6 +295,24 @@ func Init() {
 		c.JSON(http.StatusBadRequest, returnError)
 	})
 
+	r.POST("/back/ledControl/cooldown/:mode/:amount", func(c *gin.Context) {
+		amountStr := c.Param("amount")
+		mode := c.Param("mode")
+		amount, err := strconv.Atoi(amountStr)
+		if err != nil {
+			c.JSON(http.StatusBadRequest, gin.H{"details": "Unexpected type of amount."})
+			return
+		}
+
+		if mode == "FadingRainbow" {
+			config.LedPresets.FadingRainbow = amount
+		}
+		config.LedActive.Cooldown = amount
+		internal.SaveFile(&config.LedActive)
+		internal.SaveFile(&config.LedPresets)
+		c.Status(http.StatusOK)
+	})
+
 	r.POST("/back/ledControl/activate/:mode", func(c *gin.Context) {
 		if !internal.IsLogged(c) {
 			c.JSON(http.StatusForbidden, gin.H{"details": "User not logged in."})
@@ -311,9 +329,9 @@ func Init() {
 			config.LedActive.Color = []string{config.LedPresets.StaticColor[active]}
 			config.LedActive.Brightness = 255 // TODO
 			config.LedActive.Cooldown = 0
-		} else if mode == "CyclingColors" {
-			config.LedActive.ActiveMode = "CyclingColors"
-			config.LedActive.Color = config.LedPresets.PulsatingColor // All colors are activated on Cycling Colors
+		} else if mode == "FadingColors" {
+			config.LedActive.ActiveMode = "FadingColors"
+			config.LedActive.Color = config.LedPresets.PulsatingColor // All colors are activated on Fading Colors
 			config.LedActive.Brightness = 255                         // TODO
 			config.LedActive.Cooldown = 0
 		} else if mode == "PulsatingColor" {
@@ -322,6 +340,11 @@ func Init() {
 
 			config.LedActive.ActiveMode = "PulsatingColor"
 			config.LedActive.Color = []string{config.LedPresets.PulsatingColor[active]}
+			config.LedActive.Brightness = 255 // TODO
+			config.LedActive.Cooldown = 0
+		} else if mode == "FadingRainbow" {
+			config.LedActive.ActiveMode = "FadingRainbow"
+			config.LedActive.Color = []string{"0000FF"}
 			config.LedActive.Brightness = 255 // TODO
 			config.LedActive.Cooldown = 0
 		}
@@ -339,7 +362,7 @@ func Init() {
 		mode := c.Param("mode")
 		hex := c.Param("hex")
 
-		if mode == "CyclingColors" {
+		if mode == "FadingColors" {
 			c.JSON(http.StatusBadGateway, gin.H{"details": "Unexpected error."}) // All are activated by default.
 		} else {
 			led.SetColor([]string{hex})
@@ -412,21 +435,21 @@ func Init() {
 			}
 
 			config.LedPresets.PulsatingColor = newPreset
-		} else if mode == "CyclingColors" {
-			if len(config.LedPresets.CyclingColors) == 2 {
+		} else if mode == "FadingColors" {
+			if len(config.LedPresets.FadingColors) == 2 {
 				c.JSON(http.StatusBadRequest, gin.H{"details": "There must be at least 2 preset colors."})
 				return
 			}
 
 			newPreset := []string{}
-			for _, color := range config.LedPresets.CyclingColors {
+			for _, color := range config.LedPresets.FadingColors {
 				if color != hex {
 					newPreset = append(newPreset, color)
 				}
 			}
 
 			config.LedActive.Color = newPreset
-			config.LedPresets.CyclingColors = newPreset
+			config.LedPresets.FadingColors = newPreset
 		}
 
 		internal.SaveFile(&config.LedActive)
@@ -478,17 +501,20 @@ func Init() {
 			config.LedActive.Color = []string{hex}
 			config.LedPresets.PulsatingColor = newPreset
 
-		} else if mode == "CyclingColors" {
-			if sliceutil.Contains(config.LedPresets.CyclingColors, hex) {
+		} else if mode == "FadingColors" {
+			if sliceutil.Contains(config.LedPresets.FadingColors, hex) {
 				c.JSON(http.StatusBadRequest, gin.H{"details": "That color has been already added to this mode."})
 				return
 			}
 
-			newPreset := config.LedPresets.CyclingColors
+			newPreset := config.LedPresets.FadingColors
 			newPreset = append(newPreset, hex)
 
 			config.LedActive.Color = newPreset
-			config.LedPresets.CyclingColors = newPreset
+			config.LedPresets.FadingColors = newPreset
+		} else if mode == "FadingRainbow" {
+			c.JSON(http.StatusBadRequest, gin.H{"details": "Unexpected color for this mode."})
+			return
 		}
 
 		internal.SaveFile(&config.LedActive)

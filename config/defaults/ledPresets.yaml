@@ -1,7 +1,8 @@
 StaticColor:
     - FDC830
-CyclingColors:
+FadingColors:
     - FDC830
     - F37335
+FadingRainbow: 50
 PulsatingColor:
     - F37335

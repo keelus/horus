@@ -127,6 +127,6 @@ func Rainbow() {
 			LedStrip.Leds(0)[i] = wheel((i + j) & 255)
 		}
 		LedStrip.Render()
-		time.Sleep(20 * time.Millisecond)
+		time.Sleep(time.Duration(config.LedActive.Cooldown) * time.Millisecond)
 	}
 }

@@ -29,18 +29,18 @@
 			</div>
 		</div>
 		{{if index .UserConfiguration.LedControl 0}}
-			<div class="option{{if eq .LedActive.ActiveMode "CyclingColors"}} active{{end}}" mode="CyclingColors">
+			<div class="option{{if eq .LedActive.ActiveMode "FadingColors"}} active{{end}}" mode="FadingColors">
 				<div class="checkLine">
 					<div class="checkbox">
 						<div class="on"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M0 0v24h24v-24h-24zm11 17l-5-5.299 1.399-1.43 3.574 3.736 6.572-7.007 1.455 1.403-8 8.597z"/></svg></div>
 						<div class="off"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M22 2v20h-20v-20h20zm2-2h-24v24h24v-24z"/></svg></div>
 					</div>
-					<label for="cyclingColors" class="text">Cycling colors</label>
+					<label for="FadingColors" class="text">Fading colors</label>
 				</div>
 				<div class="content">
 					<!-- <input type="color" value="{{.CurrentLED}}"> -->
 					<div class="colors">
-						{{ range $i, $color := .LedPresets.CyclingColors}}
+						{{ range $i, $color := .LedPresets.FadingColors}}
 							<div class="color noInteraction" hex="{{$color}}">
 								<div class="delete"><svg clip-rule="evenodd" fill-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m12 10.93 5.719-5.72c.146-.146.339-.219.531-.219.404 0 .75.324.75.749 0 .193-.073.385-.219.532l-5.72 5.719 5.719 5.719c.147.147.22.339.22.531 0 .427-.349.75-.75.75-.192 0-.385-.073-.531-.219l-5.719-5.719-5.719 5.719c-.146.146-.339.219-.531.219-.401 0-.75-.323-.75-.75 0-.192.073-.384.22-.531l5.719-5.719-5.72-5.719c-.146-.147-.219-.339-.219-.532 0-.425.346-.749.75-.749.192 0 .385.073.531.219z"/></svg></div>
 								<div class="background" style="background-color:#{{$color}}"></div>
@@ -52,6 +52,24 @@
 			</div>
 		{{end}}
 		{{if index .UserConfiguration.LedControl 1}}
+			<div class="option{{if eq .LedActive.ActiveMode "FadingRainbow"}} active{{end}}" mode="FadingRainbow">
+				<div class="checkLine">
+					<div class="checkbox">
+						<div class="on"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M0 0v24h24v-24h-24zm11 17l-5-5.299 1.399-1.43 3.574 3.736 6.572-7.007 1.455 1.403-8 8.597z"/></svg></div>
+						<div class="off"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M22 2v20h-20v-20h20zm2-2h-24v24h24v-24z"/></svg></div>
+					</div>
+					<label for="FadingRainbow" class="text">Fading rainbow</label>
+				</div>
+				<div class="content">
+					<div class="inputBox">
+						<div class="text">Cooldown amount:</div>
+						<div><input type="number" id="MSamount" placeholder="Miliseconds"></div>
+					</div>
+					<button id="applyMSFadingRainbow">Apply</button>
+				</div>
+			</div>
+		{{end}}
+		{{if index .UserConfiguration.LedControl 2}}
 			<div class="option{{if eq .LedActive.ActiveMode "PulsatingColor"}} active{{end}}" mode="PulsatingColor">
 				<div class="checkLine">
 					<div class="checkbox">

@@ -20,7 +20,7 @@ $(".botonGuardar").on("click", (e) => {
 		}
 		break
 	case "LedControl":
-		postData.LedControl = JSON.stringify([$("#ledControl0").prop("checked"),$("#ledControl0").prop("checked")])
+		postData.LedControl = JSON.stringify([$("#ledControl0").prop("checked"),$("#ledControl1").prop("checked"),$("#ledControl2").prop("checked")])
 		break
 	case "SystemStats":
 		postData.SystemStatsIgnore = [$("#systemStats0").prop("checked"), $("#systemStats1").prop("checked"),
