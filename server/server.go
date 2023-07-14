@@ -347,7 +347,9 @@ func Init() {
 			config.LedActive.Cooldown = config.LedPresets.FadingRainbow
 
 			if previousMode != "FadingRainbow" {
-				led.StopLoops = true
+				if previousMode == "PulsatingColor" {
+					led.StopPulsating = true
+				}
 				go led.Rainbow()
 			}
 		} else if mode == "PulsatingColor" {
@@ -357,7 +359,9 @@ func Init() {
 			config.LedActive.Cooldown = 0
 
 			if previousMode != "PulsatingColor" {
-				led.StopLoops = true
+				if previousMode == "FadingRainbow" {
+					led.StopRainbow = true
+				}
 				go led.Rainbow()
 			}
 		}
