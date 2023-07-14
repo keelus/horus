@@ -304,15 +304,16 @@ func Init() {
 			return
 		}
 
-		// if config.LedActive.ActiveMode == "FadingRainbow" {
-		// 	led.StopRainbow = true
-		// }
+		if mode == "PulsatingColor" {
+			if config.LedActive.ActiveMode != "PulsatingColor" {
+				go led.PulsatingColor()
+			}
 
-		if config.LedActive.ActiveMode != "FadingRainbow" {
-			go led.Rainbow()
-		}
-
-		if mode == "FadingRainbow" {
+			//config.LedPresets.PulsatingColor TODO save cooldown
+		} else if mode == "FadingRainbow" {
+			if config.LedActive.ActiveMode != "FadingRainbow" {
+				go led.Rainbow()
+			}
 			config.LedPresets.FadingRainbow = amount
 		}
 

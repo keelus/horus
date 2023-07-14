@@ -156,3 +156,24 @@ func Rainbow() {
 	}
 
 }
+
+func PulsatingColor() {
+	currentBrightness := config.LedActive.Brightness
+	// Down
+	for i := currentBrightness; i > 0; i-- {
+		LedStrip.SetBrightness(0, i)
+		fmt.Printf("Brightness: %d\n", i)
+		ForceDraw(config.LedActive.Color, i)
+		time.Sleep(time.Duration(config.LedActive.Cooldown) * time.Millisecond)
+	}
+
+	// Up
+	for i := 0; i < currentBrightness; i++ {
+		LedStrip.SetBrightness(0, i)
+		fmt.Printf("Brightness: %d\n", i)
+		ForceDraw(config.LedActive.Color, i)
+		time.Sleep(time.Duration(config.LedActive.Cooldown) * time.Millisecond)
+	}
+
+	PulsatingColor()
+}

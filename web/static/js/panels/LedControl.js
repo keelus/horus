@@ -143,7 +143,7 @@ $("#brightness").on("input", () => {
 	$("#brightnessVisual").text(brightness + "%")
 })
 $("#applyMSFadingRainbow").on("click", () => {
-	amount = $("#MSamount").val()
+	amount = $("#MSamountRainbow").val()
 	mode = "FadingRainbow"
 	
 	$.ajax({
@@ -157,3 +157,19 @@ $("#applyMSFadingRainbow").on("click", () => {
 		}
 	});
 })
+$("#applyMSFadingColors").on("click", () => {
+	amount = $("#MSamountColors").val()
+	mode = "FadingColors"
+	
+	$.ajax({
+		type: "POST",
+		url: `/back/ledControl/cooldown/${mode}/${amount}`,
+		success: function (r) {
+			showPopup(`MS amount applied.`, 3000, "success")
+		},
+		error: function(r) {
+			showPopup(r.responseJSON.details, 3000, "error")
+		}
+	});
+})
+

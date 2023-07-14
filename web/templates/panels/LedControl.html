@@ -63,9 +63,9 @@
 				<div class="content">
 					<div class="inputBox">
 						<div class="text">Cooldown amount:</div>
-						<div><input type="number" id="MSamount" placeholder="Miliseconds" value="{{.LedPresets.FadingRainbow}}"></div>
+						<div><input type="number" id="MSamountRainbow" placeholder="Milliseconds" value="{{.LedPresets.FadingRainbow}}"></div>
 					</div>
-					<button id="applyMSFadingRainbow">Apply</button>
+					<button id="applyMSFadingRainbow">Apply milliseconds</button>
 				</div>
 			</div>
 		{{end}}
@@ -89,6 +89,11 @@
 						{{ end }}
 						<div class="color new">+</div>
 					</div>
+					<div class="inputBox">
+						<div class="text">Cooldown amount:</div>
+						<div><input type="number" id="MSamountColors" placeholder="Milliseconds" value="{{.LedPresets.FadingRainbow}}"></div>
+					</div>
+					<button id="applyMSFadingColors">Apply</button>
 				</div>
 			</div>
 		{{end}}
