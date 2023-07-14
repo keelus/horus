@@ -124,6 +124,7 @@ func wheel(pos int) uint32 {
 }
 
 func Rainbow() {
+	fmt.Println("Rainbow loop start")
 	for j := 0; j < 256; j++ {
 		for i := 0; i < 120; i++ {
 			LedStrip.Leds(0)[i] = wheel((i + j) & 255)
