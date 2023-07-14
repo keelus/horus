@@ -47,7 +47,7 @@ type LedPresets struct {
 	StaticColor    []string `yaml:"StaticColor"`
 	FadingColors   []string `yaml:"FadingColors"`
 	FadingRainbow  int      `yaml:"FadingRainbow"`
-	PulsatingColor []string `yaml:"PulsatingColor"`
+	BreathingColor []string `yaml:"BreathingColor"`
 }
 type LedActive struct {
 	ActiveMode string   `yaml:"ActiveMode"`

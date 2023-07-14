@@ -304,12 +304,12 @@ func Init() {
 			return
 		}
 
-		if mode == "PulsatingColor" {
-			if config.LedActive.ActiveMode != "PulsatingColor" {
-				go led.PulsatingColor()
+		if mode == "BreathingColor" {
+			if config.LedActive.ActiveMode != "BreathingColor" {
+				go led.BreathingColor()
 			}
 
-			//config.LedPresets.PulsatingColor TODO save cooldown
+			//config.LedPresets.BreathingColor TODO save cooldown
 		} else if mode == "FadingRainbow" {
 			if config.LedActive.ActiveMode != "FadingRainbow" {
 				go led.Rainbow()
@@ -338,7 +338,7 @@ func Init() {
 			config.LedActive.Cooldown = 0
 		} else if mode == "FadingColors" {
 			config.LedActive.ActiveMode = "FadingColors"
-			config.LedActive.Color = config.LedPresets.PulsatingColor // All colors are activated on Fading Colors
+			config.LedActive.Color = config.LedPresets.BreathingColor // All colors are activated on Fading Colors
 			config.LedActive.Cooldown = 0                             // TODO
 		} else if mode == "FadingRainbow" {
 			previousMode := config.LedActive.ActiveMode
@@ -347,22 +347,22 @@ func Init() {
 			config.LedActive.Cooldown = config.LedPresets.FadingRainbow
 
 			if previousMode != "FadingRainbow" {
-				if previousMode == "PulsatingColor" {
-					led.StopPulsating = true
+				if previousMode == "BreathingColor" {
+					led.stopBreathing = true
 				}
 				go led.Rainbow()
 			}
-		} else if mode == "PulsatingColor" {
+		} else if mode == "BreathingColor" {
 			previousMode := config.LedActive.ActiveMode
-			config.LedActive.ActiveMode = "PulsatingColor"
-			config.LedActive.Color = []string{config.LedPresets.PulsatingColor[0]} // By default first color will be initialized
+			config.LedActive.ActiveMode = "BreathingColor"
+			config.LedActive.Color = []string{config.LedPresets.BreathingColor[0]} // By default first color will be initialized
 			config.LedActive.Cooldown = 0
 
-			if previousMode != "PulsatingColor" {
+			if previousMode != "BreathingColor" {
 				if previousMode == "FadingRainbow" {
 					led.StopRainbow = true
 				}
-				go led.PulsatingColor()
+				go led.BreathingColor()
 			}
 		}
 
@@ -434,14 +434,14 @@ func Init() {
 			}
 
 			config.LedPresets.StaticColor = newPreset
-		} else if mode == "PulsatingColor" {
-			if len(config.LedPresets.PulsatingColor) == 1 {
+		} else if mode == "BreathingColor" {
+			if len(config.LedPresets.BreathingColor) == 1 {
 				c.JSON(http.StatusBadRequest, gin.H{"details": "There must be at least 1 preset color."})
 				return
 			}
 			newPreset := []string{}
 
-			for _, color := range config.LedPresets.PulsatingColor {
+			for _, color := range config.LedPresets.BreathingColor {
 				if color != hex {
 					newPreset = append(newPreset, color)
 				}
@@ -451,7 +451,7 @@ func Init() {
 				config.LedActive.Color[0] = newPreset[0]
 			}
 
-			config.LedPresets.PulsatingColor = newPreset
+			config.LedPresets.BreathingColor = newPreset
 		} else if mode == "FadingColors" {
 			if len(config.LedPresets.FadingColors) == 2 {
 				c.JSON(http.StatusBadRequest, gin.H{"details": "There must be at least 2 preset colors."})
@@ -506,17 +506,17 @@ func Init() {
 			config.LedActive.Color = []string{hex}
 			config.LedPresets.StaticColor = newPreset
 
-		} else if mode == "PulsatingColor" {
-			if sliceutil.Contains(config.LedPresets.PulsatingColor, hex) {
+		} else if mode == "BreathingColor" {
+			if sliceutil.Contains(config.LedPresets.BreathingColor, hex) {
 				c.JSON(http.StatusBadRequest, gin.H{"details": "That color has been already added to this mode."})
 				return
 			}
 
-			newPreset := config.LedPresets.PulsatingColor
+			newPreset := config.LedPresets.BreathingColor
 			newPreset = append(newPreset, hex)
 
 			config.LedActive.Color = []string{hex}
-			config.LedPresets.PulsatingColor = newPreset
+			config.LedPresets.BreathingColor = newPreset
 
 		} else if mode == "FadingColors" {
 			if sliceutil.Contains(config.LedPresets.FadingColors, hex) {
