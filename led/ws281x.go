@@ -15,6 +15,8 @@ const (
 	DefaultLedCount   = 120
 )
 
+var StopRainbow = false
+
 var LedStrip *ws2811.WS2811
 
 func Init() {
@@ -127,7 +129,8 @@ func Rainbow() {
 			LedStrip.Leds(0)[i] = wheel((i + j) & 255)
 		}
 
-		if config.LedActive.ActiveMode != "FadingRainbow" { // TODO: Better way
+		if config.LedActive.ActiveMode != "FadingRainbow" || StopRainbow { // TODO: Better way
+			StopRainbow = false
 			return
 		}
 		LedStrip.Render()
