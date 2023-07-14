@@ -310,6 +310,9 @@ func Init() {
 		config.LedActive.Cooldown = amount
 		internal.SaveFile(&config.LedActive)
 		internal.SaveFile(&config.LedPresets)
+		for i := 0; i < 100; i++ {
+			led.Rainbow()
+		}
 		c.Status(http.StatusOK)
 	})
 
