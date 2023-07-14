@@ -355,7 +355,8 @@ func Init() {
 			config.LedActive.ActiveMode = "FadingRainbow"
 			config.LedActive.Color = []string{"0000FF"}
 			config.LedActive.Brightness = 255 // TODO
-			config.LedActive.Cooldown = 0
+
+			led.Rainbow()
 		}
 
 		internal.SaveFile(&config.LedActive)
