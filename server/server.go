@@ -304,15 +304,16 @@ func Init() {
 			return
 		}
 
+		if config.LedActive.ActiveMode == "FadingRainbow" {
+			led.StopRainbow = true
+		}
+
 		if mode == "FadingRainbow" {
 			config.LedPresets.FadingRainbow = amount
 		}
 		config.LedActive.Cooldown = amount
 		internal.SaveFile(&config.LedActive)
 		internal.SaveFile(&config.LedPresets)
-		if config.LedActive.ActiveMode == "FadingRainbow" {
-			led.StopRainbow = true
-		}
 		led.Rainbow()
 		c.Status(http.StatusOK)
 	})
