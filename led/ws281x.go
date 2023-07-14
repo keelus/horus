@@ -42,6 +42,8 @@ func Init() {
 	} else {
 		if config.LedActive.ActiveMode == "FadingRainbow" {
 			go Rainbow()
+		} else if config.LedActive.ActiveMode == "PulsatingColor" {
+			go PulsatingColor()
 		}
 	}
 }
@@ -54,7 +56,6 @@ func SetColor(color []string) {
 }
 
 func SetBrightness(brightness int) { // TODO: Will return true once transition is finished to avoid glitching while sending multiple SetBrightness from client
-
 	if config.LedActive.ActiveMode == "StaticColor" { // Brightness fading will only occur on Static Color to prevent unexpected flashing
 		currentBrightness := config.LedActive.Brightness
 		duration := 1 * time.Second
@@ -138,7 +139,7 @@ func wheel(pos int) uint32 {
 }
 
 func Rainbow() {
-	fmt.Println("Rainbow loop start")
+	LedStrip.SetBrightness(0, config.LedActive.Brightness)
 	for j := 0; j < 256; j++ {
 		for i := 0; i < 120; i++ {
 			LedStrip.Leds(0)[i] = wheel((i + j) & 255)
