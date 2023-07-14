@@ -33,38 +33,14 @@ func init() {
 }
 
 func main() {
+	for a := 0; a < 100; a++ {
+		fmt.Println("######################  RAINBOW  ######################")
+		led.Rainbow()
+	}
+	led.Wheel(3)
 	led.Init()
 	// config.Init()
 	server.Init()
-
-	// Read the YAML file
-	// yamlFile, err := ioutil.ReadFile("config/defaults/userConfig.yaml")
-	// if err != nil {
-	// 	log.Fatalf("Failed to read YAML file: %v", err)
-	// }
-
-	// // Unmarshal the YAML into a Config struct
-	// var config Config
-	// err = yaml.Unmarshal(yamlFile, &config)
-	// if err != nil {
-	// 	log.Fatalf("Failed to unmarshal YAML: %v", err)
-	// }
-
-	// // Print the contents of the config
-	// fmt.Printf("Version: %s\n", config.Version)
-	// fmt.Printf("Username: %s\n", config.UserInfo.Username)
-	// fmt.Printf("Password: %s\n", config.UserInfo.Password)
-	// fmt.Printf("Lifespan: %d %s\n", config.SessionSettings.Lifespan, config.SessionSettings.Unit)
-	// fmt.Printf("LedControl: %v\n", config.LedControl)
-	// fmt.Printf("SystemStats: %v\n", config.SystemStats)
-	// fmt.Printf("Logging: %v\n", config.Logging)
-	// fmt.Printf("UserInput: %v\n", config.Security.UserInput)
-	// fmt.Printf("TimeMode12: %v\n", config.Units.TimeMode12)
-	// fmt.Printf("TemperatureC: %v\n", config.Units.TemperatureC)
-	// fmt.Printf("Accent: %v\n", config.Design.Accent)
-	// for _, font := range config.Design.Fonts {
-	// 	fmt.Printf("Font - Title: %s, Source: %s\n", font.Title, font.Source)
-	// }
 }
 
 func fileExists(filename string) bool {

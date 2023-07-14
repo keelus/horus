@@ -106,3 +106,42 @@ func ForceDraw(color []string, brightness int) {
 
 	LedStrip.Render()
 }
+
+// Code translated to Golang from Python [rpi-ws281x-python example.py]
+func Wheel(pos int) uint64 {
+	color := []int{0, 0, 0}
+	if pos < 85 {
+		color = []int{pos * 3, 255 - pos*3, 0}
+	} else if pos < 170 {
+		pos -= 85
+		color = []int{255 - pos*3, 0, pos * 3}
+	} else {
+		pos -= 170
+		color = []int{0, pos * 3, 255 - pos*3}
+	}
+
+	color = []int{255, 127, 100}
+
+	hex0 := strconv.FormatInt(int64(color[0]), 16)
+	hex1 := strconv.FormatInt(int64(color[1]), 16)
+	hex2 := strconv.FormatInt(int64(color[2]), 16)
+
+	hexStr := fmt.Sprintf("%s%s%s", hex0, hex1, hex2)
+
+	colorHex, err := strconv.ParseUint(hexStr, 16, 32) // TODO
+	if err != nil {
+		fmt.Printf("error parsing color hex code: %v\n", err)
+	}
+
+	return colorHex
+}
+func Rainbow() {
+	// wait_ms := 20
+	for j := 0; j < 256; j++ {
+		for i := 0; j < 120; j++ {
+			LedStrip.Leds(0)[i] = uint32(Wheel((i + j) & 255))
+		}
+		Draw()
+		time.Sleep(20 * time.Millisecond)
+	}
+}
