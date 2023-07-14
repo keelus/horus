@@ -161,10 +161,14 @@ func Rainbow() {
 
 func PulsatingColor() {
 	currentBrightness := config.LedActive.Brightness
+
+	minBrightness := 60
 	Draw()
 
+	// TODO : USE SINE WAVE
+
 	// Down
-	for i := currentBrightness; i > 0; i-- {
+	for i := currentBrightness; i > minBrightness; i-- {
 		LedStrip.SetBrightness(0, i)
 		fmt.Printf("Brightness: %d\n", i)
 		ForceDraw(config.LedActive.Color, i)
@@ -176,7 +180,7 @@ func PulsatingColor() {
 	}
 
 	// Up
-	for i := 0; i < currentBrightness; i++ {
+	for i := minBrightness; i < currentBrightness; i++ {
 		LedStrip.SetBrightness(0, i)
 		fmt.Printf("Brightness: %d\n", i)
 		ForceDraw(config.LedActive.Color, i)
