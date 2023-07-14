@@ -160,6 +160,8 @@ func Rainbow() {
 
 func PulsatingColor() {
 	currentBrightness := config.LedActive.Brightness
+	Draw()
+
 	// Down
 	for i := currentBrightness; i > 0; i-- {
 		LedStrip.SetBrightness(0, i)
