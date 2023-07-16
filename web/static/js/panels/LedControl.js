@@ -157,9 +157,9 @@ $("#applyMSFadingRainbow").on("click", () => {
 		}
 	});
 })
-$("#applyMSFadingColors").on("click", () => {
+$("#applyMSBreathingColor").on("click", () => {
 	amount = $("#MSamountColors").val()
-	mode = "FadingColors"
+	mode = "BreathingColor"
 	
 	$.ajax({
 		type: "POST",

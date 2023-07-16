@@ -13,8 +13,14 @@ import (
 
 const (
 	DefaultBrightness = 90
-	DefaultLedCount   = 120
+	NumberOfLeds      = 120
 )
+
+type Color struct {
+	Red   int
+	Green int
+	Blue  int
+}
 
 var StopRainbow = false
 var StopBreathing = false
@@ -26,7 +32,7 @@ func Init() {
 
 	options := ws2811.DefaultOptions
 	options.Channels[0].Brightness = config.LedActive.Brightness
-	options.Channels[0].LedCount = DefaultLedCount
+	options.Channels[0].LedCount = NumberOfLeds
 
 	LedStrip, err = ws2811.MakeWS2811(&options)
 	if err != nil {
@@ -100,7 +106,7 @@ func Draw() {
 		fmt.Printf("error parsing color hex code: %v\n", err)
 	}
 
-	for i := 0; i < DefaultLedCount; i++ {
+	for i := 0; i < NumberOfLeds; i++ {
 		LedStrip.Leds(0)[i] = uint32(colorHex)
 	}
 
@@ -118,7 +124,7 @@ func ForceDraw(color []string, brightness int) {
 	}
 
 	LedStrip.SetBrightness(0, brightness)
-	for i := 0; i < DefaultLedCount; i++ {
+	for i := 0; i < NumberOfLeds; i++ {
 		LedStrip.Leds(0)[i] = uint32(colorHex)
 	}
 
@@ -144,7 +150,7 @@ func Rainbow() {
 
 	for {
 		for j := 0; j < 256; j++ {
-			for i := 0; i < 120; i++ {
+			for i := 0; i < NumberOfLeds; i++ {
 				LedStrip.Leds(0)[i] = wheel((i + j) & 255)
 			}
 
@@ -185,4 +191,58 @@ func BreathingColor() {
 			}
 		}
 	}
+}
+
+func DrawGradient() {
+	LedStrip.SetBrightness(0, config.LedActive.Brightness)
+
+	if LedStrip == nil {
+		fmt.Printf("LED strip is not initialized\n")
+	}
+
+	colorGradientIndexes := []Color{} // TODO: load from config
+	generatedGradient := generateGradient(colorGradientIndexes)
+	for ledIdx, color := range generatedGradient {
+		LedStrip.Leds(0)[ledIdx] = uint32(color.Red)<<16 | uint32(color.Green)<<8 | uint32(color.Blue)
+	}
+
+	LedStrip.Render()
+}
+
+func generateGradient(colors []Color) [NumberOfLeds]Color {
+
+	leds := [NumberOfLeds]Color{}
+
+	increment := float64(NumberOfLeds-1) / float64(len(colors)-1)
+
+	for i := 0; i < len(colors); i++ {
+		idx := int(math.Floor(float64(i) * increment))
+		leds[idx] = colors[i]
+	}
+
+	pairs := len(colors) - 1
+
+	for i := 0; i < pairs; i++ {
+		currentColor := colors[i]
+		nextColor := colors[i+1]
+
+		currentIndex := int(math.Floor(float64(i) * increment))
+		nextIndex := int(math.Floor(float64(i+1) * increment))
+
+		dif := nextIndex - currentIndex
+
+		redIncrement := float64(nextColor.Red-currentColor.Red) / float64(dif)
+		greenIncrement := float64(nextColor.Green-currentColor.Green) / float64(dif)
+		blueIncrement := float64(nextColor.Blue-currentColor.Blue) / float64(dif)
+
+		for j := currentIndex + 1; j < nextIndex; j++ {
+			newRed := int(math.Ceil(float64(currentColor.Red) + float64(j-currentIndex)*redIncrement))
+			newGreen := int(math.Ceil(float64(currentColor.Green) + float64(j-currentIndex)*greenIncrement))
+			newBlue := int(math.Ceil(float64(currentColor.Blue) + float64(j-currentIndex)*blueIncrement))
+
+			leds[j] = Color{Red: newRed, Green: newGreen, Blue: newBlue}
+		}
+	}
+
+	return leds
 }
