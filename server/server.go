@@ -377,19 +377,6 @@ func Init() {
 			return
 		}
 
-		mode := c.Param("mode")
-		hex := c.Param("hex")
-
-		if mode == "StaticGradient" {
-			c.JSON(http.StatusBadRequest, gin.H{"details": "Unexpected mode static gradient."})
-			return
-		} else {
-			led.SetColor([]string{hex})
-			config.LedActive.Color = []string{hex}
-		}
-
-		c.Status(http.StatusOK)
-
 		rawGradient := c.PostForm("rawGradient")
 
 		if !internal.GradientExists(rawGradient, config.LedPresets.StaticGradient) {
