@@ -390,6 +390,8 @@ func Init() {
 			}
 		}
 
+		led.DrawGradient()
+
 		internal.SaveFile(&config.LedPresets)
 		internal.SaveFile(&config.LedActive)
 		c.Status(http.StatusOK)
