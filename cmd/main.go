@@ -14,7 +14,7 @@ import (
 //	# DESIGN & PERSONALISATION
 //		Load and save system. Compatibility with scss/css
 
-const CUR_VERSION = "0.7.4"
+const CUR_VERSION = "0.7.5"
 
 func init() {
 	fmt.Println("Initializing horus...")
