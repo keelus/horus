@@ -385,7 +385,7 @@ func Init() {
 		}
 
 		for _, gradient := range config.LedPresets.StaticGradient {
-			if internal.GetGradientStr(gradient) != rawGradient {
+			if internal.GetGradientStr(gradient) == rawGradient {
 				config.LedActive.Color = gradient
 			}
 		}
