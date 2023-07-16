@@ -371,6 +371,44 @@ func Init() {
 		c.JSON(http.StatusOK, gin.H{"Color": config.LedActive.Color, "Brightness": config.LedActive.Brightness, "Cooldown": config.LedActive.Cooldown})
 	})
 
+	r.POST("/back/ledControl/activateGradient", func(c *gin.Context) {
+		if !internal.IsLogged(c) {
+			c.JSON(http.StatusForbidden, gin.H{"details": "User not logged in."})
+			return
+		}
+
+		mode := c.Param("mode")
+		hex := c.Param("hex")
+
+		if mode == "StaticGradient" {
+			c.JSON(http.StatusBadRequest, gin.H{"details": "Unexpected mode static gradient."})
+			return
+		} else {
+			led.SetColor([]string{hex})
+			config.LedActive.Color = []string{hex}
+		}
+
+		c.Status(http.StatusOK)
+
+		rawGradient := c.PostForm("rawGradient")
+
+		if !internal.GradientExists(rawGradient, config.LedPresets.StaticGradient) {
+			c.JSON(http.StatusBadRequest, gin.H{"details": "That gradient doesn't exist."})
+			return
+		}
+
+		for _, gradient := range config.LedPresets.StaticGradient {
+			if internal.GetGradientStr(gradient) != rawGradient {
+				config.LedActive.Color = gradient
+			}
+		}
+
+		internal.SaveFile(&config.LedPresets)
+		internal.SaveFile(&config.LedActive)
+		c.Status(http.StatusOK)
+
+	})
+
 	r.POST("/back/ledControl/activate/:mode/:hex", func(c *gin.Context) {
 		if !internal.IsLogged(c) {
 			c.JSON(http.StatusForbidden, gin.H{"details": "User not logged in."})
@@ -409,6 +447,34 @@ func Init() {
 		c.JSON(http.StatusOK, gin.H{"Color": config.LedActive.Color, "Brightness": config.LedActive.Brightness, "Cooldown": config.LedActive.Cooldown})
 	})
 
+	r.POST("/back/ledControl/deleteGradient", func(c *gin.Context) {
+		if !internal.IsLogged(c) {
+			c.JSON(http.StatusForbidden, gin.H{"details": "User not logged in."})
+			return
+		}
+
+		rawGradient := c.PostForm("rawGradient")
+		fmt.Println(rawGradient)
+
+		if !internal.GradientExists(rawGradient, config.LedPresets.StaticGradient) {
+			c.JSON(http.StatusBadRequest, gin.H{"details": "That gradient doesn't exist."})
+			return
+		}
+
+		newGradientSlice := [][]string{}
+		for _, gradient := range config.LedPresets.StaticGradient {
+			if internal.GetGradientStr(gradient) != rawGradient {
+				newGradientSlice = append(newGradientSlice, gradient)
+			}
+		}
+
+		config.LedPresets.StaticGradient = newGradientSlice
+
+		internal.SaveFile(&config.LedPresets)
+		internal.SaveFile(&config.LedActive) // TODO activate first & check minimum 1
+		c.Status(http.StatusOK)
+
+	})
 	r.POST("/back/ledControl/delete/:mode/:hex", func(c *gin.Context) {
 		if !internal.IsLogged(c) {
 			c.JSON(http.StatusForbidden, gin.H{"details": "User not logged in."})
@@ -487,12 +553,19 @@ func Init() {
 
 		err := json.Unmarshal([]byte(hexValuesStr), &hexValues)
 		if err != nil {
-			fmt.Println("Error! ", err)
+			fmt.Println("Error! ", err) // TODO
+			return
+		}
+
+		rawGradient := internal.GetGradientStr(hexValues)
+		if internal.GradientExists(rawGradient, config.LedPresets.StaticGradient) {
+			c.JSON(http.StatusBadRequest, gin.H{"details": "That exact gradient already exists."})
 			return
 		}
 
 		config.LedPresets.StaticGradient = append(config.LedPresets.StaticGradient, hexValues)
 		internal.SaveFile(&config.LedPresets)
+		internal.SaveFile(&config.LedActive) // TODO activate new gradient
 		c.Status(http.StatusOK)
 	})
 

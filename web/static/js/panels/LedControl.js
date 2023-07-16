@@ -255,3 +255,52 @@ $(document).on("click", "#addGradient", (e) => {
 		}
 	});
 })
+
+$(".gradient .delete").on("click", (e) => {
+	rawGradient = $(e.target).closest(".gradient").attr("raw-gradient")
+	
+	$.ajax({
+		type: "POST",
+		url: `/back/ledControl/deleteGradient`,
+		data: {
+			"rawGradient":rawGradient
+		},
+		success: function (r) {
+			$(e.target).closest(".gradient").remove()
+			showPopup(`Gradient deleted.`, 3000, "success")
+		},
+		error: function(r) {
+			showPopup(r.responseJSON.details, 3000, "error")
+		}
+	});
+})
+
+
+
+$(".gradient:not(.gradient.new)").on("click", (e) => {
+	e.preventDefault()
+
+	if($(e.target).hasClass("delete") || $(e.target).is("svg")){
+		return false
+	}
+
+	$(".gradient.selected").removeClass("selected")
+
+	rawGradient = $(e.target).closest(".gradient").attr("raw-gradient")
+
+	
+	$.ajax({
+		type: "POST",
+		url: `/back/ledControl/activateGradient/`,
+		data: {
+			"rawGradient":rawGradient
+		},
+		success: function (r) {
+			$(e.target).closest(".gradient").addClass("selected")
+			showPopup(`Led gradient applied.`, 3000, "success")
+		},
+		error: function(r) {
+			showPopup(r.responseJSON.details, 3000, "error")
+		}
+	});
+})
