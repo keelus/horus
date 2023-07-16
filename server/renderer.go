@@ -35,6 +35,16 @@ func Renderer() multitemplate.Renderer {
 
 			return show
 		},
+		"gradientString": func(gradientColors []string) string {
+			finalString := ""
+			for i, color := range gradientColors {
+				finalString += "#" + color
+				if i != len(gradientColors)-1 {
+					finalString += ","
+				}
+			}
+			return finalString
+		},
 	}
 
 	r.AddFromFilesFuncs("login", funcs, "web/templates/login.html")

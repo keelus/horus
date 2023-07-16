@@ -96,12 +96,12 @@ $(".color .delete").on("click", (e) => {
 
 $(".color.new").on("click", (e) => {
 	mode = $(e.target).closest(".option").attr("mode")
-	$(".modal").attr("activeMode", mode)
-	$(".darker").addClass("show")
+	$("#newColorModal > .modal").attr("activeMode", mode)
+	$("#newColorModal").addClass("show")
 })
 
 $(document).on("click", "#addColor", (e) => {
-	mode = $(".modal").attr("activeMode")
+	mode = $("#newColorModal > .modal").attr("activeMode")
 	hex =  $("#newHex").val() ? $("#newHex").val() : "000000"
 	
 	$.ajax({
@@ -120,8 +120,8 @@ $(document).on("click", "#addColor", (e) => {
 })
 
 $("#cancelAddColor").on("click", (e) => {
-	mode = $(".modal").attr("activeMode", "")
-	$(".darker").removeClass("show")
+	mode = $("#newColorModal > .modal").attr("activeMode", "")
+	$("#newColorModal").removeClass("show")
 })
 
 $("#brightness").on("change", () => {
@@ -173,3 +173,85 @@ $("#applyMSBreathingColor").on("click", () => {
 	});
 })
 
+
+$(".gradient.new").on("click", (e) => {
+	mode = $(e.target).closest(".option").attr("mode")
+	$("#newGradientModal > .modal").attr("activeMode", mode)
+	$("#newGradientModal").addClass("show")
+})
+
+
+$("#cancelAddGradient").on("click", (e) => {
+	mode = $("#newGradientModal > .modal").attr("activeMode", "")
+	$("#newGradientModal").removeClass("show")
+})
+
+
+$(document).ready(function() {
+    $(".hexCodes").sortable({
+		handle:".drag",
+		update: function(event, ui) {
+			drawGradientPreview()
+		}
+	});
+	$(".hexCodes").disableSelection();
+});
+
+$(".addColorToGradient").on("click", () => {
+	lastIndex = $(".hexCodes").children().length - 1 - 1
+	$($(".hexCodes").children()[lastIndex]).after(`
+		<li class="hexCode">
+			<div class="drag"></div>
+			<div>#<input type="text" placeholder="XXXXXX" maxlength="6" value="000000"></div>
+			<div class="remove">Remove</div>
+		</li>`);
+	drawGradientPreview()
+})
+
+$(document).on("click", ".remove", (e) => {
+	$(e.target).closest(".hexCode").remove()
+	drawGradientPreview()
+})
+
+$(document).on("key keyup keydown value input focus click change", ".hexCode input", () => {
+	console.log("update")
+	drawGradientPreview()
+})
+
+function drawGradientPreview() {
+	gradientHexesStr = ""
+	console.log($(".hexCodes").children())
+	$(".hexCodes").children().slice(0, -1).each((i, e) => {
+	  gradientHexesStr += "#" + $(e).find("input").val()
+	  if (i != $(".hexCodes").children().length - 1 - 1){
+		  gradientHexesStr += ","
+	  }
+	})
+
+	$(".gradientPreview").css("background-image", `linear-gradient(to right, ${gradientHexesStr})`)
+}
+
+$(document).on("click", "#addGradient", (e) => {
+	hexValues = []
+	
+	$(".hexCodes").children().slice(0, -1).each((i, e) => {
+	  hexValues.push($(e).find("input").val())
+	})
+	console.log(hexValues)
+	
+	$.ajax({
+		type: "POST",
+		url: `/back/ledControl/addGradient`,
+		data: {
+			"hexValues":JSON.stringify(hexValues)
+		},
+		success: function (r) {
+			showPopup(`Gradient added.`, 3000, "success")
+			
+			window.location.href = window.location.href + "?added";
+		},
+		error: function(r) {
+			showPopup(r.responseJSON.details, 3000, "error")
+		}
+	});
+})

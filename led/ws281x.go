@@ -200,7 +200,20 @@ func DrawGradient() {
 		fmt.Printf("LED strip is not initialized\n")
 	}
 
-	colorGradientIndexes := []Color{} // TODO: load from config
+	colorGradientIndexes := []Color{}
+	for _, colorStr := range config.LedActive.Color {
+		red, _ := strconv.ParseInt(colorStr[0:2], 16, 64)
+		green, _ := strconv.ParseInt(colorStr[2:4], 16, 64)
+		blue, _ := strconv.ParseInt(colorStr[4:6], 16, 64)
+
+		redInt := int(red)
+		greenInt := int(green)
+		blueInt := int(blue)
+
+		newColor := Color{Red: redInt, Green: greenInt, Blue: blueInt}
+
+		colorGradientIndexes = append(colorGradientIndexes, newColor)
+	}
 	generatedGradient := generateGradient(colorGradientIndexes)
 	for ledIdx, color := range generatedGradient {
 		LedStrip.Leds(0)[ledIdx] = uint32(color.Red)<<16 | uint32(color.Green)<<8 | uint32(color.Blue)

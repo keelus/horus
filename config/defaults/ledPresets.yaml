@@ -1,8 +1,11 @@
 StaticColor:
     - FDC830
 StaticGradient:
-    - FDC830
-    - F37335
+    - - FF0000
+      - 00FF00
+      - 0000FF
+    - - FDC830
+      - F37335
 FadingRainbow: 50
 BreathingColor:
     - F37335

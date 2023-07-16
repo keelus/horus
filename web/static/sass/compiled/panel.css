@@ -323,6 +323,70 @@ select:hover {
   cursor: pointer;
   opacity: 1;
 }
+.option .content .gradients {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 125px);
+  grid-gap: 15px;
+}
+.option .content .gradients .gradient {
+  width: 125px;
+  height: 75px;
+  border-radius: 6px;
+  position: relative;
+  transition: all 0.1s linear;
+}
+.option .content .gradients .gradient > .background {
+  width: 100%;
+  height: 100%;
+  border-radius: 6px;
+  outline: 2px solid rgba(0, 0, 0, 0);
+  outline-offset: 2px;
+  transition: all 0.1s linear;
+}
+.option .content .gradients .gradient:not(.noInteraction).selected > .background {
+  outline-color: #fdc830;
+}
+.option .content .gradients .gradient:not(.noInteraction):not(.new):not(.selected) > .background:hover {
+  outline-color: rgba(253, 200, 48, 0.5);
+  cursor: pointer;
+}
+.option .content .gradients .gradient > .delete {
+  width: 20px;
+  height: 20px;
+  border-radius: 100%;
+  color: #c70a0a;
+  background: #FFFFFF;
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.1s linear;
+  border: 1px solid #101010;
+}
+.option .content .gradients .gradient > .delete > svg {
+  width: 14px;
+}
+.option .content .gradients .gradient > .delete:hover {
+  cursor: pointer;
+  background: #bbbbbb;
+}
+.option .content .gradients .gradient.new {
+  border: 2px dashed #fdc830;
+  color: #fdc830;
+  opacity: 0.7;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2em;
+  line-height: 2em;
+}
+.option .content .gradients .gradient.new:hover {
+  cursor: pointer;
+  opacity: 1;
+}
 .option > .checkLine {
   display: flex;
   align-items: center;
@@ -475,6 +539,47 @@ select:hover {
 
 input[type=range]:hover {
   cursor: pointer;
+}
+
+#newGradientModal > .modal .gradientPreview {
+  width: 100%;
+  height: 50px;
+}
+#newGradientModal > .modal .hexCodes {
+  width: auto;
+  list-style-type: none;
+  padding: 0;
+}
+#newGradientModal > .modal .hexCodes li.hexCode {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  position: relative;
+}
+#newGradientModal > .modal .hexCodes li.hexCode .drag {
+  width: 15px;
+  height: 30px;
+  background: #303030;
+}
+#newGradientModal > .modal .hexCodes li.hexCode .drag:hover {
+  cursor: move;
+}
+#newGradientModal > .modal .hexCodes li.hexCode .remove {
+  padding: 3px 2px;
+  background: #c70a0a;
+  border-radius: 5px;
+  transition: all 0.3s linear;
+}
+#newGradientModal > .modal .hexCodes li.hexCode .remove:hover {
+  background: #FFFFFF;
+  color: #101010;
+}
+#newGradientModal > .modal .hexCodes li.addColorToGradient {
+  color: #bbbbbb;
+}
+#newGradientModal > .modal .hexCodes li.addColorToGradient:hover {
+  cursor: pointer;
+  text-decoration: underline;
 }
 
 .stats {
