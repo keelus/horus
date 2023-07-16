@@ -336,8 +336,8 @@ func Init() {
 			led.SetColor([]string{config.LedPresets.StaticColor[0]}) // By default first color will be initialized
 			config.LedActive.ActiveMode = "StaticColor"
 			config.LedActive.Cooldown = 0
-		} else if mode == "FadingColors" {
-			config.LedActive.ActiveMode = "FadingColors"
+		} else if mode == "StaticGradient" {
+			config.LedActive.ActiveMode = "StaticGradient"
 			config.LedActive.Color = config.LedPresets.BreathingColor // All colors are activated on Fading Colors
 			config.LedActive.Cooldown = 0                             // TODO
 		} else if mode == "FadingRainbow" {
@@ -379,7 +379,7 @@ func Init() {
 		mode := c.Param("mode")
 		hex := c.Param("hex")
 
-		if mode == "FadingColors" {
+		if mode == "StaticGradient" {
 			c.JSON(http.StatusBadGateway, gin.H{"details": "Unexpected error."}) // All are activated by default.
 		} else {
 			led.SetColor([]string{hex})
@@ -452,21 +452,21 @@ func Init() {
 			}
 
 			config.LedPresets.BreathingColor = newPreset
-		} else if mode == "FadingColors" {
-			if len(config.LedPresets.FadingColors) == 2 {
+		} else if mode == "StaticGradient" {
+			if len(config.LedPresets.StaticGradient) == 2 {
 				c.JSON(http.StatusBadRequest, gin.H{"details": "There must be at least 2 preset colors."})
 				return
 			}
 
 			newPreset := []string{}
-			for _, color := range config.LedPresets.FadingColors {
+			for _, color := range config.LedPresets.StaticGradient {
 				if color != hex {
 					newPreset = append(newPreset, color)
 				}
 			}
 
 			config.LedActive.Color = newPreset
-			config.LedPresets.FadingColors = newPreset
+			config.LedPresets.StaticGradient = newPreset
 		}
 
 		internal.SaveFile(&config.LedActive)
@@ -518,17 +518,17 @@ func Init() {
 			config.LedActive.Color = []string{hex}
 			config.LedPresets.BreathingColor = newPreset
 
-		} else if mode == "FadingColors" {
-			if sliceutil.Contains(config.LedPresets.FadingColors, hex) {
+		} else if mode == "StaticGradient" {
+			if sliceutil.Contains(config.LedPresets.StaticGradient, hex) {
 				c.JSON(http.StatusBadRequest, gin.H{"details": "That color has been already added to this mode."})
 				return
 			}
 
-			newPreset := config.LedPresets.FadingColors
+			newPreset := config.LedPresets.StaticGradient
 			newPreset = append(newPreset, hex)
 
 			config.LedActive.Color = newPreset
-			config.LedPresets.FadingColors = newPreset
+			config.LedPresets.StaticGradient = newPreset
 		} else if mode == "FadingRainbow" {
 			c.JSON(http.StatusBadRequest, gin.H{"details": "Unexpected color for this mode."})
 			return

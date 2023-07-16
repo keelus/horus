@@ -1,6 +1,6 @@
 StaticColor:
     - FDC830
-FadingColors:
+StaticGradient:
     - FDC830
     - F37335
 FadingRainbow: 50

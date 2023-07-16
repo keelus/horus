@@ -29,7 +29,7 @@ $(".checkLine").on("click", (e) => {
 		success: function (r) {
 			$(".option.active").removeClass("active")
 			$(e.target).closest(".option").addClass("active")
-			if (mode != "FadingColors" && mode != "FadingRainbow") {
+			if (mode != "StaticGradient" && mode != "FadingRainbow") {
 				$($(e.target).closest(".option").find(".color")[0]).addClass("selected")
 			}
 			showPopup(`Led mode applied.`, 3000, "success")
@@ -54,7 +54,7 @@ $(".color:not(.color.new)").on("click", (e) => {
 	mode = $(e.target).closest(".option").attr("mode")
 	hex = $(e.target).closest(".color").attr("hex")
 
-	if (mode == "FadingColors" || mode == "FadingRainbow") // On fading colors all created are activated. On fading rainbow entire spectrum.
+	if (mode == "StaticGradient" || mode == "FadingRainbow") // On fading colors all created are activated. On fading rainbow entire spectrum.
 		return false
 
 	
@@ -84,7 +84,7 @@ $(".color .delete").on("click", (e) => {
 			$(".color.selected").removeClass("selected")
 			option = $(e.target).closest(".option")
 			$(e.target).closest(".color").remove()
-			if(mode != "FadingColors")
+			if(mode != "StaticGradient")
 				$($(option).find(".color")[0]).addClass("selected")
 			showPopup(`Color removed.`, 3000, "success")
 		},
