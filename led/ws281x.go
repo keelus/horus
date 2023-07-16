@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"horus/config"
 	"horus/internal"
+	"math"
 	"strconv"
 	"time"
 
@@ -140,61 +141,48 @@ func wheel(pos int) uint32 {
 
 func Rainbow() {
 	LedStrip.SetBrightness(0, config.LedActive.Brightness)
-	for j := 0; j < 256; j++ {
-		for i := 0; i < 120; i++ {
-			LedStrip.Leds(0)[i] = wheel((i + j) & 255)
+
+	for {
+		for j := 0; j < 256; j++ {
+			for i := 0; i < 120; i++ {
+				LedStrip.Leds(0)[i] = wheel((i + j) & 255)
+			}
+
+			if config.LedActive.ActiveMode != "FadingRainbow" || StopRainbow { // TODO: Better way
+				StopRainbow = false
+				return
+			}
+			LedStrip.Render()
+			time.Sleep(time.Duration(config.LedActive.Cooldown) * time.Millisecond)
+
 		}
-
-		if config.LedActive.ActiveMode != "FadingRainbow" || StopRainbow { // TODO: Better way
-			StopRainbow = false
-			return
-		}
-		LedStrip.Render()
-		time.Sleep(time.Duration(config.LedActive.Cooldown) * time.Millisecond)
-
 	}
-	if config.LedActive.ActiveMode == "FadingRainbow" { // TODO: Better way
-		Rainbow()
-	}
+}
 
+func gaussVal(x int) int {
+	speed := 500
+	mi := 0.5
+	sigma := 0.14
+	val := 255 * math.Exp(-((math.Pow((float64(x)/float64(speed))-mi, 2)) / (2 * math.Pow(sigma, 2))))
+	return int(val)
 }
 
 func BreathingColor() {
-	currentBrightness := config.LedActive.Brightness
-
-	minBrightness := 60
 	Draw()
 
-	// TODO : USE SINE WAVE
+	for {
+		for x := 0; x < 500; x++ {
+			val := gaussVal(x)
 
-	// Down
-	for i := currentBrightness; i > minBrightness; i-- {
-		LedStrip.SetBrightness(0, i)
-		fmt.Printf("Brightness: %d\n", i)
-		ForceDraw(config.LedActive.Color, i)
-		time.Sleep(time.Duration(config.LedActive.Cooldown) * time.Millisecond)
-		if config.LedActive.ActiveMode != "BreathingColor" || StopBreathing { // TODO: Better way
-			StopBreathing = false
-			return
+			fmt.Printf("Bright: %d\n", val)
+			ForceDraw(config.LedActive.Color, val)
+			LedStrip.SetBrightness(0, val)
+			time.Sleep(5 * time.Millisecond)
+
+			if config.LedActive.ActiveMode != "BreathingColor" || StopBreathing {
+				StopBreathing = false
+				return
+			}
 		}
 	}
-
-	// Up
-	for i := minBrightness; i < currentBrightness; i++ {
-		LedStrip.SetBrightness(0, i)
-		fmt.Printf("Brightness: %d\n", i)
-		ForceDraw(config.LedActive.Color, i)
-		time.Sleep(time.Duration(config.LedActive.Cooldown) * time.Millisecond)
-		if config.LedActive.ActiveMode != "BreathingColor" || StopBreathing { // TODO: Better way
-			StopBreathing = false
-			return
-		}
-	}
-
-	if config.LedActive.ActiveMode != "BreathingColor" || StopBreathing { // TODO: Better way
-		StopBreathing = false
-		return
-	}
-
-	BreathingColor()
 }
