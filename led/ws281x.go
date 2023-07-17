@@ -181,7 +181,7 @@ func gaussVal(x int, speed int) int {
 	return int(val)
 }
 
-func BreathingColor() {
+func BreathingColor() { // TODO: Be able to invert (255 - val)
 	Draw()
 
 	// Normal value := 50 => 500 of smoothness | 10 => 100 (faster)
