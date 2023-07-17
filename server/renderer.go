@@ -48,27 +48,15 @@ func Renderer() multitemplate.Renderer {
 		},
 		"isActiveColor": func(color string) bool {
 			activeColor := config.LedActive.Color[0]
-
-			if color == activeColor {
-				return true
-			}
-			return false
+			return color == activeColor
 		},
 		"isActiveGradient": func(gradientColors []string) bool {
 			activeGradient := internal.GetGradientStr(config.LedActive.Color)
-
-			if internal.GetGradientStr(gradientColors) == activeGradient {
-				return true
-			}
-			return false
+			return internal.GetGradientStr(gradientColors) == activeGradient
 		},
 		"isActiveMode": func(mode string) bool {
 			activeMode := config.LedActive.ActiveMode
-
-			if mode == activeMode {
-				return true
-			}
-			return false
+			return mode == activeMode
 		},
 	}
 
