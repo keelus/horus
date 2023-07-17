@@ -8,7 +8,7 @@ var gSystem = Gauge(document.getElementById("graph4"),{max: 1,value: 0, extensio
 function getStats(animate) {
 	$.ajax({
 		type: "GET",
-		url: "/back/getStats",
+		url: "/api/getStats",
 		success: function (r) {
 			$("#graph0").removeClass("good warning danger")
 			$("#graph1").removeClass("good warning danger")

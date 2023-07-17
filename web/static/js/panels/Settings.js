@@ -48,7 +48,7 @@ $(".botonGuardar").on("click", (e) => {
 	
 	$.ajax({
 		type: "POST",
-		url: `/back/saveConfiguration/${category}`,
+		url: `/api/settings/saveConfiguration/${category}`,
 		data: postData,
 		success: function (r) {
 			showPopup(`${category} saved.`, 3000, "success")
