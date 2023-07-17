@@ -148,7 +148,8 @@ func getRamUsage() (int, error) {
 	dataLines := strings.Split(string(data), "\n")
 
 	for i := 0; i < len(dataLines); i++ {
-		fmt.Println(strings.Fields(dataLines[i]))
+		dataLine := strings.Fields(dataLines[i])
+		fmt.Printf("%s | %s | %s\n", dataLine[0], dataLine[1], dataLine[2])
 	}
 
 	return 0, nil
