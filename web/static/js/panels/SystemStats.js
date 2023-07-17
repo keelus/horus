@@ -18,7 +18,7 @@ function getStats(animate) {
 
 			tempMax = 85
 			
-			margin = [50, 55]
+			margin = [50, 55] // TODO: Separate margins for each Stat (if needed)
 			gTemperature.setMaxValue(85)
 			gCpu.setMaxValue(100)
 			gRam.setMaxValue(100)

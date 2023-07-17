@@ -266,7 +266,7 @@ $("#brightness").on("input", () => {
 	$("#brightnessVisual").text(brightness + "%")
 })
 $("#setCooldownFadingRainbow").on("click", () => {
-	amount = $("#MSamountRainbow").val()
+	amount = $("#cooldownFadingRainbow").val()
 	mode = "FadingRainbow"
 	
 	$.ajax({
