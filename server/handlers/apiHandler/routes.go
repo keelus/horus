@@ -61,7 +61,7 @@ func HandleLogout(c *gin.Context) {
 func HandleGetStats(c *gin.Context) {
 	var temperature float64
 	var cpuUsage float64
-	var ramUsage int
+	var ramUsage float64
 	var diskUsage [2]float64
 	var sysUptime float64
 
@@ -74,7 +74,7 @@ func HandleGetStats(c *gin.Context) {
 	} else {
 		temperature = float64(internal.RandomValue(0, 85))
 		cpuUsage = float64(internal.RandomValue(0, 100))
-		ramUsage = internal.RandomValue(0, 100)
+		ramUsage = float64(internal.RandomValue(0, 100))
 		diskUsage = [2]float64{float64(internal.RandomValue(0, 120000)), 120000}
 		sysUptime = float64(internal.RandomValue(0, 100000))
 	}
@@ -138,13 +138,14 @@ func getCpuUsage() (float64, error) {
 	return percent, nil
 }
 
-func getRamUsage() (int, error) {
+func getRamUsage() (float64, error) {
 	data, err := ioutil.ReadFile("/proc/meminfo")
 	if err != nil {
 		return 0, err
 	}
 
-	available := 0
+	total := 0
+	free := 0
 
 	dataLines := strings.Split(string(data), "\n")
 
@@ -161,13 +162,17 @@ func getRamUsage() (int, error) {
 		}
 
 		if fields[0] == "MemTotal:" {
-			available = valueInt
+			total = valueInt
 		} else if fields[0] == "MemFree:" {
-			available -= valueInt
+			free = valueInt
 		}
 	}
 
-	return available, nil
+	used := total - free
+
+	percent := float64(used*100) / float64(total)
+
+	return percent, nil
 }
 func getDiskUsage() ([2]float64, error) {
 	cmd := exec.Command("df", "-h", "/")
