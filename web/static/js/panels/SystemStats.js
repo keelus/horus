@@ -31,6 +31,8 @@ function getStats(animate) {
 			gDisk.setMaxValue(r.DiskMax)
 			gSystem.setMaxValue(100000)
 
+			console.log(r)
+
 			if(animate){
 				gTemperature.setValueAnimated(r.Temperature)
 				gCpu.setValueAnimated(r.CPU)
