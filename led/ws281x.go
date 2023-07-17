@@ -180,7 +180,7 @@ func BreathingColor() {
 		for x := 0; x < 500; x++ {
 			val := gaussVal(x)
 
-			fmt.Printf("Bright: %d\n", val)
+			// fmt.Printf("Bright: %d\n", val)
 			ForceDraw(config.LedActive.Color, val)
 			LedStrip.SetBrightness(0, val)
 			time.Sleep(5 * time.Millisecond)

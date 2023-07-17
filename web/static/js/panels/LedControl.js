@@ -60,8 +60,10 @@ $(".color:not(.color.new)").on("click", (e) => {
 	
 	$.ajax({
 		type: "POST",
-		url: `/api/ledControl/activate/${mode}/${hex}`,
-		// data: postData,
+		url: `/api/ledControl/activate/${mode}`,
+		data: {
+			"hexValue": hex
+		},
 		success: function (r) {
 			$(e.target).closest(".color").addClass("selected")
 			showPopup(`Led color applied.`, 3000, "success")
@@ -78,8 +80,10 @@ $(".color .delete").on("click", (e) => {
 
 	$.ajax({
 		type: "POST",
-		url: `/api/ledControl/delete/${mode}/${hex}`,
-		// data: postData,
+		url: `/api/ledControl/delete/${mode}`,
+		data:  {
+			"hexValue":hex
+		},
 		success: function (r) {
 			$(".color.selected").removeClass("selected")
 			option = $(e.target).closest(".option")
@@ -106,8 +110,10 @@ $(document).on("click", "#addColor", (e) => {
 	
 	$.ajax({
 		type: "POST",
-		url: `/api/ledControl/add/${mode}/${hex}`,
-		// data: postData,
+		url: `/api/ledControl/add/${mode}`,
+		data:  {
+			"hexValue":hex
+		},
 		success: function (r) {
 			showPopup(`Color added.`, 3000, "success")
 			
@@ -241,7 +247,7 @@ $(document).on("click", "#addGradient", (e) => {
 	
 	$.ajax({
 		type: "POST",
-		url: `/api/ledControl/addGradient`,
+		url: `/api/ledControl/add/StaticGradient`,
 		data: {
 			"hexValues":JSON.stringify(hexValues)
 		},
@@ -261,7 +267,7 @@ $(".gradient .delete").on("click", (e) => {
 	
 	$.ajax({
 		type: "POST",
-		url: `/api/ledControl/deleteGradient`,
+		url: `/api/ledControl/delete/StaticGradient`,
 		data: {
 			"rawGradient":rawGradient
 		},
@@ -291,7 +297,7 @@ $(".gradient:not(.gradient.new)").on("click", (e) => {
 	
 	$.ajax({
 		type: "POST",
-		url: `/api/ledControl/activateGradient/`,
+		url: `/api/ledControl/activate/StaticGradient`,
 		data: {
 			"rawGradient":rawGradient
 		},
