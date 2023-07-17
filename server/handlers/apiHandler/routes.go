@@ -122,7 +122,7 @@ func getDiskUsage() ([2]int, error) {
 		return [2]int{-1, -1}, err
 	}
 
-	lines := strings.Split(string(output), "/n")
+	lines := strings.Split(string(output), "\n")
 	dataLine := lines[1]
 
 	fields := strings.Fields(dataLine)
