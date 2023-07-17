@@ -1,6 +1,7 @@
 package apiHandler
 
 import (
+	"fmt"
 	"horus/config"
 	"horus/internal"
 	"io/ioutil"
@@ -10,12 +11,12 @@ import (
 
 	"net/http"
 
-	"horus/main"
-
 	"github.com/gin-contrib/sessions"
 	"github.com/gin-gonic/gin"
 	"golang.org/x/crypto/bcrypt"
 )
+
+const CUR_RASP = true
 
 func HandleLogin(c *gin.Context) {
 	session := sessions.Default(c)
@@ -62,7 +63,7 @@ func HandleGetStats(c *gin.Context) {
 	var diskUsage [2]int
 	var sysUptime float64
 
-	if main.CUR_RASP {
+	if CUR_RASP {
 		temperature, _ = getTemp()
 		cpuUsage, _ = getCpuUsage()
 		ramUsage, _ = getRamUsage()
@@ -76,6 +77,14 @@ func HandleGetStats(c *gin.Context) {
 		sysUptime = float64(internal.RandomValue(0, 100000))
 	}
 
+	fmt.Println(gin.H{ // TODO : Change to receive real data. Placeholder for now.
+		"Temperature": temperature,
+		"CPU":         cpuUsage,
+		"RAM":         ramUsage,
+		"Disk":        diskUsage[0],
+		"DiskMax":     diskUsage[1],
+		"Uptime":      sysUptime,
+	})
 	c.JSON(http.StatusOK, gin.H{ // TODO : Change to receive real data. Placeholder for now.
 		"Temperature": temperature,
 		"CPU":         cpuUsage,
