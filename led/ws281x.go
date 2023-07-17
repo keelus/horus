@@ -174,8 +174,7 @@ func Rainbow() {
 	}
 }
 
-func gaussVal(x int) int {
-	speed := 500
+func gaussVal(x int, speed int) int {
 	mi := 0.5
 	sigma := 0.14
 	val := 255 * math.Exp(-((math.Pow((float64(x)/float64(speed))-mi, 2)) / (2 * math.Pow(sigma, 2))))
@@ -185,9 +184,13 @@ func gaussVal(x int) int {
 func BreathingColor() {
 	Draw()
 
+	// Normal value := 50 => 500 of smoothness | 10 => 100 (faster)
+	//
+
+	speed := config.LedActive.Cooldown / 10
 	for {
-		for x := 0; x < 500; x++ {
-			val := gaussVal(x)
+		for x := 0; x < speed; x++ {
+			val := gaussVal(x, speed)
 
 			// fmt.Printf("Bright: %d\n", val)
 			ForceDraw(config.LedActive.Color, val)
