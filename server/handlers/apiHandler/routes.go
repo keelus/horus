@@ -16,6 +16,9 @@ import (
 	"golang.org/x/crypto/bcrypt"
 )
 
+var previousCpuIdle int
+var previousCpuTotal int
+
 const CUR_RASP = true
 
 func HandleLogin(c *gin.Context) {
@@ -110,8 +113,33 @@ func getTemp() (float64, error) {
 	return valueF64, nil
 }
 func getCpuUsage() (int, error) {
-	return 0, nil
+	data, err := ioutil.ReadFile("/proc/uptime")
+	if err != nil {
+		return 0, err
+	}
+
+	lines := strings.Split(string(data), "\n")
+	dataLineB := lines[0]
+
+	dataLine := strings.Fields(string(dataLineB))
+
+	idle, _ := strconv.Atoi(dataLine[4])
+
+	total := 0
+	for i := 1; i < 10; i++ {
+		fmt.Println("adding: ", dataLine[i])
+		valueInt, _ := strconv.Atoi(dataLine[i])
+		total += valueInt
+	}
+
+	percent := (1 - (idle-previousCpuIdle)/(total-previousCpuTotal)) * 100
+
+	previousCpuIdle = idle
+	previousCpuTotal = total
+
+	return percent, nil
 }
+
 func getRamUsage() (int, error) {
 	return 0, nil
 }
