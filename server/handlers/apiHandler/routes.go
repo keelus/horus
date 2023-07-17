@@ -16,8 +16,7 @@ import (
 	"golang.org/x/crypto/bcrypt"
 )
 
-var previousCpuIdle int
-var previousCpuTotal int
+var previousCpuIdle, previousCpuTotal int
 
 const CUR_RASP = true
 
@@ -113,7 +112,7 @@ func getTemp() (float64, error) {
 	return valueF64, nil
 }
 func getCpuUsage() (int, error) {
-	data, err := ioutil.ReadFile("/proc/uptime")
+	data, err := ioutil.ReadFile("/proc/stat")
 	if err != nil {
 		return 0, err
 	}
