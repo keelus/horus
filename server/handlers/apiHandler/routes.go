@@ -145,14 +145,26 @@ func getRamUsage() (int, error) {
 		return 0, err
 	}
 
+	available := 0
+
 	dataLines := strings.Split(string(data), "\n")
 
-	for i := 0; i < len(dataLines); i++ {
-		dataLine := strings.Fields(dataLines[i])
-		fmt.Printf("%s | %s | %s\n", dataLine[0], dataLine[1], dataLine[2])
+	for _, dataLine := range dataLines {
+		fields := strings.Fields(dataLine)
+
+		valueInt, _ := strconv.Atoi(fields[1])
+		if fields[0] == "MemTotal" {
+			available = valueInt
+		} else {
+			if fields[0] == "MemFree" || fields[0] == "Buffers" || fields[0] == "Cached" || fields[0] == "Active" {
+				available -= valueInt
+			}
+		}
 	}
 
-	return 0, nil
+	fmt.Println(available)
+
+	return available, nil
 }
 func getDiskUsage() ([2]float64, error) {
 	cmd := exec.Command("df", "-h", "/")
