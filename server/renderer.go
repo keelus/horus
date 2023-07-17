@@ -62,6 +62,14 @@ func Renderer() multitemplate.Renderer {
 			}
 			return false
 		},
+		"isActiveMode": func(mode string) bool {
+			activeMode := config.LedActive.ActiveMode
+
+			if mode == activeMode {
+				return true
+			}
+			return false
+		},
 	}
 
 	r.AddFromFilesFuncs("login", funcs, "web/templates/login.html")

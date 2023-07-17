@@ -8,7 +8,7 @@
 			<input type="range" name="" id="brightness" max="100" value="{{.LedActive.Brightness}}">&nbsp;<span id="brightnessVisual">{{.LedActive.Brightness}}%</span>
 		</div>
 	</div>
-	<div class="option{{if eq .LedActive.ActiveMode "StaticColor"}} active{{end}}" mode="StaticColor">
+	<div class="option{{if isActiveMode "StaticColor"}} active{{end}}" mode="StaticColor">
 			<div class="checkLine">
 				<div class="checkbox">
 					<div class="on"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M0 0v24h24v-24h-24zm11 17l-5-5.299 1.399-1.43 3.574 3.736 6.572-7.007 1.455 1.403-8 8.597z"/></svg></div>
@@ -30,7 +30,7 @@
 			</div>
 		</div>
 		{{if index .UserConfiguration.LedControl 0}}
-			<div class="option{{if eq .LedActive.ActiveMode "StaticGradient"}} active{{end}}" mode="StaticGradient">
+			<div class="option{{if isActiveMode "StaticGradient"}} active{{end}}" mode="StaticGradient">
 				<div class="checkLine">
 					<div class="checkbox">
 						<div class="on"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M0 0v24h24v-24h-24zm11 17l-5-5.299 1.399-1.43 3.574 3.736 6.572-7.007 1.455 1.403-8 8.597z"/></svg></div>
@@ -53,7 +53,7 @@
 			</div>
 		{{end}}
 		{{if index .UserConfiguration.LedControl 1}}
-			<div class="option{{if eq .LedActive.ActiveMode "FadingRainbow"}} active{{end}}" mode="FadingRainbow">
+			<div class="option{{if isActiveMode "FadingRainbow"}} active{{end}}" mode="FadingRainbow">
 				<div class="checkLine">
 					<div class="checkbox">
 						<div class="on"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M0 0v24h24v-24h-24zm11 17l-5-5.299 1.399-1.43 3.574 3.736 6.572-7.007 1.455 1.403-8 8.597z"/></svg></div>
@@ -71,7 +71,7 @@
 			</div>
 		{{end}}
 		{{if index .UserConfiguration.LedControl 2}}
-			<div class="option{{if eq .LedActive.ActiveMode "BreathingColor"}} active{{end}}" mode="BreathingColor">
+			<div class="option{{if isActiveMode "BreathingColor"}} active{{end}}" mode="BreathingColor">
 				<div class="checkLine">
 					<div class="checkbox">
 						<div class="on"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M0 0v24h24v-24h-24zm11 17l-5-5.299 1.399-1.43 3.574 3.736 6.572-7.007 1.455 1.403-8 8.597z"/></svg></div>
