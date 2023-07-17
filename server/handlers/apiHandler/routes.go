@@ -104,6 +104,7 @@ func getTemp() (float64, error) {
 
 	value := strings.TrimPrefix(string(output), "temp=")
 	value = strings.Replace(value, "'C", "", 1)
+	value = strings.TrimSpace(value)
 
 	valueF64, _ := strconv.ParseFloat(value, 64)
 	return valueF64, nil
