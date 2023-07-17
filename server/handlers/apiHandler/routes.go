@@ -133,7 +133,7 @@ func getDiskUsage() ([2]float64, error) {
 	totalSizeF64, _ := strconv.ParseFloat(totalSize, 64)
 	usedSizeF64, _ := strconv.ParseFloat(usedSize, 64)
 
-	return [2]float64{totalSizeF64, usedSizeF64}, nil
+	return [2]float64{usedSizeF64, totalSizeF64}, nil
 }
 func getSysUptime() (float64, error) {
 	data, err := ioutil.ReadFile("/proc/uptime")
