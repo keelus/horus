@@ -126,7 +126,6 @@ func getCpuUsage() (float64, error) {
 
 	total := 0
 	for i := 1; i < len(dataLine); i++ {
-		fmt.Println("adding: ", dataLine[i])
 		valueInt, _ := strconv.Atoi(dataLine[i])
 		total += valueInt
 	}
@@ -163,14 +162,10 @@ func getRamUsage() (int, error) {
 
 		if fields[0] == "MemTotal:" {
 			available = valueInt
-		} else {
-			if fields[0] == "MemFree:" || fields[0] == "Buffers:" || fields[0] == "Cached:" || fields[0] == "Active:" {
-				available -= valueInt
-			}
+		} else if fields[0] == "MemFree:" {
+			available -= valueInt
 		}
 	}
-
-	fmt.Println(available)
 
 	return available, nil
 }
