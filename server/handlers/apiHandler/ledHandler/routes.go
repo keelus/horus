@@ -24,16 +24,17 @@ func SetCooldown(c *gin.Context) {
 	}
 
 	if mode == "BreathingColor" {
+		config.LedPresets.BreathingColor.Cooldown = amount
 		if config.LedActive.ActiveMode != "BreathingColor" {
 			go led.BreathingColor()
 		}
 
 		//config.LedPresets.BreathingColor TODO save cooldown
 	} else if mode == "FadingRainbow" {
+		config.LedPresets.FadingRainbow = amount
 		if config.LedActive.ActiveMode != "FadingRainbow" {
 			go led.Rainbow()
 		}
-		config.LedPresets.FadingRainbow = amount
 	}
 
 	config.LedActive.Cooldown = amount
@@ -41,6 +42,7 @@ func SetCooldown(c *gin.Context) {
 	internal.SaveFile(&config.LedPresets)
 	c.Status(http.StatusOK)
 }
+
 func Activate(c *gin.Context) {
 	if !internal.IsLogged(c) {
 		c.JSON(http.StatusForbidden, gin.H{"details": "User not logged in."})
@@ -74,12 +76,12 @@ func Activate(c *gin.Context) {
 
 		if mode == "StaticColor" {
 			// By default first color is activated. Always will be one at least.
-
 			if hex == "" {
 				led.SetColor([]string{config.LedPresets.StaticColor[0]}) // By default first color will be initialized
 			} else {
 				led.SetColor([]string{hex})
 			}
+
 			config.LedActive.ActiveMode = "StaticColor"
 			config.LedActive.Cooldown = 0
 		} else if mode == "FadingRainbow" {
@@ -97,10 +99,10 @@ func Activate(c *gin.Context) {
 		} else if mode == "BreathingColor" {
 			previousMode := config.LedActive.ActiveMode
 			config.LedActive.ActiveMode = "BreathingColor"
-			config.LedActive.Cooldown = 0
+			config.LedActive.Cooldown = config.LedPresets.BreathingColor.Cooldown
 
 			if hex == "" {
-				led.SetColor([]string{config.LedPresets.BreathingColor[0]}) // By default first color will be initialized
+				led.SetColor([]string{config.LedPresets.BreathingColor.Colors[0]}) // By default first color will be initialized
 			} else {
 				led.SetColor([]string{hex})
 			}
@@ -148,8 +150,12 @@ func Delete(c *gin.Context) {
 
 	if mode == "StaticGradient" {
 		rawGradient := c.PostForm("rawGradient")
-		fmt.Println(rawGradient)
 
+		existingGradients := len(config.LedPresets.StaticGradient)
+		if existingGradients == 1 {
+			c.JSON(http.StatusBadRequest, gin.H{"details": "There must be at least 1 preset gradient."})
+			return
+		}
 		if !internal.GradientExists(rawGradient, config.LedPresets.StaticGradient) {
 			c.JSON(http.StatusBadRequest, gin.H{"details": "That gradient doesn't exist."})
 			return
@@ -185,13 +191,13 @@ func Delete(c *gin.Context) {
 
 			config.LedPresets.StaticColor = newPreset
 		} else if mode == "BreathingColor" {
-			if len(config.LedPresets.BreathingColor) == 1 {
+			if len(config.LedPresets.BreathingColor.Colors) == 1 {
 				c.JSON(http.StatusBadRequest, gin.H{"details": "There must be at least 1 preset color."})
 				return
 			}
 			newPreset := []string{}
 
-			for _, color := range config.LedPresets.BreathingColor {
+			for _, color := range config.LedPresets.BreathingColor.Colors {
 				if color != hex {
 					newPreset = append(newPreset, color)
 				}
@@ -201,7 +207,7 @@ func Delete(c *gin.Context) {
 				config.LedActive.Color[0] = newPreset[0]
 			}
 
-			config.LedPresets.BreathingColor = newPreset
+			config.LedPresets.BreathingColor.Colors = newPreset
 		}
 	}
 
@@ -273,11 +279,11 @@ func Add(c *gin.Context) {
 				return
 			}
 
-			newPreset := config.LedPresets.BreathingColor
+			newPreset := config.LedPresets.BreathingColor.Colors
 			newPreset = append(newPreset, hex)
 
 			config.LedActive.Color = []string{hex}
-			config.LedPresets.BreathingColor = newPreset
+			config.LedPresets.BreathingColor.Colors = newPreset
 		}
 	}
 

@@ -29,11 +29,14 @@ $(".checkLine").on("click", (e) => {
 		success: function (r) {
 			$(".option.active").removeClass("active")
 			$(e.target).closest(".option").addClass("active")
-			if (mode != "StaticGradient" && mode != "FadingRainbow") {
+
+			if (mode == "StaticGradient") {
+				$($(e.target).closest(".option").find(".gradient")[0]).addClass("selected")
+			} else if (mode == "StaticColor" || mode == "BreathingColor"){
 				$($(e.target).closest(".option").find(".color")[0]).addClass("selected")
 			}
+
 			showPopup(`Led mode applied.`, 3000, "success")
-			console.log(r)
 		},
 		error: function(r) {
 			showPopup(r.responseJSON.details, 3000, "error")

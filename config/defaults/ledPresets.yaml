@@ -8,4 +8,6 @@ StaticGradient:
       - F37335
 FadingRainbow: 50
 BreathingColor:
-    - F37335
+  Cooldown: 40
+  Colors:
+  - F37335

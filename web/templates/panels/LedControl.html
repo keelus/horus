@@ -20,7 +20,7 @@
 				<!-- <input type="color" value="{{.CurrentLED}}"> -->
 				<div class="colors">
 					{{ range $i, $color := .LedPresets.StaticColor}}
-						<div class="color {{if eq $color (index $.LedActive.Color 0)}}selected{{end}}" hex="{{$color}}">
+						<div class="color {{if isActiveColor $color}}selected{{end}}" hex="{{$color}}">
 							<div class="delete"><svg clip-rule="evenodd" fill-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m12 10.93 5.719-5.72c.146-.146.339-.219.531-.219.404 0 .75.324.75.749 0 .193-.073.385-.219.532l-5.72 5.719 5.719 5.719c.147.147.22.339.22.531 0 .427-.349.75-.75.75-.192 0-.385-.073-.531-.219l-5.719-5.719-5.719 5.719c-.146.146-.339.219-.531.219-.401 0-.75-.323-.75-.75 0-.192.073-.384.22-.531l5.719-5.719-5.72-5.719c-.146-.147-.219-.339-.219-.532 0-.425.346-.749.75-.749.192 0 .385.073.531.219z"/></svg></div>
 							<div class="background" style="background-color:#{{$color}}"></div>
 						</div>
@@ -42,7 +42,7 @@
 					<!-- <input type="color" value="{{.CurrentLED}}"> -->
 					<div class="gradients">
 						{{ range $i, $gradient := .LedPresets.StaticGradient}}
-							<div class="gradient" raw-gradient="{{gradientString $gradient}}">
+							<div class="gradient {{if isActiveGradient $gradient}}selected{{end}}" raw-gradient="{{gradientString $gradient}}">
 								<div class="delete"><svg clip-rule="evenodd" fill-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m12 10.93 5.719-5.72c.146-.146.339-.219.531-.219.404 0 .75.324.75.749 0 .193-.073.385-.219.532l-5.72 5.719 5.719 5.719c.147.147.22.339.22.531 0 .427-.349.75-.75.75-.192 0-.385-.073-.531-.219l-5.719-5.719-5.719 5.719c-.146.146-.339.219-.531.219-.401 0-.75-.323-.75-.75 0-.192.073-.384.22-.531l5.719-5.719-5.72-5.719c-.146-.147-.219-.339-.219-.532 0-.425.346-.749.75-.749.192 0 .385.073.531.219z"/></svg></div>
 								<div class="background" style="background-image:linear-gradient(to right, {{ gradientString $gradient }})"></div>
 							</div>
@@ -82,8 +82,8 @@
 				<div class="content">
 					<!-- <input type="color" value="{{.CurrentLED}}"> -->
 					<div class="colors">
-						{{ range $i, $color := .LedPresets.BreathingColor}}
-							<div class="color {{if eq $color (index $.LedActive.Color 0)}}selected{{end}}" hex="{{$color}}">
+						{{ range $i, $color := .LedPresets.BreathingColor.Colors}}
+							<div class="color {{if isActiveColor $color}}selected{{end}}" hex="{{$color}}">
 								<div class="delete"><svg clip-rule="evenodd" fill-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m12 10.93 5.719-5.72c.146-.146.339-.219.531-.219.404 0 .75.324.75.749 0 .193-.073.385-.219.532l-5.72 5.719 5.719 5.719c.147.147.22.339.22.531 0 .427-.349.75-.75.75-.192 0-.385-.073-.531-.219l-5.719-5.719-5.719 5.719c-.146.146-.339.219-.531.219-.401 0-.75-.323-.75-.75 0-.192.073-.384.22-.531l5.719-5.719-5.72-5.719c-.146-.147-.219-.339-.219-.532 0-.425.346-.749.75-.749.192 0 .385.073.531.219z"/></svg></div>
 								<div class="background" style="background-color:#{{$color}}"></div>
 							</div>
@@ -92,7 +92,7 @@
 					</div>
 					<div class="inputBox">
 						<div class="text">Cooldown amount:</div>
-						<div><input type="number" id="MSamountColors" placeholder="Milliseconds" value="{{.LedPresets.FadingRainbow}}"></div>
+						<div><input type="number" id="MSamountColors" placeholder="Milliseconds" value="{{.LedPresets.BreathingColor.Cooldown}}"></div>
 					</div>
 					<button id="applyMSBreathingColor">Apply</button>
 				</div>

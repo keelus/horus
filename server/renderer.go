@@ -3,6 +3,7 @@ package server
 import (
 	"fmt"
 	"horus/config"
+	"horus/internal"
 	"html/template"
 	"math/rand"
 	"time"
@@ -44,6 +45,22 @@ func Renderer() multitemplate.Renderer {
 				}
 			}
 			return finalString
+		},
+		"isActiveColor": func(color string) bool {
+			activeColor := config.LedActive.Color[0]
+
+			if color == activeColor {
+				return true
+			}
+			return false
+		},
+		"isActiveGradient": func(gradientColors []string) bool {
+			activeGradient := internal.GetGradientStr(config.LedActive.Color)
+
+			if internal.GetGradientStr(gradientColors) == activeGradient {
+				return true
+			}
+			return false
 		},
 	}
 

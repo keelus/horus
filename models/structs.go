@@ -44,10 +44,14 @@ type FontDetails struct {
 
 // LED
 type LedPresets struct {
-	StaticColor    []string   `yaml:"StaticColor"`
-	StaticGradient [][]string `yaml:"StaticGradient"`
-	FadingRainbow  int        `yaml:"FadingRainbow"`
-	BreathingColor []string   `yaml:"BreathingColor"`
+	StaticColor    []string       `yaml:"StaticColor"`
+	StaticGradient [][]string     `yaml:"StaticGradient"`
+	FadingRainbow  int            `yaml:"FadingRainbow"`
+	BreathingColor BreathingColor `yaml:"BreathingColor"`
+}
+type BreathingColor struct {
+	Cooldown int      `yaml:"Cooldown"`
+	Colors   []string `yaml:"Colors"`
 }
 type LedActive struct {
 	ActiveMode string   `yaml:"ActiveMode"`
