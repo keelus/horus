@@ -152,6 +152,10 @@ func getRamUsage() (int, error) {
 	for _, dataLine := range dataLines {
 		fields := strings.Fields(dataLine)
 
+		if len(fields) < 2 {
+			continue
+		}
+
 		valueInt, _ := strconv.Atoi(fields[1])
 		if fields[0] == "MemTotal" {
 			available = valueInt
