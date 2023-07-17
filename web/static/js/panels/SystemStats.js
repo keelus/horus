@@ -16,6 +16,8 @@ function getStats(animate) {
 			$("#graph3").removeClass("good warning danger")
 			$("#graph4").removeClass("good warning danger")
 
+			tempMax = 85
+			
 			margin = [50, 55]
 			gTemperature.setMaxValue(85)
 			gCpu.setMaxValue(100)
@@ -40,7 +42,7 @@ function getStats(animate) {
 			}
 			
 			
-			if (r.Temperature * 100 / tMax < margin[0]) {$("#graph0").addClass("good")} else if (r.Temperature * 100 / tMax >= margin[0] && r.Temperature * 100 / tMax < margin[1]) {$("#graph0").addClass("warning")} else {$("#graph0").addClass("danger")}
+			if (r.Temperature * 100 / tempMax < margin[0]) {$("#graph0").addClass("good")} else if (r.Temperature * 100 / tempMax >= margin[0] && r.Temperature * 100 / tempMax < margin[1]) {$("#graph0").addClass("warning")} else {$("#graph0").addClass("danger")}
 			if (r.CPU < margin[0]) {$("#graph1").addClass("good")} else if (r.CPU >= margin[0] && r.CPU < margin[1]) {$("#graph1").addClass("warning")} else {$("#graph1").addClass("danger")}
 			if (r.RAM < margin[0]) {$("#graph2").addClass("good")} else if (r.RAM >= margin[0] && r.RAM < margin[1]) {$("#graph2").addClass("warning")} else {$("#graph2").addClass("danger")}
 			if (r.Disk * 100 / r.DiskMax < margin[0]) {$("#graph3").addClass("good")} else if (r.Disk * 100 / r.DiskMax >= margin[0] && r.Disk * 100 / r.DiskMax < margin[1]) {$("#graph3").addClass("warning")} else {$("#graph3").addClass("danger")}
