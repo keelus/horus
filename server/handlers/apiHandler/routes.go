@@ -140,6 +140,17 @@ func getCpuUsage() (float64, error) {
 }
 
 func getRamUsage() (int, error) {
+	data, err := ioutil.ReadFile("/proc/meminfo")
+	if err != nil {
+		return 0, err
+	}
+
+	dataLines := strings.Split(string(data), "\n")
+
+	for i := 0; i < len(dataLines); i++ {
+		fmt.Println(strings.Fields(dataLines[i]))
+	}
+
 	return 0, nil
 }
 func getDiskUsage() ([2]float64, error) {
