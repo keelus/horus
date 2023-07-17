@@ -125,7 +125,7 @@ func getCpuUsage() (int, error) {
 	idle, _ := strconv.Atoi(dataLine[4])
 
 	total := 0
-	for i := 1; i < 10; i++ {
+	for i := 1; i < len(dataLine)-1; i++ {
 		fmt.Println("adding: ", dataLine[i])
 		valueInt, _ := strconv.Atoi(dataLine[i])
 		total += valueInt
