@@ -60,7 +60,7 @@ func HandleLogout(c *gin.Context) {
 }
 func HandleGetStats(c *gin.Context) {
 	var temperature float64
-	var cpuUsage int
+	var cpuUsage float64
 	var ramUsage int
 	var diskUsage [2]float64
 	var sysUptime float64
@@ -73,7 +73,7 @@ func HandleGetStats(c *gin.Context) {
 		sysUptime, _ = getSysUptime()
 	} else {
 		temperature = float64(internal.RandomValue(0, 85))
-		cpuUsage = internal.RandomValue(0, 100)
+		cpuUsage = float64(internal.RandomValue(0, 100))
 		ramUsage = internal.RandomValue(0, 100)
 		diskUsage = [2]float64{float64(internal.RandomValue(0, 120000)), 120000}
 		sysUptime = float64(internal.RandomValue(0, 100000))
@@ -111,7 +111,7 @@ func getTemp() (float64, error) {
 	valueF64, _ := strconv.ParseFloat(value, 64)
 	return valueF64, nil
 }
-func getCpuUsage() (int, error) {
+func getCpuUsage() (float64, error) {
 	data, err := ioutil.ReadFile("/proc/stat")
 	if err != nil {
 		return 0, err
@@ -125,13 +125,13 @@ func getCpuUsage() (int, error) {
 	idle, _ := strconv.Atoi(dataLine[4])
 
 	total := 0
-	for i := 1; i < len(dataLine)-1; i++ {
+	for i := 1; i < len(dataLine); i++ {
 		fmt.Println("adding: ", dataLine[i])
 		valueInt, _ := strconv.Atoi(dataLine[i])
 		total += valueInt
 	}
 
-	percent := (1 - (idle-previousCpuIdle)/(total-previousCpuTotal)) * 100
+	percent := (1 - float64(idle-previousCpuIdle)/float64(total-previousCpuTotal)) * 100
 
 	previousCpuIdle = idle
 	previousCpuTotal = total
