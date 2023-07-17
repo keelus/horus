@@ -5,6 +5,7 @@ import (
 	"horus/config"
 	"horus/internal"
 	"math"
+	"os"
 	"strconv"
 	"time"
 
@@ -32,7 +33,7 @@ func Init() {
 
 	options := ws2811.DefaultOptions
 	options.Channels[0].Brightness = config.LedActive.Brightness
-	options.Channels[0].LedCount = NumberOfLeds
+	options.Channels[0].LedCount = NumberOfLeds // TODO: Led amount given by client
 
 	LedStrip, err = ws2811.MakeWS2811(&options)
 	if err != nil {
@@ -44,14 +45,23 @@ func Init() {
 		fmt.Printf("failed to initialize LED strip: %v\n", err)
 	}
 
-	if config.LedActive.ActiveMode == "StaticColor" {
+	switch config.LedActive.ActiveMode {
+	case "StaticColor":
 		Draw()
-	} else {
-		if config.LedActive.ActiveMode == "FadingRainbow" {
-			go Rainbow()
-		} else if config.LedActive.ActiveMode == "BreathingColor" {
-			go BreathingColor()
-		}
+		break
+	case "StaticGradient":
+		DrawGradient()
+		break
+	case "FadingRainbow":
+		go Rainbow()
+		break
+	case "BreathingColor":
+		go BreathingColor()
+		break
+	default:
+		fmt.Println("Unexpected LED color mode.")
+		os.Exit(-1)
+		break
 	}
 }
 
@@ -63,7 +73,11 @@ func SetColor(color []string) {
 }
 
 func SetBrightness(brightness int) { // TODO: Will return true once transition is finished to avoid glitching while sending multiple SetBrightness from client
-	if config.LedActive.ActiveMode == "StaticColor" { // Brightness fading will only occur on Static Color to prevent unexpected flashing
+	if config.LedActive.ActiveMode != "StaticColor" {
+		config.LedActive.Brightness = brightness
+		LedStrip.SetBrightness(0, brightness)
+		internal.SaveFile(&config.LedActive)
+	} else { // Brightness fading will only occur on Static Color to prevent unexpected flashing
 		currentBrightness := config.LedActive.Brightness
 		duration := 1 * time.Second
 
@@ -89,10 +103,6 @@ func SetBrightness(brightness int) { // TODO: Will return true once transition i
 		LedStrip.SetBrightness(0, brightness)
 		internal.SaveFile(&config.LedActive)
 		Draw()
-	} else {
-		config.LedActive.Brightness = brightness
-		LedStrip.SetBrightness(0, brightness)
-		internal.SaveFile(&config.LedActive)
 	}
 }
 
@@ -132,7 +142,6 @@ func ForceDraw(color []string, brightness int) {
 }
 
 // Code translated to Golang from Python [rpi-ws281x-python example.py]
-
 func wheel(pos int) uint32 {
 	if pos < 85 {
 		return uint32(pos*3)<<16 | uint32(255-pos*3)<<8
@@ -223,7 +232,6 @@ func DrawGradient() {
 }
 
 func generateGradient(colors []Color) [NumberOfLeds]Color {
-
 	leds := [NumberOfLeds]Color{}
 
 	increment := float64(NumberOfLeds-1) / float64(len(colors)-1)
