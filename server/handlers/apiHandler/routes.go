@@ -16,13 +16,6 @@ func HandleLogin(c *gin.Context) {
 	username := c.PostForm("Username")
 	password := c.PostForm("Password")
 
-	// cryptedPassword, err := bcrypt.GenerateFromPassword([]byte(password), bcrypt.DefaultCost)
-	// if err != nil {
-	// 	c.JSON(http.StatusInternalServerError, gin.H{
-	// 		"Status": "error",
-	// 	})
-	// }
-
 	hasError := false
 
 	if config.UserConfiguration.Security.UserInput {
