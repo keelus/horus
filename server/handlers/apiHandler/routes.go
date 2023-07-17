@@ -116,7 +116,24 @@ func getRamUsage() (int, error) {
 	return 0, nil
 }
 func getDiskUsage() ([2]int, error) {
-	return [2]int{0, 0}, nil
+	cmd := exec.Command("df", "-h", "/")
+	output, err := cmd.CombinedOutput()
+	if err != nil {
+		return [2]int{-1, -1}, err
+	}
+
+	lines := strings.Split(string(output), "/n")
+	dataLine := lines[1]
+
+	fields := strings.Fields(dataLine)
+
+	totalSize := fields[1]
+	usedSize := fields[2]
+
+	totalSizeInt, _ := strconv.Atoi(totalSize)
+	usedSizeInt, _ := strconv.Atoi(usedSize)
+
+	return [2]int{usedSizeInt, totalSizeInt}, nil
 }
 func getSysUptime() (float64, error) {
 	data, err := ioutil.ReadFile("/proc/uptime")
