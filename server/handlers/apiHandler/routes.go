@@ -156,7 +156,11 @@ func getRamUsage() (int, error) {
 			continue
 		}
 
+		fmt.Println("Type: ", fields[0])
+		fmt.Println("Value: ", fields[1])
+
 		valueInt, _ := strconv.Atoi(fields[1])
+		fmt.Println("ValInt: ", valueInt)
 		if fields[0] == "MemTotal" {
 			available = valueInt
 		} else {
