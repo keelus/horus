@@ -187,7 +187,7 @@ func BreathingColor() {
 	// Normal value := 50 => 500 of smoothness | 10 => 100 (faster)
 	//
 
-	speed := config.LedActive.Cooldown / 10
+	speed := config.LedActive.Cooldown * 10
 	for {
 		for x := 0; x < speed; x++ {
 			val := gaussVal(x, speed)
