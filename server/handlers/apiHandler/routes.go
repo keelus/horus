@@ -60,7 +60,7 @@ func HandleGetStats(c *gin.Context) {
 	var temperature float64
 	var cpuUsage int
 	var ramUsage int
-	var diskUsage [2]int
+	var diskUsage [2]float64
 	var sysUptime float64
 
 	if CUR_RASP {
@@ -73,7 +73,7 @@ func HandleGetStats(c *gin.Context) {
 		temperature = float64(internal.RandomValue(0, 85))
 		cpuUsage = internal.RandomValue(0, 100)
 		ramUsage = internal.RandomValue(0, 100)
-		diskUsage = [2]int{internal.RandomValue(0, 120000), 120000}
+		diskUsage = [2]float64{float64(internal.RandomValue(0, 120000)), 120000}
 		sysUptime = float64(internal.RandomValue(0, 100000))
 	}
 
