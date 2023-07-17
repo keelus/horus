@@ -127,8 +127,8 @@ func getDiskUsage() ([2]int, error) {
 
 	fields := strings.Fields(dataLine)
 
-	totalSize := fields[1]
-	usedSize := fields[2]
+	totalSize := strings.Replace(fields[1], "G", "", 1)
+	usedSize := strings.Replace(fields[2], "G", "", 1)
 
 	totalSizeInt, _ := strconv.Atoi(totalSize)
 	usedSizeInt, _ := strconv.Atoi(usedSize)
