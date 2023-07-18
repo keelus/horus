@@ -15,7 +15,7 @@ import (
 //	# DESIGN & PERSONALISATION
 //		Load and save system. Compatibility with scss/css
 
-const CUR_VERSION = "0.7.8 beta"
+const CUR_VERSION = "0.7.9 beta"
 
 func init() {
 
