@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"horus/config"
 	"horus/led"
+	"horus/logger"
 	"horus/server"
 	"os"
 
@@ -17,6 +18,7 @@ import (
 const CUR_VERSION = "0.7.8 beta"
 
 func init() {
+
 	fmt.Println("Initializing horus...")
 	if !fileExists("config/userConfig.yaml") {
 		fmt.Println("User configuration has not been found. Initializing horus setup...")
@@ -31,7 +33,9 @@ func init() {
 }
 
 func main() {
+	logger.Init()
 	led.Init()
+	logger.Log(nil, logger.UP, "Server UP and running on port :80.") // check
 	server.Init()
 }
 

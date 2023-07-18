@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"horus/config"
 	"horus/internal"
+	"horus/logger"
 	"io/ioutil"
 	"os/exec"
 	"strconv"
@@ -40,6 +41,11 @@ func HandleLogin(c *gin.Context) {
 	}
 
 	if hasError {
+		if config.UserConfiguration.Security.UserInput {
+			logger.Log(c, logger.LOGIN, fmt.Sprintf("Unsuccessful login attempt [username='%s'].", username))
+		} else {
+			logger.Log(c, logger.LOGIN, "Unsuccessful login attempt.")
+		}
 		c.JSON(http.StatusUnauthorized, gin.H{
 			"Status": "error",
 		})
@@ -47,6 +53,7 @@ func HandleLogin(c *gin.Context) {
 		session.Clear()
 		session.Set("LoggedIn", true)
 		session.Save()
+		logger.Log(c, logger.LOGIN, "Successfull login.")
 		c.JSON(http.StatusOK, gin.H{
 			"Status": "OK",
 		})
@@ -56,6 +63,7 @@ func HandleLogout(c *gin.Context) {
 	session := sessions.Default(c)
 	session.Clear()
 	session.Save()
+	logger.Log(c, logger.LOGIN, "User logout.")
 	c.Redirect(http.StatusTemporaryRedirect, "/")
 }
 func HandleGetStats(c *gin.Context) {

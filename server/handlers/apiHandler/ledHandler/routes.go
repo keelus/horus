@@ -6,6 +6,7 @@ import (
 	"horus/config"
 	"horus/internal"
 	"horus/led"
+	"horus/logger"
 	"net/http"
 	"strconv"
 	"strings"
@@ -85,6 +86,7 @@ func Add(c *gin.Context) {
 		}
 	}
 
+	logger.Log(c, logger.LED, fmt.Sprintf("Led hex/gradient added to mode='%s'", mode))
 	internal.SaveFile(&config.LedPresets)
 	internal.SaveFile(&config.LedActive) // TODO activate new gradient
 	c.Status(http.StatusOK)
@@ -161,6 +163,7 @@ func Delete(c *gin.Context) {
 		}
 	}
 
+	logger.Log(c, logger.LED, fmt.Sprintf("Led hex/gradient deleted from mode='%s'", mode))
 	internal.SaveFile(&config.LedActive)
 	internal.SaveFile(&config.LedPresets)
 	c.Status(http.StatusOK)
@@ -238,9 +241,9 @@ func Activate(c *gin.Context) {
 			}
 		}
 
-		c.Status(http.StatusOK)
 	}
 	internal.SaveFile(&config.LedActive)
+	logger.Log(c, logger.LED, fmt.Sprintf("Led hex/gradient activated. Mode='%s'", mode))
 	// c.JSON(http.StatusOK, gin.H{"Color": config.LedActive.Color, "Brightness": config.LedActive.Brightness, "Cooldown": config.LedActive.Cooldown})
 	c.Status(http.StatusOK)
 }
@@ -257,10 +260,13 @@ func SetBrightness(c *gin.Context) {
 		return
 	}
 
-	led.SetBrightness(int(valuePercent * 255 / 100))
+	newVal := int(valuePercent * 255 / 100)
+	led.SetBrightness(newVal)
 
 	internal.SaveFile(&config.LedActive)
+	logger.Log(c, logger.LED, fmt.Sprintf("Led brightness set to '%d'", newVal))
 	c.JSON(http.StatusOK, gin.H{"Color": config.LedActive.Color, "Brightness": config.LedActive.Brightness, "Cooldown": config.LedActive.Cooldown})
+	return
 }
 
 func SetCooldown(c *gin.Context) {
@@ -287,6 +293,7 @@ func SetCooldown(c *gin.Context) {
 	}
 
 	config.LedActive.Cooldown = amount
+	logger.Log(c, logger.LED, fmt.Sprintf("Led cooldown set to '%d' in mode='%s'", amount, mode))
 	internal.SaveFile(&config.LedActive)
 	internal.SaveFile(&config.LedPresets)
 	c.Status(http.StatusOK)

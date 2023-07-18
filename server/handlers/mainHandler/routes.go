@@ -3,6 +3,7 @@ package mainHandler
 import (
 	"horus/config"
 	"horus/internal"
+	"horus/logger"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -20,4 +21,5 @@ func HandleLogin(c *gin.Context) {
 	c.HTML(http.StatusOK, "login", gin.H{
 		"UserConfiguration": config.UserConfiguration,
 	})
+	logger.Log(c, logger.VISIT, "Visit to /login.")
 }

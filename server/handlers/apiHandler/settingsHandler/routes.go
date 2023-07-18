@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"horus/config"
 	"horus/internal"
+	"horus/logger"
 	"net/http"
 	"strconv"
 	"strings"
@@ -159,6 +160,7 @@ func SaveConfiguration(c *gin.Context) {
 		if err != nil {
 			c.JSON(http.StatusInternalServerError, map[string]string{"details": "Error while saving the user configuration. 500", "field": ""})
 		} else {
+			logger.Log(c, logger.SETTING, fmt.Sprintf("Settings changed [category='%s'].", category)) // TODO: Specify
 			c.Status(http.StatusOK)
 		}
 		return

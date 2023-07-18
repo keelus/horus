@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"horus/config"
 	"horus/internal"
+	"horus/logger"
 	"math"
 	"os"
 	"strconv"
@@ -63,6 +64,8 @@ func Init() {
 		os.Exit(-1)
 		break
 	}
+
+	logger.Log(nil, logger.UP, "Led strip service loaded.")
 }
 
 func SetColor(color []string) {
