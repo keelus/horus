@@ -1,4 +1,5 @@
-var gTemperature = Gauge(document.getElementById("graph0"),{max: 1,value: 0, extension: " C"});
+var temperatureUnit = temperatureUnit || "C"
+var gTemperature = Gauge(document.getElementById("graph0"),{max: 1,value: 0, extension: temperatureUnit});
 var gCpu = Gauge(document.getElementById("graph1"),{max: 1,value: 0, extension: " %"});
 var gRam = Gauge(document.getElementById("graph2"),{max: 1,value: 0, extension: " %"});
 var gDisk = Gauge(document.getElementById("graph3"),{max: 1,value: 0, extension: " GB"});
@@ -24,17 +25,20 @@ function getStats(animate) {
 			gRam.setMaxValue(100)
 			gDisk.setMaxValue(r.DiskMax)
 			gSystem.setMaxValue(100000)
-
-			console.log(r)
+			
+			temperatureConverted = r.Temperature // Celsius
+			if (temperatureUnit == "F") {
+				temperatureConverted = (r.Temperature * 1.8) + 32
+			}
 
 			if(animate){
-				gTemperature.setValueAnimated(r.Temperature)
+				gTemperature.setValueAnimated(temperatureConverted)
 				gCpu.setValueAnimated(r.CPU)
 				gRam.setValueAnimated(r.RAM)
 				gDisk.setValueAnimated(r.Disk)
 				gSystem.setValueAnimated(r.Uptime)
 			} else {
-				gTemperature.setValue(r.Temperature)
+				gTemperature.setValue(temperatureConverted)
 				gCpu.setValue(r.CPU)
 				gRam.setValue(r.RAM)
 				gDisk.setValue(r.Disk)
@@ -48,7 +52,7 @@ function getStats(animate) {
 			if (r.Disk * 100 / r.DiskMax < margin[0]) {$("#graph3").addClass("good")} else if (r.Disk * 100 / r.DiskMax >= margin[0] && r.Disk * 100 / r.DiskMax < margin[1]) {$("#graph3").addClass("warning")} else {$("#graph3").addClass("danger")}
 		},
 		error: function(r) {
-			// showPopup("Error getting stats", 3000, "error")
+			showPopup("Error getting stats. Check browser console.", 3000, "error")
 			console.log(r)
 		}
 	});

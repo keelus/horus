@@ -80,7 +80,9 @@
 			
 			<div class="category Logging" category="Logging">
 				<div class="title">Logging</div>
-				<div class="details">Choose wether to log or not the user access, settings changes, etc.</div>
+				<div class="details">Choose wether to log (to a file) or not the user access, settings changes, etc. <br>
+					Terminal logging will remain activated.
+				</div>
 				<div class="content">
 					<input type="checkbox" id="logging0" {{if .UserConfiguration.Logging }}checked{{end}}> <label for="logging0">Enabled/disabled</label>
 				</div>

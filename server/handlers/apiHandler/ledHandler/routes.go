@@ -244,7 +244,6 @@ func Activate(c *gin.Context) {
 	}
 	internal.SaveFile(&config.LedActive)
 	logger.Log(c, logger.LED, fmt.Sprintf("Led hex/gradient activated. Mode='%s'", mode))
-	// c.JSON(http.StatusOK, gin.H{"Color": config.LedActive.Color, "Brightness": config.LedActive.Brightness, "Cooldown": config.LedActive.Cooldown})
 	c.Status(http.StatusOK)
 }
 
