@@ -87,14 +87,6 @@ func HandleGetStats(c *gin.Context) {
 		sysUptime = float64(internal.RandomValue(0, 100000))
 	}
 
-	fmt.Println(gin.H{ // TODO : Change to receive real data. Placeholder for now.
-		"Temperature": temperature,
-		"CPU":         cpuUsage,
-		"RAM":         ramUsage,
-		"Disk":        diskUsage[0],
-		"DiskMax":     diskUsage[1],
-		"Uptime":      sysUptime,
-	})
 	c.JSON(http.StatusOK, gin.H{ // TODO : Change to receive real data. Placeholder for now.
 		"Temperature": temperature,
 		"CPU":         cpuUsage,
