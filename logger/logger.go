@@ -7,6 +7,7 @@ import (
 	"os"
 	"time"
 
+	"github.com/fatih/color"
 	"github.com/gin-gonic/gin"
 )
 
@@ -27,7 +28,6 @@ var CurrentLogger *log.Logger
 
 func Init() {
 	if config.UserConfiguration.Logging {
-
 		fileName := time.Now().Format("logs/log_02-01-2006_15-04-05.log")
 		f, err := os.OpenFile(fileName, os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
 		if err != nil {
@@ -39,6 +39,9 @@ func Init() {
 		CurrentLogger = log.New(f, "", log.LstdFlags)
 
 		Log(nil, POWERON, "Horus has been powered on..")
+
+		cOk := color.New(color.FgGreen, color.Bold)
+		cOk.Println("✓ Horus logging ON")
 	}
 }
 
