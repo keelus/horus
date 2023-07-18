@@ -20,6 +20,7 @@ function getStats(animate) {
 			tempMax = 85
 			
 			margin = [50, 55] // TODO: Separate margins for each Stat (if needed)
+
 			gTemperature.setMaxValue(85)
 			gCpu.setMaxValue(100)
 			gRam.setMaxValue(100)
@@ -29,6 +30,7 @@ function getStats(animate) {
 			temperatureConverted = r.Temperature // Celsius
 			if (temperatureUnit == "F") {
 				temperatureConverted = (r.Temperature * 1.8) + 32
+				gTemperature.setMaxValue((85 * 1.8) + 32)
 			}
 
 			if(animate){
