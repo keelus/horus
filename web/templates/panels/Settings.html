@@ -143,7 +143,7 @@
 			<div class="category Updates" category="Updates">
 				<div class="title">Updates</div>
 				<div class="content" style="padding-bottom:5px;">
-					Installed version: v{{.UserConfiguration.Version}} - {{if not .UsingLatest}}❌ Not latest{{else}}✅ Latest{{end}}<br>
+					Installed version: v{{.CurrentVersion}} - {{if not .UsingLatest}}❌ Not latest{{else}}✅ Latest{{end}}<br>
 					{{if not .UsingLatest}}
 						Latest version: v{{.LatestVersion}} - <a href="#" class="render-link">See new version & installation</a> <br> <br>
 					{{end}}

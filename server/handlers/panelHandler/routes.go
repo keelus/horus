@@ -21,12 +21,13 @@ func HandleCategory(c *gin.Context) {
 	latestVersion := "X.X.X" // TODO
 	usingLatest := true
 
-	if latestVersion > config.UserConfiguration.Version {
-		usingLatest = false
-	}
+	// if latestVersion > config.UserConfiguration.Version {
+	// 	usingLatest = false
+	// }
 
 	category := c.Param("category")
 	c.HTML(http.StatusOK, "panel", gin.H{
+		"CurrentVersion":    internal.CUR_VERSION,
 		"Active":            category,
 		"UserConfiguration": config.UserConfiguration,
 		"LatestVersion":     latestVersion,

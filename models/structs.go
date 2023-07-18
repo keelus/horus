@@ -2,7 +2,6 @@ package models
 
 // USER CONFIGURATION
 type Configuration struct {
-	Version  string `yaml:"Version"`
 	UserInfo struct {
 		Username string `yaml:"Username"`
 		Password string `yaml:"Password"`

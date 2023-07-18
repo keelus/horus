@@ -17,8 +17,6 @@ import (
 	"golang.org/x/crypto/bcrypt"
 )
 
-const CUR_VERSION = "0.8.0 beta"
-
 var BlueColor = color.New(color.FgBlue, color.Bold)
 var RedColor = color.New(color.FgRed, color.Bold)
 var GreenColor = color.New(color.FgGreen, color.Bold)
@@ -34,7 +32,7 @@ func init() {
 	⠀⠀⠻⠛⠛⠻⣶⣽⣿⣿⣿⡶⠿⠛⠋⠉⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀	██║  ██║╚██████╔╝██║  ██║╚██████╔╝███████║
 	⠀⠀⠀⠀⠀⠀⣠⣿⡏⠻⣷⣄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢠⣶⠶⢶⣤⠀⠀⠀	╚═╝  ╚═╝ ╚═════╝ ╚═╝  ╚═╝ ╚═════╝ ╚══════╝
 	⠀⠀⠀⠀⠀⠀⢹⣯⠁⠀⠈⠛⢷⣤⡀⠀⠀⠀⠀⠀⠀⠀⠸⠧⠀⠀⢹⡇⠀⠀	
-	⠀⠀⠀⠀⠀⠀⠈⣿⠀⠀⠀⠀⠀⠉⠻⠷⣦⣤⣤⣀⣀⣀⣀⣠⣤⡶⠟⠀⠀⠀	Initializing version ` + CUR_VERSION + `...
+	⠀⠀⠀⠀⠀⠀⠈⣿⠀⠀⠀⠀⠀⠉⠻⠷⣦⣤⣤⣀⣀⣀⣀⣠⣤⡶⠟⠀⠀⠀	Initializing version ` + internal.CUR_VERSION + `...
 	⠀⠀⠀⠀⠀⠀⠀⠛⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠉⠉⠉⠉⠉⠉⠁⠀⠀⠀⠀⠀`)
 
 	if fileExists("config/userConfig.yaml") {
