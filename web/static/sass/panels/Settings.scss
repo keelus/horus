@@ -162,20 +162,21 @@ label {
 		transition:background-color .1s linear;
 
 		.image {
-			width:100%;
+			width:120px;
 			height:100%;
 			background-size: contain;
 			background-position:center;
 			background-repeat: no-repeat;
+			border-radius: 5px;
 		}
 		.title {
 			color:$textPrimary;
 		}
 
-		&.active {
+		&.selected {
 			background-color:rgba($accent, 0.1);
 		}
-		&:not(.active):hover {
+		&:not(.selected):hover {
 			cursor:pointer;
 			background-color:rgba($accent, 0.05);
 		}

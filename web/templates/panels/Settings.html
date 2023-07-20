@@ -30,11 +30,11 @@
 				<div class="title">Color theme</div>
 				<div class="details">Change the interface's color theme.</div>
 				<div class="content themeOptions">
-					<div class="option active">
+					<div class="option {{if not .UserConfiguration.ColorModeDark}}selected{{end}}">
 						<div class="image" style="background-image:url('/static/images/themes/light.png')"></div>
 						<div class="title">Light theme</div>
 					</div>
-					<div class="option">
+					<div class="option {{if .UserConfiguration.ColorModeDark}}selected{{end}}">
 						<div class="image" style="background-image:url('/static/images/themes/dark.png')"></div>
 						<div class="title">Dark theme</div>
 					</div>

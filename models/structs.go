@@ -6,6 +6,7 @@ type Configuration struct {
 		Username string `yaml:"Username"`
 		Password string `yaml:"Password"`
 	} `yaml:"UserInfo"`
+	ColorModeDark   bool `yaml:"ColorModeDark"`
 	SessionSettings struct {
 		Lifespan int    `yaml:"Lifespan"`
 		Unit     string `yaml:"Unit"`
