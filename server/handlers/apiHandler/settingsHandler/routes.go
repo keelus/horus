@@ -150,6 +150,7 @@ func SaveConfiguration(c *gin.Context) {
 			config.UserConfiguration.Units.TemperatureC = temperature == "C"
 		}
 		break
+	}
 
 	if len(returnError) == 0 {
 		err := internal.SaveFile(&config.UserConfiguration)
