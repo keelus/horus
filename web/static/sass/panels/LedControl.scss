@@ -44,7 +44,7 @@
 					height:20px;
 					border-radius: 100%;
 					color:$error;
-					background:$textPrimary;
+					background:$bg-1;
 					position: absolute;
 					top:-10px;
 					right:-10px;
@@ -52,14 +52,14 @@
 					justify-content: center;
 					align-items: center;
 					transition: all .1s linear;
-					border: 1px solid $bg-2;
+					border: 1px solid rgba($textPrimary, .3);
 
 					& > svg {
 						width: 14px;
 					}
 					&:hover {
 						cursor:pointer;
-						background:$textPrimary2;
+						background:$bg-3;
 					}
 				}
 
@@ -120,7 +120,7 @@
 					height:20px;
 					border-radius: 100%;
 					color:$error;
-					background:$textPrimary;
+					background:$bg-1;
 					position: absolute;
 					top:-10px;
 					right:-10px;
@@ -128,14 +128,14 @@
 					justify-content: center;
 					align-items: center;
 					transition: all .1s linear;
-					border: 1px solid $bg-2;
+					border: 1px solid rgba($textPrimary, .3);
 
 					& > svg {
 						width: 14px;
 					}
 					&:hover {
 						cursor:pointer;
-						background:$textPrimary2;
+						background:$bg-3;
 					}
 				}
 

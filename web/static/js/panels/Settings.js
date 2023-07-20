@@ -37,9 +37,6 @@ $(".botonGuardar").on("click", (e) => {
 		postData.TimeMode = $("#units0").val()
 		postData.Temperature = $("#units1").val()
 		break
-	case "Design":
-		// TODO
-		break
 	case "Deletion":
 		// TODO
 		break
@@ -80,9 +77,6 @@ $(".botonGuardar").on("click", (e) => {
 				case "Security":
 					break
 				case "Units":
-					break
-				case "Design":
-					// TODO
 					break
 				case "Deletion":
 					// TODO

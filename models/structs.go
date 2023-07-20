@@ -20,13 +20,6 @@ type Configuration struct {
 		TimeMode12   bool `yaml:"TimeMode12"`
 		TemperatureC bool `yaml:"TemperatureC"`
 	} `yaml:"Units"`
-	Design struct {
-		Accent []string `yaml:"Accent"`
-		Fonts  []struct {
-			Title  string `yaml:"Title"`
-			Source string `yaml:"Source"`
-		} `yaml:"Fonts"`
-	} `yaml:"Design"`
 }
 
 // LED

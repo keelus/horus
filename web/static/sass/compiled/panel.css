@@ -56,7 +56,7 @@ body {
 
 button, .button, .button:link, .button:visited {
   text-decoration: none;
-  border-radius: 3px;
+  border-radius: 8px;
   outline: none;
   border: none;
   outline: none;
@@ -72,26 +72,12 @@ button, .button, .button:link, .button:visited {
   align-items: center;
   box-sizing: border-box;
   z-index: 1;
-}
-button::before, button::after, .button::before, .button::after, .button:link::before, .button:link::after, .button:visited::before, .button:visited::after {
-  content: "";
-  display: block;
-  position: absolute;
-  left: 0;
-  top: 0;
-  bottom: 0;
-  right: 0;
-  background: linear-gradient(to bottom right, #855CDE, #918CEE);
-  border-radius: 3px;
-  z-index: -1;
-}
-button::after, .button::after, .button:link::after, .button:visited::after {
-  opacity: 0;
-  background: linear-gradient(to top left, #855CDE, #918CEE);
-  transition: opacity 0.3s ease-in-out;
+  background-color: #855CDE;
+  transition: background-color 0.1s linear;
 }
 button:hover, .button:hover, .button:link:hover, .button:visited:hover {
   cursor: pointer;
+  background-color: rgba(133, 92, 222, 0.8);
 }
 button:hover::after, .button:hover::after, .button:link:hover::after, .button:visited:hover::after {
   opacity: 1;
@@ -105,18 +91,18 @@ button:disabled::before, button:disabled::after, .button:disabled::before, .butt
 button:disabled:hover, .button:disabled:hover, .button:link:disabled:hover, .button:visited:disabled:hover {
   cursor: default;
 }
-button.blancoNegro, .button.blancoNegro, .button:link.blancoNegro, .button:visited.blancoNegro {
-  background: #000000 !important;
-  color: #F9F9F9 !important;
-  border: 0;
+button.whiteBlack, .button.whiteBlack, .button:link.whiteBlack, .button:visited.whiteBlack {
+  background: #FFFFFF !important;
+  color: #000000 !important;
+  border: 1px solid #000000;
   transition: all 0.2s linear !important;
 }
-button.blancoNegro::before, button.blancoNegro::after, .button.blancoNegro::before, .button.blancoNegro::after, .button:link.blancoNegro::before, .button:link.blancoNegro::after, .button:visited.blancoNegro::before, .button:visited.blancoNegro::after {
+button.whiteBlack::before, button.whiteBlack::after, .button.whiteBlack::before, .button.whiteBlack::after, .button:link.whiteBlack::before, .button:link.whiteBlack::after, .button:visited.whiteBlack::before, .button:visited.whiteBlack::after {
   all: unset !important;
 }
-button.blancoNegro:hover, .button.blancoNegro:hover, .button:link.blancoNegro:hover, .button:visited.blancoNegro:hover {
-  background: #F9F9F9 !important;
-  color: #000000 !important;
+button.whiteBlack:hover, .button.whiteBlack:hover, .button:link.whiteBlack:hover, .button:visited.whiteBlack:hover {
+  background: #000000 !important;
+  color: #F9F9F9 !important;
 }
 button.blancoRojo, .button.blancoRojo, .button:link.blancoRojo, .button:visited.blancoRojo {
   background: #000000 !important;
@@ -281,7 +267,7 @@ select:hover {
   height: 20px;
   border-radius: 100%;
   color: #c70a0a;
-  background: #000000;
+  background: #FFFFFF;
   position: absolute;
   top: -10px;
   right: -10px;
@@ -289,14 +275,14 @@ select:hover {
   justify-content: center;
   align-items: center;
   transition: all 0.1s linear;
-  border: 1px solid #F9F9F9;
+  border: 1px solid rgba(0, 0, 0, 0.3);
 }
 .option .content .colors .color > .delete > svg {
   width: 14px;
 }
 .option .content .colors .color > .delete:hover {
   cursor: pointer;
-  background: #525151;
+  background: #F5F5F5;
 }
 .option .content .colors .color.new {
   border: 2px dashed #855CDE;
@@ -345,7 +331,7 @@ select:hover {
   height: 20px;
   border-radius: 100%;
   color: #c70a0a;
-  background: #000000;
+  background: #FFFFFF;
   position: absolute;
   top: -10px;
   right: -10px;
@@ -353,14 +339,14 @@ select:hover {
   justify-content: center;
   align-items: center;
   transition: all 0.1s linear;
-  border: 1px solid #F9F9F9;
+  border: 1px solid rgba(0, 0, 0, 0.3);
 }
 .option .content .gradients .gradient > .delete > svg {
   width: 14px;
 }
 .option .content .gradients .gradient > .delete:hover {
   cursor: pointer;
-  background: #525151;
+  background: #F5F5F5;
 }
 .option .content .gradients .gradient.new {
   border: 2px dashed #855CDE;

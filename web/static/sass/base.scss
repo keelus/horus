@@ -63,7 +63,7 @@ body {
 
 button, .button, .button:link, .button:visited {
 	text-decoration: none;
-	border-radius: 3px;
+	border-radius: 8px;
 	outline: none;
 	border: none;
 	outline: none;
@@ -80,29 +80,33 @@ button, .button, .button:link, .button:visited {
 	box-sizing: border-box;
 	z-index: 1;
 
-  
-	&::before,
-	&::after {
-		content: '';
-		display: block;
-		position: absolute;
-		left: 0;
-		top: 0;
-		bottom: 0;
-		right: 0;
-		background: linear-gradient(to bottom right, $accent, $accent2);
-		border-radius: 3px;
-		z-index: -1;
-	}
+	background-color:$accent;
+	transition:background-color .1s linear;
 
-	&::after {
-		opacity: 0;
-		background: linear-gradient(to top left, $accent, $accent2);
-		transition: opacity .3s ease-in-out;
-	}
+  
+	// &::before,
+	// &::after {
+	// 	content: '';
+	// 	display: block;
+	// 	position: absolute;
+	// 	left: 0;
+	// 	top: 0;
+	// 	bottom: 0;
+	// 	right: 0;
+	// 	background: linear-gradient(to bottom right, $accent, $accent2);
+	// 	border-radius: 3px;
+	// 	z-index: -1;
+	// }
+
+	// &::after {
+	// 	opacity: 0;
+	// 	background: linear-gradient(to top left, $accent, $accent2);
+	// 	transition: opacity .3s ease-in-out;
+	// }
 
 	&:hover {
 		cursor:pointer;
+		background-color:rgba($accent, .8);
 	}
 	&:hover::after {
 		opacity: 1;
@@ -121,17 +125,17 @@ button, .button, .button:link, .button:visited {
 		}
 	}
 
-	&.blancoNegro {
+	&.whiteBlack {
 		&::before, &::after {
 			all:unset !important;
 		}
 
-		background:$textPrimary !important;
-		color:$bg-2 !important;
-		border:0;
+		background:$bg-1 !important;
+		color:$textPrimary !important;
+		border:1px solid $textPrimary;
 		&:hover {
-			background:$bg-2 !important;
-			color:$textPrimary !important;
+			background:$textPrimary !important;
+			color:$bg-2 !important;
 		}
 		transition: all .2s linear !important;
 	}

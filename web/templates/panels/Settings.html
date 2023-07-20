@@ -123,23 +123,6 @@
 				<button class="botonGuardar">Apply changes</button>
 			</div>
 			
-			<div class="category Design" category="Design">
-				<div class="title">Design & personalization</div>
-				<div class="details">Here you can change Horus' color theme, fonts, and other visuals.</div>
-				<div class="content">
-					- Accent[s]:<br>
-					<ul>
-						{{ range $i, $color := .UserConfiguration.Design.Accent}}
-							<li>{{$color}}</li>
-						{{end}}
-					</ul>
-					- Fonts<br>
-					&nbsp;&nbsp;- Base: {{(index .UserConfiguration.Design.Fonts 0).Title}} -> <a href="{{(index .UserConfiguration.Design.Fonts 0).Source}}" target="_blank" class="render-link">source</a><br>
-					&nbsp;&nbsp;- Code: {{(index .UserConfiguration.Design.Fonts 1).Title}} -> <a href="{{(index .UserConfiguration.Design.Fonts 1).Source}}" target="_blank" class="render-link">source</a><br>
-				</div>
-				<button class="botonGuardar">Apply changes</button>
-			</div>
-			
 			<div class="category Updates" category="Updates">
 				<div class="title">Updates</div>
 				<div class="content" style="padding-bottom:5px;">
@@ -153,7 +136,7 @@
 			
 			<div class="category Deletion" category="Deletion">
 				<div class="title">Deletion</div>
-				<div class="details">Delete all your Horus data [user info, configuration, personalization, and logs]. The script execution will come to the first-time execution. Irreversible</div>
+				<div class="details">Delete all your Horus data [user information, led configuration, and logs]</div>
 				<div class="content">
 				</div>
 				<button class="botonGuardar">Delete</button>
