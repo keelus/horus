@@ -24,7 +24,22 @@
 						<div><div class="avatar" style="background-image: url('/static/images/avatar.jpg{{fPreventCaching}}');"></div><span class="note"><- Replace the file on "static/images/avatar.jpg" <br> to change <i>[.jpg, .png, .webp, .gif]</i>. No need to apply.</span></div>
 					</div>
 				</div>
-				<button class="botonGuardar">Apply changes</button>
+				<button class="saveButton">Apply changes</button>
+			</div>
+			<div class="category UserInfo" category="UserInfo">
+				<div class="title">Color theme</div>
+				<div class="details">Change the interface's color theme.</div>
+				<div class="content themeOptions">
+					<div class="option active">
+						<div class="image" style="background-image:url('/static/images/themes/light.png')"></div>
+						<div class="title">Light theme</div>
+					</div>
+					<div class="option">
+						<div class="image" style="background-image:url('/static/images/themes/dark.png')"></div>
+						<div class="title">Dark theme</div>
+					</div>
+				</div>
+				<button class="saveButton">Apply changes</button>
 			</div>
 			
 			<div class="category SessionSettings" category="SessionSettings">
@@ -49,7 +64,7 @@
 					</div>
 					<div class="note">This change will apply in each device you log in. To apply in current device, please log out and log in back.</div>
 				</div>
-				<button class="botonGuardar">Apply changes</button>
+				<button class="saveButton">Apply changes</button>
 			</div>
 			
 			<div class="category LedControl" category="LedControl">
@@ -61,7 +76,7 @@
 					<input type="checkbox" id="ledControl1" {{if index .UserConfiguration.LedControl 1 }}checked{{end}}> <label for="ledControl1">Show fading rainbow</label><br>
 					<input type="checkbox" id="ledControl2" {{if index .UserConfiguration.LedControl 2 }}checked{{end}}> <label for="ledControl2">Show breathing color</label>
 				</div>
-				<button class="botonGuardar">Apply changes</button>
+				<button class="saveButton">Apply changes</button>
 			</div>
 			
 			<div class="category SystemStats" category="SystemStats">
@@ -75,7 +90,7 @@
 					<input type="checkbox" id="systemStats4" {{if index .UserConfiguration.SystemStats 4 }}checked{{end}}> <label for="systemStats4">System uptime</label><br>
 					<span class="note">If no stat is shown, the tab will dissapear from the left navigator. To show it, you must show at least 1 system stat.</span>
 				</div>
-				<button class="botonGuardar">Apply changes</button>
+				<button class="saveButton">Apply changes</button>
 			</div>
 			
 			<div class="category Logging" category="Logging">
@@ -86,7 +101,7 @@
 				<div class="content">
 					<input type="checkbox" id="logging0" {{if .UserConfiguration.Logging }}checked{{end}}> <label for="logging0">Enabled/disabled</label>
 				</div>
-				<button class="botonGuardar">Apply changes</button>
+				<button class="saveButton">Apply changes</button>
 			</div>
 			
 			<div class="category Security" category="Security">
@@ -95,7 +110,7 @@
 				<div class="content">
 					<input type="checkbox" id="security0" {{if .UserConfiguration.Security.UserInput }}checked{{end}}> <label for="security0">User has to input username on login</label>
 				</div>
-				<button class="botonGuardar">Apply changes</button>
+				<button class="saveButton">Apply changes</button>
 			</div>
 			<div class="category Units" category="Units">
 				<div class="title">Units</div>
@@ -111,7 +126,7 @@
 						</div>
 					</div>
 				</div>
-				<button class="botonGuardar">Apply changes</button>
+				<button class="saveButton">Apply changes</button>
 			</div>
 			
 			<div class="category Updates" category="Updates">
@@ -130,7 +145,7 @@
 				<div class="details">Delete all your Horus data [user information, led configuration, and logs]</div>
 				<div class="content">
 				</div>
-				<button class="botonGuardar">Delete</button>
+				<button class="saveButton">Delete</button>
 			</div>
 		</div>
 	</div>

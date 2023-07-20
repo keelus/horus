@@ -1,4 +1,4 @@
-$(".botonGuardar").on("click", (e) => {
+$(".saveButton").on("click", (e) => {
 	category = $(e.target).closest(".category").attr("category")
 	$(`[category='${category}']`).find(".hasError").removeClass("hasError")
 
