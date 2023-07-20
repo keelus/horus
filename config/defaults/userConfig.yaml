@@ -1,6 +1,7 @@
 UserInfo:
     Username: 
     Password: 
+ColorModeDark: false
 SessionSettings:
     Lifespan: 24
     Unit: hour
