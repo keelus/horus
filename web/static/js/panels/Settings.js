@@ -68,8 +68,10 @@ $(".botonGuardar").on("click", (e) => {
 					}
 					if (!showSystemStats) {
 						$("[element-category='SystemStats']").css("display", "none")
+						$("[element-category='LedControl']").addClass("lowerRadius")
 					} else {
 						$("[element-category='SystemStats']").css("display", "flex")
+						$("[element-category='LedControl']").removeClass("lowerRadius")
 					}
 
 					break

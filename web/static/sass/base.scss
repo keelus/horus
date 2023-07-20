@@ -3,7 +3,7 @@
 
 
 body {
-	background: $background;
+	background: $bg-2;
 	color:rgba(255, 255, 255, .7);
 	padding:0;
 	margin:0;
@@ -121,29 +121,17 @@ button, .button, .button:link, .button:visited {
 		}
 	}
 
-	&.secundario {
-		&::before, &::after {
-			all:unset !important;
-		}
-
-		background:$background3 !important;
-		&:hover {
-			background:$background2 !important;
-		}
-		transition: background .3s ease-in-out;
-	}
-
 	&.blancoNegro {
 		&::before, &::after {
 			all:unset !important;
 		}
 
-		background:$white !important;
-		color:$background !important;
+		background:$textPrimary !important;
+		color:$bg-2 !important;
 		border:0;
 		&:hover {
-			background:$background !important;
-			color:$white !important;
+			background:$bg-2 !important;
+			color:$textPrimary !important;
 		}
 		transition: all .2s linear !important;
 	}
@@ -153,12 +141,12 @@ button, .button, .button:link, .button:visited {
 			all:unset !important;
 		}
 
-		background:$white !important;
+		background:$textPrimary !important;
 		color:$error !important;
 		border:0;
 		&:hover {
 			background:$error !important;
-			color:$white !important;
+			color:$textPrimary !important;
 		}
 		transition: all .2s linear !important;
 	}
@@ -180,14 +168,15 @@ input[type="month"],
 input[type="week"] {
 	margin:0;
 	padding:5px 10px;
-	background:#171717;
-	border:1px solid #303030;
 	border-radius:5px;
 	font-size:16px;
 	padding:10px 15px;
 	outline:none;
-	color:white;
 	font-family: 'Familjen Grotesk', sans-serif;
+	
+	background:$bg-1;
+	color:$textPrimary;
+	border:1px solid $textPrimary;
 
 	
 
@@ -199,20 +188,21 @@ input[type="week"] {
 	}
 }
 .hasError {
-	border:1px solid #c70a0a !important;
+	border:1px solid $error !important;
 }
 
 select {
 	margin:0;
 	padding:5px 10px;
-	background:#303030;
-	border:1px solid #171717;
 	border-radius:5px;
 	font-size:16px;
 	padding:10px 15px;
 	outline:none;
-	color:white;
 	font-family: 'Familjen Grotesk', sans-serif;
+	
+	background:$bg-1;
+	color:$textPrimary;
+	border:1px solid $textPrimary;
 
 	&:hover {
 		cursor:pointer;
@@ -228,8 +218,8 @@ select {
 	z-index: 999;
 	opacity: 0;
 	position: fixed;
-	background-color: $white;
-	color: $background;
+	background-color: $textPrimary;
+	color: $bg-2;
 	max-width: 350px;
 	padding: 13px;
 	top: -50px;

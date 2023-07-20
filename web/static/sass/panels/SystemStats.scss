@@ -13,7 +13,7 @@
 		align-items: center;
 		flex-direction: column;
 		gap:15px;
-		background-color:$background2;
+		background-color:$bg-3;
 		border-radius:10px;
 		padding: 20px 0;
 
@@ -71,7 +71,7 @@
 		}
 	
 		.text {
-			color:$white;
+			color:$textPrimary;
 			font-size:1.25em;
 		}
 	}

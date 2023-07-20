@@ -1,11 +1,16 @@
-$background: #101010;
-$background2: #171717;
-$background3: #222222;
+$bg-1:#FFFFFF;
+$bg-2:#F9F9F9;
+$bg-3:#F5F5F5;
+$bg-4:#F2F2F2;
+// $bg-1: #f3ead8;
 $background4:#303030;
-$white:#FFFFFF;
-$white2:#bbbbbb;
-$accent: #fdc830;
-$accent2:#f37335;
+
+$textPrimary:#000000;
+$textPrimary2:#525151;
+
+$accent: #855CDE; // #87D5C3 // #918CEE
+$accent2: #918CEE; // #87D5C3 // #918CEE
+// $accent2:#f37335;
 $error:#c70a0a;
 $success:#23A55A;
 $online:#23A55A;
@@ -13,3 +18,4 @@ $online:#23A55A;
 $good:#23A55A;
 $warning:#fffb00;
 $danger:#c70a0a;
+$bg-dots:rgba($accent, .5);

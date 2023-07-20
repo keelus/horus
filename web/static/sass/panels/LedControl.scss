@@ -44,7 +44,7 @@
 					height:20px;
 					border-radius: 100%;
 					color:$error;
-					background:$white;
+					background:$textPrimary;
 					position: absolute;
 					top:-10px;
 					right:-10px;
@@ -52,14 +52,14 @@
 					justify-content: center;
 					align-items: center;
 					transition: all .1s linear;
-					border: 1px solid $background;
+					border: 1px solid $bg-2;
 
 					& > svg {
 						width: 14px;
 					}
 					&:hover {
 						cursor:pointer;
-						background:$white2;
+						background:$textPrimary2;
 					}
 				}
 
@@ -120,7 +120,7 @@
 					height:20px;
 					border-radius: 100%;
 					color:$error;
-					background:$white;
+					background:$textPrimary;
 					position: absolute;
 					top:-10px;
 					right:-10px;
@@ -128,14 +128,14 @@
 					justify-content: center;
 					align-items: center;
 					transition: all .1s linear;
-					border: 1px solid $background;
+					border: 1px solid $bg-2;
 
 					& > svg {
 						width: 14px;
 					}
 					&:hover {
 						cursor:pointer;
-						background:$white2;
+						background:$textPrimary2;
 					}
 				}
 
@@ -173,11 +173,11 @@
 			.on > svg, .off > svg {
 				width:1.25em;
 				height:1.25em;
-				fill:$white;
+				fill:$accent;
 			}
 
 			.off > svg {
-				fill:$white2;
+				fill:$textPrimary2;
 			}
 
 			.on {
@@ -200,7 +200,7 @@
 
 		}
 		& > .checkLine > .text {
-			color:$white;
+			color:$textPrimary;
 			position:relative;
 
 			&::after {
@@ -215,7 +215,7 @@
 
 	&:not(.active) {
 		& > .checkLine > .text {
-			color:$white2;
+			color:$textPrimary2;
 		}
 		& > .checkLine, & > .checkLine > *:hover {
 			cursor:pointer;
@@ -227,7 +227,7 @@
 
 	.checkLine {
 		& > .text {
-			color:$white;
+			color:$textPrimary;
 			&:hover {
 				cursor:pointer;
 			}
@@ -245,7 +245,7 @@
 	height:100%;
 	top:0;
 	left:0;
-	background-color:rgba($background, .95);
+	background-color:rgba($bg-2, .95);
 	z-index:998;
 	display:none;
 
@@ -257,7 +257,8 @@
 .modal {
 	position:fixed;
 	width:500px;
-	background-color:$background2;
+	background-color:$bg-1;
+	box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 	z-index:999;
 	display: flex;
 	flex-direction: column;
@@ -272,7 +273,7 @@
 	box-sizing: border-box;
 
 	.title {
-		color:$white;
+		color:$textPrimary;
 		font-size:1.25em;
 		font-weight: bold;
 	}
@@ -295,6 +296,7 @@
 			align-items: center;
 			justify-content: flex-start;
 			min-width:150px;
+			color: $textPrimary;
 		}
 
 		& > *:nth-child(2) {
@@ -325,6 +327,7 @@
 		align-items: center;
 		justify-content: flex-start;
 		min-width:150px;
+		color: $textPrimary;
 	}
 
 	& > *:nth-child(2) {
@@ -349,9 +352,11 @@ input[type="range"]:hover {
 
 #newGradientModal > .modal {
 	.gradientPreview {
+		border:1px solid $textPrimary;
 		width:100%;
 		height:50px;
 	}
+	color:$textPrimary;
 	
 	.hexCodes {
 		width:auto;
@@ -364,7 +369,7 @@ input[type="range"]:hover {
 			.drag {
 				width:15px;
 				height:30px;
-				background:$background4;
+				background:$textPrimary;
 				&:hover{
 					cursor:move;
 				}
@@ -377,15 +382,15 @@ input[type="range"]:hover {
 				transition:all .3s linear;
 
 				&:hover {
-					background:$white;
-					color:$background;
+					background:$textPrimary;
+					color:$bg-2;
 				}
 			}
 			position:relative;
 
 		}
 		li.addColorToGradient {
-			color:$white2;
+			color:$textPrimary2;
 
 			&:hover {
 				cursor:pointer;
@@ -393,4 +398,8 @@ input[type="range"]:hover {
 			}
 		}
 	}
+}
+
+#brightnessVisual {
+	color:$textPrimary;
 }

@@ -1,4 +1,5 @@
 .categories {
+	color:$textPrimary;
 	display:flex;
 	flex-direction: column;
 	gap:15px;
@@ -8,27 +9,28 @@
 		width:100%;
 		display:flex;
 		flex-direction: column;
-		border: 2px dashed #fdc8301c;
+		// border: 2px dashed #fdc8301c;
+		border: 2px dashed rgba($accent, 0.2);
 		border-radius: 5px;
-		background: #262626;
+		background: $bg-2;
 
 		&:nth-last-child(1) {
 			margin-top:50px;
-			border: 2px dashed rgb(253 48 48 / 11%);
-			background: #231c1c;
+			border: 2px dashed rgba($error, .1);
+			background: rgba($error, .1);
 		}
 	
 		& > .title {
 			font-family: "Familjen Grotesk", sans-serif;
 			font-weight: bold;
 			font-size:22px;
-			color:$white;
+			color:$textPrimary;
 			margin-right:auto;
 			margin-bottom:.1em;
 		}
 		& > .details {
 			font-size:.85em;
-			color:$white2;
+			color:$textPrimary2;
 			margin-bottom:.5em;
 		}
 		& > .content {
@@ -40,7 +42,7 @@
 		}
 
 		label {
-			color:$white2;
+			color:$textPrimary2;
 		}
 
 
@@ -129,7 +131,7 @@ label {
 	// width:522px;
 	box-sizing: border-box;
 	margin-left: 0;
-	color:$white;
+	color:$textPrimary;
 
 	&:hover {
 		cursor:pointer;
