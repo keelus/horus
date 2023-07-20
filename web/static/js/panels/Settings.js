@@ -34,7 +34,6 @@ $(".botonGuardar").on("click", (e) => {
 		postData.UserInput = $("#security0").prop("checked")
 		break
 	case "Units":
-		postData.TimeMode = $("#units0").val()
 		postData.Temperature = $("#units1").val()
 		break
 	case "Deletion":

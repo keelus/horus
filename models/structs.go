@@ -17,7 +17,6 @@ type Configuration struct {
 		UserInput bool `yaml:"UserInput"`
 	} `yaml:"Security"`
 	Units struct {
-		TimeMode12   bool `yaml:"TimeMode12"`
 		TemperatureC bool `yaml:"TemperatureC"`
 	} `yaml:"Units"`
 }

@@ -28,20 +28,20 @@
 					<div class="status">Online</div>
 				</div>
 			</a>
-			<a class="element {{ if not showSystemStats }}lowerRadius{{ end }}" href="/panel/LedControl" element-category="LedControl">
+			<a class="element {{ if not showSystemStats }}lowerRadius{{ end }} {{ if eq .Active "LedControl"}}active{{end}}" href="/panel/LedControl" element-category="LedControl">
 				<div class="icono">
 					<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="var(--svg)"><path d="M12 2c5.514 0 10 4.486 10 10s-4.486 10-10 10-10-4.486-10-10 4.486-10 10-10zm0-2c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm-2 19l1.5-5h-4.5l7-9-1.5 5h4.5l-7 9z"/></svg>
 				</div>
 				<div class="texto">Led control</div>
 			</a>
 			
-				<a class="element lowerRadius" href="/panel/SystemStats" element-category="SystemStats" {{ if not showSystemStats }}style="display:none"{{ end }}>
+				<a class="element lowerRadius {{ if eq .Active "SystemStats"}}active{{end}}" href="/panel/SystemStats" element-category="SystemStats" {{ if not showSystemStats }}style="display:none"{{ end }}>
 					<div class="icono">
 						<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="var(--svg)"><path d="M13 12.414v-12.364c6.158.51 11 5.66 11 11.95 0 6.627-5.373 12-12 12-2.953 0-5.654-1.072-7.744-2.842l8.744-8.744zm-2-12.364c-6.158.51-11 5.66-11 11.95 0 2.954 1.072 5.654 2.842 7.745l1.42-1.42c-1.412-1.725-2.262-3.928-2.262-6.325 0-5.177 3.953-9.446 9-9.949v-2.001z"/></svg>
 					</div>
 					<div class="texto">System stats</div>
 				</a>
-			<a class="element upperRadius" href="/panel/Settings" element-category="Settings">
+			<a class="element upperRadius {{ if eq .Active "Settings"}}active{{end}}" href="/panel/Settings" element-category="Settings">
 				<div class="icono">
 					<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"  fill="var(--svg)"><path d="M19 2c1.654 0 3 1.346 3 3v14c0 1.654-1.346 3-3 3h-14c-1.654 0-3-1.346-3-3v-14c0-1.654 1.346-3 3-3h14zm5 3c0-2.761-2.238-5-5-5h-14c-2.762 0-5 2.239-5 5v14c0 2.761 2.238 5 5 5h14c2.762 0 5-2.239 5-5v-14zm-13 12h-2v3h-2v-3h-2v-3h6v3zm-2-13h-2v8h2v-8zm10 5h-6v3h2v8h2v-8h2v-3zm-2-5h-2v3h2v-3z"/></svg>
 				</div>

@@ -69,6 +69,9 @@ body {
 				}
 				background:$bg-1;
 
+				&.active {
+					background:$bg-4 !important;
+				}
 	
 	
 				&:not(.user) {

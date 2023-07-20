@@ -132,21 +132,15 @@ func SaveConfiguration(c *gin.Context) {
 		}
 		break
 	case "Units":
-		timeMode := c.PostForm("TimeMode")
 		temperature := c.PostForm("Temperature")
 
-		allowedTimeMode := []string{"12", "24"}
 		allowedTemperature := []string{"C", "F"}
 
-		if !sliceutil.Contains(allowedTimeMode, timeMode) { // Replace to array instead of slice TODO
-			returnError = append(returnError, map[string]string{"details": "Unexpected time unit.", "field": "units0"})
-		}
 		if !sliceutil.Contains(allowedTemperature, temperature) { // Replace to array instead of slice TODO
 			returnError = append(returnError, map[string]string{"details": "Unexpected temperature unit.", "field": "units1"})
 		}
 
 		if len(returnError) == 0 {
-			config.UserConfiguration.Units.TimeMode12 = timeMode == "12"
 			config.UserConfiguration.Units.TemperatureC = temperature == "C"
 		}
 		break

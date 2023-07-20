@@ -815,6 +815,9 @@ body > .mainContent > .leftNav > .element.lowerRadius {
   border-bottom-left-radius: 15px;
   border-bottom-right-radius: 15px;
 }
+body > .mainContent > .leftNav > .element.active {
+  background: #F2F2F2 !important;
+}
 body > .mainContent > .leftNav > .element:not(.user) {
   transition: background 0.1s linear;
 }

@@ -18,5 +18,5 @@ Logging: true
 Security:
     UserInput: false
 Units:
-    TimeMode12: true
+    : true
     TemperatureC: true
