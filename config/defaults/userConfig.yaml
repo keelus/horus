@@ -18,5 +18,4 @@ Logging: true
 Security:
     UserInput: false
 Units:
-    : true
     TemperatureC: true
