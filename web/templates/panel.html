@@ -5,10 +5,14 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="stylesheet" href="/static/sass/compiled/{{if not .UserConfiguration.ColorModeDark }}light{{else}}dark{{end}}/panel.css">
-	<link rel="shortcut icon" href="/static/images/favicon.ico" type="image/x-icon">
 	<script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
 	<script src="/static/js/errorManager.js"></script>
 	<script src="/static/js/gauge.js"></script>
+
+	<link rel="apple-touch-icon" sizes="180x180" href="/static/images/icos/apple-touch-icon.png">
+	<link rel="icon" type="image/png" sizes="32x32" href="/static/images/icos/favicon-32x32.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="/static/images/icos/favicon-16x16.png">
+	<link rel="manifest" href="/site.manifest">
 
 	{{ if eq .Active "LedControl" }} <title>Led Control :: Horus</title>
 	{{ else if eq .Active "SystemStats"}} <title>System stats :: Horus</title>

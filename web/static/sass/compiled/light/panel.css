@@ -713,6 +713,7 @@ input[type=range]:hover {
   text-align: center;
   padding-left: 10px;
   font-size: 0.75rem;
+  color: #c70a0a;
 }
 .categories > .category .inputBox {
   width: 100%;

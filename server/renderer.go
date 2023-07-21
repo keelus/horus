@@ -62,6 +62,7 @@ func Renderer() multitemplate.Renderer {
 
 	r.AddFromFilesFuncs("login", funcs, "web/templates/login.html")
 	r.AddFromFilesFuncs("panel", funcs, "web/templates/panel.html", "web/templates/panels/LedControl.html", "web/templates/panels/SystemStats.html", "web/templates/panels/Settings.html")
+	r.AddFromFilesFuncs("sitewebmanifest", funcs, "web/static/images/icos/site.manifest")
 
 	return r
 }

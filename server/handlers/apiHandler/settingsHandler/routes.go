@@ -17,13 +17,13 @@ import (
 
 func SaveConfiguration(c *gin.Context) {
 	if !internal.IsLogged(c) {
-		c.JSON(http.StatusForbidden, gin.H{"details": "User not logged in.", "field": ""})
+		c.JSON(http.StatusForbidden, []map[string]string{{"details": "User not logged in.", "field": "null"}})
 		return
 	}
 
-	category := c.Param("category")
-
 	returnError := []map[string]string{}
+
+	category := c.Param("category")
 
 	switch category {
 	case "UserInfo":

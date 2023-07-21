@@ -24,3 +24,7 @@ func HandleLogin(c *gin.Context) {
 	})
 	logger.Log(c, logger.VISIT, "Visit to /login.")
 }
+
+func SiteManifestHandler(c *gin.Context) {
+	c.HTML(http.StatusOK, "sitewebmanifest", gin.H{})
+}
