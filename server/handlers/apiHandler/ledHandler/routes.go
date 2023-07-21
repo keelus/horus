@@ -122,7 +122,7 @@ func Delete(c *gin.Context) {
 
 		config.LedPresets.StaticGradient = newGradientSlice
 	} else { // TODO: Better overall code
-		hex := c.PostForm("hex")
+		hex := c.PostForm("hexValue")
 
 		if mode == "StaticColor" {
 			if len(config.LedPresets.StaticColor) == 1 {
