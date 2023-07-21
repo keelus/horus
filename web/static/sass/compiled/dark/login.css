@@ -1,0 +1,298 @@
+@import url("https://fonts.googleapis.com/css2?family=Familjen+Grotesk:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap");
+body {
+  background: #212121;
+  color: rgba(255, 255, 255, 0.7);
+  padding: 0;
+  margin: 0;
+  font-family: "Familjen Grotesk", sans-serif;
+}
+
+.recortado {
+  max-width: 1400px;
+}
+
+.cuerpo {
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+@media (max-width: 1500px) {
+  .cuerpo {
+    width: 95%;
+    padding: 0 auto;
+  }
+}
+.render-link, .render-link:link, .render-link:visited {
+  text-decoration: none;
+  color: transparent;
+  font-weight: 800;
+  color: red;
+  position: relative;
+}
+.render-link::after, .render-link:link::after, .render-link:visited::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  width: 100%;
+  height: 1px;
+  background-color: red;
+  transform: scaleY(0);
+  transform-origin: left center;
+  transition: transform 0.3s;
+}
+.render-link:hover, .render-link:link:hover, .render-link:visited:hover {
+  cursor: pointer;
+}
+.render-link:hover::after, .render-link:link:hover::after, .render-link:visited:hover::after {
+  transform: scaleY(1);
+}
+
+.noSelect {
+  -webkit-user-select: none; /* Safari */
+  -ms-user-select: none; /* IE 10 and IE 11 */
+  user-select: none; /* Standard syntax */
+}
+
+button, .button, .button:link, .button:visited {
+  text-decoration: none;
+  border-radius: 8px;
+  outline: none;
+  border: none;
+  outline: none;
+  padding: 5px 20px;
+  color: white;
+  font-family: "Familjen Grotesk", sans-serif;
+  font-size: 16px;
+  height: 44px;
+  position: relative;
+  background-color: transparent;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+  z-index: 1;
+  background-color: #9a74ec;
+  transition: background-color 0.1s linear;
+}
+button:hover, .button:hover, .button:link:hover, .button:visited:hover {
+  cursor: pointer;
+  background-color: rgba(154, 116, 236, 0.8);
+}
+button:hover::after, .button:hover::after, .button:link:hover::after, .button:visited:hover::after {
+  opacity: 1;
+}
+button:disabled, .button:disabled, .button:link:disabled, .button:visited:disabled {
+  background: gray !important;
+}
+button:disabled::before, button:disabled::after, .button:disabled::before, .button:disabled::after, .button:link:disabled::before, .button:link:disabled::after, .button:visited:disabled::before, .button:visited:disabled::after {
+  all: unset !important;
+}
+button:disabled:hover, .button:disabled:hover, .button:link:disabled:hover, .button:visited:disabled:hover {
+  cursor: default;
+}
+button.whiteBlack, .button.whiteBlack, .button:link.whiteBlack, .button:visited.whiteBlack {
+  background: #222222 !important;
+  color: #FFFFFF !important;
+  border: 1px solid #FFFFFF;
+  transition: all 0.2s linear !important;
+}
+button.whiteBlack::before, button.whiteBlack::after, .button.whiteBlack::before, .button.whiteBlack::after, .button:link.whiteBlack::before, .button:link.whiteBlack::after, .button:visited.whiteBlack::before, .button:visited.whiteBlack::after {
+  all: unset !important;
+}
+button.whiteBlack:hover, .button.whiteBlack:hover, .button:link.whiteBlack:hover, .button:visited.whiteBlack:hover {
+  background: #FFFFFF !important;
+  color: #212121 !important;
+}
+button.blancoRojo, .button.blancoRojo, .button:link.blancoRojo, .button:visited.blancoRojo {
+  background: #FFFFFF !important;
+  color: #c70a0a !important;
+  border: 0;
+  transition: all 0.2s linear !important;
+}
+button.blancoRojo::before, button.blancoRojo::after, .button.blancoRojo::before, .button.blancoRojo::after, .button:link.blancoRojo::before, .button:link.blancoRojo::after, .button:visited.blancoRojo::before, .button:visited.blancoRojo::after {
+  all: unset !important;
+}
+button.blancoRojo:hover, .button.blancoRojo:hover, .button:link.blancoRojo:hover, .button:visited.blancoRojo:hover {
+  background: #c70a0a !important;
+  color: #FFFFFF !important;
+}
+
+input[type=text],
+input[type=password],
+input[type=number],
+input[type=email],
+input[type=url],
+input[type=tel],
+input[type=search],
+input[type=date],
+input[type=time],
+input[type=datetime],
+input[type=datetime-local],
+input[type=month],
+input[type=week] {
+  margin: 0;
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-size: 16px;
+  padding: 10px 15px;
+  outline: none;
+  font-family: "Familjen Grotesk", sans-serif;
+  background: #222222;
+  color: #FFFFFF;
+  border: 1px solid #FFFFFF;
+}
+input[type=text][type=password],
+input[type=password][type=password],
+input[type=number][type=password],
+input[type=email][type=password],
+input[type=url][type=password],
+input[type=tel][type=password],
+input[type=search][type=password],
+input[type=date][type=password],
+input[type=time][type=password],
+input[type=datetime][type=password],
+input[type=datetime-local][type=password],
+input[type=month][type=password],
+input[type=week][type=password] {
+  letter-spacing: 0.2em;
+}
+input[type=text][type=password]:placeholder-shown,
+input[type=password][type=password]:placeholder-shown,
+input[type=number][type=password]:placeholder-shown,
+input[type=email][type=password]:placeholder-shown,
+input[type=url][type=password]:placeholder-shown,
+input[type=tel][type=password]:placeholder-shown,
+input[type=search][type=password]:placeholder-shown,
+input[type=date][type=password]:placeholder-shown,
+input[type=time][type=password]:placeholder-shown,
+input[type=datetime][type=password]:placeholder-shown,
+input[type=datetime-local][type=password]:placeholder-shown,
+input[type=month][type=password]:placeholder-shown,
+input[type=week][type=password]:placeholder-shown {
+  letter-spacing: 0;
+}
+
+.hasError {
+  border: 1px solid #c70a0a !important;
+}
+
+select {
+  margin: 0;
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-size: 16px;
+  padding: 10px 15px;
+  outline: none;
+  font-family: "Familjen Grotesk", sans-serif;
+  background: #222222;
+  color: #FFFFFF;
+  border: 1px solid #FFFFFF;
+}
+select:hover {
+  cursor: pointer;
+}
+
+.popupMessage {
+  z-index: 999;
+  opacity: 0;
+  position: fixed;
+  background-color: #FFFFFF;
+  color: #212121;
+  max-width: 350px;
+  padding: 13px;
+  top: -50px;
+  right: 10px;
+  border-radius: 3px;
+  transition: all 0.1s linear;
+}
+.popupMessage::first-letter {
+  text-transform: capitalize;
+}
+.popupMessage.show {
+  top: 10px;
+  opacity: 1;
+}
+.popupMessage.hide {
+  top: -100px;
+  opacity: 0;
+}
+.popupMessage.type-error {
+  background-color: #c70a0a;
+  color: white;
+}
+.popupMessage.type-success {
+  background-color: #23A55A;
+  color: white;
+}
+
+html, body {
+  background: #181818;
+  background-image: radial-gradient(rgba(154, 116, 236, 0.5) 1px, transparent 0);
+  background-size: 15px 15px;
+  background-position: -19px -19px;
+  font-family: "Familjen Grotesk", sans-serif;
+}
+
+h1 {
+  margin-bottom: 0;
+  color: #9a74ec;
+  font-weight: bold;
+}
+
+h2 {
+  margin-top: 0;
+  margin-bottom: 0.5em;
+  color: #FFFFFF;
+  font-weight: normal;
+}
+
+form {
+  cursor: default;
+  left: 50%;
+  top: 40%;
+  transform: translate(-50%, -40%);
+  position: absolute;
+  text-align: center;
+}
+form .card {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 0;
+  background: #212121;
+  border-radius: 10px;
+  box-shadow: rgba(99, 99, 99, 0.1) 0px 2px 8px 0px;
+}
+form .card .avatar {
+  width: 50px;
+  height: 50px;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  border-radius: 5px;
+  margin-left: 20px;
+}
+form .card .username {
+  flex: 1;
+  color: #FFFFFF;
+  font-size: 1em;
+  margin-right: 20px;
+  font-family: "Fira Code", monospace;
+}
+form input {
+  margin-bottom: 15px !important;
+}
+form .message {
+  color: #c70a0a;
+  margin-top: 0.5em;
+  margin-bottom: 0.2em;
+  max-height: 0;
+  transition: all 0.3s linear;
+}
+form .message.show {
+  max-height: 2em;
+}
+
+/*# sourceMappingURL=login.css.map */

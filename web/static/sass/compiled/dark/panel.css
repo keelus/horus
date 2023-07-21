@@ -72,12 +72,12 @@ button, .button, .button:link, .button:visited {
   align-items: center;
   box-sizing: border-box;
   z-index: 1;
-  background-color: #855CDE;
+  background-color: #9a74ec;
   transition: background-color 0.1s linear;
 }
 button:hover, .button:hover, .button:link:hover, .button:visited:hover {
   cursor: pointer;
-  background-color: rgba(133, 92, 222, 0.8);
+  background-color: rgba(154, 116, 236, 0.8);
 }
 button:hover::after, .button:hover::after, .button:link:hover::after, .button:visited:hover::after {
   opacity: 1;
@@ -256,10 +256,10 @@ select:hover {
   transition: all 0.1s linear;
 }
 .option .content .colors .color:not(.noInteraction).selected > .background {
-  outline-color: #855CDE;
+  outline-color: #9a74ec;
 }
 .option .content .colors .color:not(.noInteraction):not(.new):not(.selected) > .background:hover {
-  outline-color: rgba(133, 92, 222, 0.5);
+  outline-color: rgba(154, 116, 236, 0.5);
   cursor: pointer;
 }
 .option .content .colors .color > .delete {
@@ -279,14 +279,18 @@ select:hover {
 }
 .option .content .colors .color > .delete > svg {
   width: 14px;
+  fill: #FFFFFF;
 }
 .option .content .colors .color > .delete:hover {
   cursor: pointer;
-  background: #1E1E1E;
+  background: #c70a0a;
+}
+.option .content .colors .color > .delete:hover svg {
+  fill: white !important;
 }
 .option .content .colors .color.new {
-  border: 2px dashed #855CDE;
-  color: #855CDE;
+  border: 2px dashed #9a74ec;
+  color: #9a74ec;
   opacity: 0.7;
   box-sizing: border-box;
   display: flex;
@@ -320,10 +324,10 @@ select:hover {
   transition: all 0.1s linear;
 }
 .option .content .gradients .gradient:not(.noInteraction).selected > .background {
-  outline-color: #855CDE;
+  outline-color: #9a74ec;
 }
 .option .content .gradients .gradient:not(.noInteraction):not(.new):not(.selected) > .background:hover {
-  outline-color: rgba(133, 92, 222, 0.5);
+  outline-color: rgba(154, 116, 236, 0.5);
   cursor: pointer;
 }
 .option .content .gradients .gradient > .delete {
@@ -343,14 +347,18 @@ select:hover {
 }
 .option .content .gradients .gradient > .delete > svg {
   width: 14px;
+  fill: #FFFFFF;
 }
 .option .content .gradients .gradient > .delete:hover {
   cursor: pointer;
-  background: #1E1E1E;
+  background: #c70a0a;
+}
+.option .content .gradients .gradient > .delete:hover svg {
+  fill: white !important;
 }
 .option .content .gradients .gradient.new {
-  border: 2px dashed #855CDE;
-  color: #855CDE;
+  border: 2px dashed #9a74ec;
+  color: #9a74ec;
   opacity: 0.7;
   box-sizing: border-box;
   display: flex;
@@ -377,7 +385,7 @@ select:hover {
 .option > .checkLine .checkbox .on > svg, .option > .checkLine .checkbox .off > svg {
   width: 1.25em;
   height: 1.25em;
-  fill: #855CDE;
+  fill: #9a74ec;
 }
 .option > .checkLine .checkbox .off > svg {
   fill: #bbbbbb;
@@ -403,7 +411,7 @@ select:hover {
   display: inline-block;
   padding-left: 10px;
   font-weight: bold;
-  color: #855CDE;
+  color: #9a74ec;
 }
 .option:not(.active) > .checkLine > .text {
   color: #bbbbbb;
@@ -651,7 +659,7 @@ input[type=range]:hover {
   width: 100%;
   display: flex;
   flex-direction: column;
-  border: 2px dashed rgba(133, 92, 222, 0.2);
+  border: 2px dashed rgba(154, 116, 236, 0.2);
   border-radius: 5px;
   background: #212121;
 }
@@ -769,7 +777,7 @@ label:hover {
   background-color: #222222;
   width: 150px;
   height: 100px;
-  border: 2px solid rgba(133, 92, 222, 0.2);
+  border: 2px solid rgba(154, 116, 236, 0.2);
   border-radius: 6px;
   padding: 10px;
   transition: background-color 0.1s linear;
@@ -786,16 +794,16 @@ label:hover {
   color: #FFFFFF;
 }
 .content.themeOptions .option.selected {
-  background-color: rgba(133, 92, 222, 0.1);
+  background-color: rgba(154, 116, 236, 0.1);
 }
 .content.themeOptions .option:not(.selected):hover {
   cursor: pointer;
-  background-color: rgba(133, 92, 222, 0.05);
+  background-color: rgba(154, 116, 236, 0.05);
 }
 
 body {
   background-color: #181818;
-  background-image: radial-gradient(rgba(133, 92, 222, 0.5) 1px, transparent 0);
+  background-image: radial-gradient(rgba(154, 116, 236, 0.5) 1px, transparent 0);
   background-size: 15px 15px;
   background-position: -19px -19px;
 }
@@ -806,7 +814,7 @@ body > .title {
 }
 body > .title > a {
   text-decoration: none;
-  color: #855CDE;
+  color: #9a74ec;
 }
 body > .subtitle {
   text-decoration: none;
@@ -861,7 +869,7 @@ body > .mainContent > .leftNav > .element:not(.user) {
 body > .mainContent > .leftNav > .element:not(.user) > .icono {
   width: 40px;
   height: 40px;
-  background: rgba(133, 92, 222, 0.07);
+  background: rgba(154, 116, 236, 0.07);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -945,7 +953,7 @@ body > .mainContent > .rightNav > *:not(.darker) > .title {
   font-size: 25px;
   line-height: 25px;
   height: 25px;
-  color: #855CDE;
+  color: #9a74ec;
   margin-right: auto;
   margin-bottom: 15px;
   display: flex;

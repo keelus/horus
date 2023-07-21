@@ -56,10 +56,14 @@
 
 					& > svg {
 						width: 14px;
+						fill:$textPrimary;
 					}
 					&:hover {
 						cursor:pointer;
-						background:$bg-3;
+						background:$error;
+						svg {
+							fill:white !important;
+						}
 					}
 				}
 
@@ -132,10 +136,14 @@
 
 					& > svg {
 						width: 14px;
+						fill:$textPrimary;
 					}
 					&:hover {
 						cursor:pointer;
-						background:$bg-3;
+						background:$error;
+						svg {
+							fill:white !important;
+						}
 					}
 				}
 

@@ -279,10 +279,14 @@ select:hover {
 }
 .option .content .colors .color > .delete > svg {
   width: 14px;
+  fill: #000000;
 }
 .option .content .colors .color > .delete:hover {
   cursor: pointer;
-  background: #F5F5F5;
+  background: #c70a0a;
+}
+.option .content .colors .color > .delete:hover svg {
+  fill: white !important;
 }
 .option .content .colors .color.new {
   border: 2px dashed #855CDE;
@@ -343,10 +347,14 @@ select:hover {
 }
 .option .content .gradients .gradient > .delete > svg {
   width: 14px;
+  fill: #000000;
 }
 .option .content .gradients .gradient > .delete:hover {
   cursor: pointer;
-  background: #F5F5F5;
+  background: #c70a0a;
+}
+.option .content .gradients .gradient > .delete:hover svg {
+  fill: white !important;
 }
 .option .content .gradients .gradient.new {
   border: 2px dashed #855CDE;

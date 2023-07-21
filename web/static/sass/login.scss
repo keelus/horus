@@ -1,8 +1,10 @@
 @import 'base.scss';
 
 html, body {
-	background:#0E121A;
-	background:#101010;	
+	background:$bg-4;
+	background-image: radial-gradient($bg-dots 1px, transparent 0);
+	background-size: 15px 15px;
+	background-position: -19px -19px;
 	font-family: 'Familjen Grotesk', sans-serif;
 }
 
@@ -10,13 +12,13 @@ html, body {
 
 h1 {
 	margin-bottom:0;
-	color:#fdc830;
+	color:$accent;;
 	font-weight: bold;
 }
 h2 {
 	margin-top:0;
 	margin-bottom:.5em;
-	color:white;
+	color:$textPrimary;
 	font-weight: normal;
 }
 
@@ -34,9 +36,9 @@ form {
 		justify-content: center;
 		align-items: center;
 		padding:10px 0;
-		background:#1a1f29;
-		background:#171717;
+		background:$bg-2;
 		border-radius:10px;
+		box-shadow: rgba(99, 99, 99, 0.1) 0px 2px 8px 0px;
 
 		.avatar {
 			width:50px;
@@ -50,7 +52,7 @@ form {
 
 		.username {
 			flex:1;
-			color:white;
+			color:$textPrimary;
 			font-size:1em;
 			margin-right:20px;
 			font-family: 'Fira Code', monospace;
@@ -59,22 +61,6 @@ form {
 
 	input {
 		margin-bottom:15px !important;
-	}
-
-	button {
-		font-family: 'Familjen Grotesk', sans-serif;
-		color:white;
-		background-image:linear-gradient(to right, #fdc830, #f37335);
-		// background-image:linear-gradient(to right, #197B1C, #01C201);
-		width:100%;
-		padding:10px 10px;
-		border-radius:10px;
-		font-size:16px;
-		border:none;
-
-		&:hover {
-			cursor:pointer;
-		}
 	}
 
 	.message {

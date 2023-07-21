@@ -1,6 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Familjen+Grotesk:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap");
 body {
-  background: #101010;
+  background: #F9F9F9;
   color: rgba(255, 255, 255, 0.7);
   padding: 0;
   margin: 0;
@@ -56,7 +56,7 @@ body {
 
 button, .button, .button:link, .button:visited {
   text-decoration: none;
-  border-radius: 3px;
+  border-radius: 8px;
   outline: none;
   border: none;
   outline: none;
@@ -72,26 +72,12 @@ button, .button, .button:link, .button:visited {
   align-items: center;
   box-sizing: border-box;
   z-index: 1;
-}
-button::before, button::after, .button::before, .button::after, .button:link::before, .button:link::after, .button:visited::before, .button:visited::after {
-  content: "";
-  display: block;
-  position: absolute;
-  left: 0;
-  top: 0;
-  bottom: 0;
-  right: 0;
-  background: linear-gradient(to bottom right, #fdc830, #f37335);
-  border-radius: 3px;
-  z-index: -1;
-}
-button::after, .button::after, .button:link::after, .button:visited::after {
-  opacity: 0;
-  background: linear-gradient(to top left, #fdc830, #f37335);
-  transition: opacity 0.3s ease-in-out;
+  background-color: #855CDE;
+  transition: background-color 0.1s linear;
 }
 button:hover, .button:hover, .button:link:hover, .button:visited:hover {
   cursor: pointer;
+  background-color: rgba(133, 92, 222, 0.8);
 }
 button:hover::after, .button:hover::after, .button:link:hover::after, .button:visited:hover::after {
   opacity: 1;
@@ -105,31 +91,21 @@ button:disabled::before, button:disabled::after, .button:disabled::before, .butt
 button:disabled:hover, .button:disabled:hover, .button:link:disabled:hover, .button:visited:disabled:hover {
   cursor: default;
 }
-button.secundario, .button.secundario, .button:link.secundario, .button:visited.secundario {
-  background: #222222 !important;
-  transition: background 0.3s ease-in-out;
-}
-button.secundario::before, button.secundario::after, .button.secundario::before, .button.secundario::after, .button:link.secundario::before, .button:link.secundario::after, .button:visited.secundario::before, .button:visited.secundario::after {
-  all: unset !important;
-}
-button.secundario:hover, .button.secundario:hover, .button:link.secundario:hover, .button:visited.secundario:hover {
-  background: #171717 !important;
-}
-button.blancoNegro, .button.blancoNegro, .button:link.blancoNegro, .button:visited.blancoNegro {
+button.whiteBlack, .button.whiteBlack, .button:link.whiteBlack, .button:visited.whiteBlack {
   background: #FFFFFF !important;
-  color: #101010 !important;
-  border: 0;
+  color: #000000 !important;
+  border: 1px solid #000000;
   transition: all 0.2s linear !important;
 }
-button.blancoNegro::before, button.blancoNegro::after, .button.blancoNegro::before, .button.blancoNegro::after, .button:link.blancoNegro::before, .button:link.blancoNegro::after, .button:visited.blancoNegro::before, .button:visited.blancoNegro::after {
+button.whiteBlack::before, button.whiteBlack::after, .button.whiteBlack::before, .button.whiteBlack::after, .button:link.whiteBlack::before, .button:link.whiteBlack::after, .button:visited.whiteBlack::before, .button:visited.whiteBlack::after {
   all: unset !important;
 }
-button.blancoNegro:hover, .button.blancoNegro:hover, .button:link.blancoNegro:hover, .button:visited.blancoNegro:hover {
-  background: #101010 !important;
-  color: #FFFFFF !important;
+button.whiteBlack:hover, .button.whiteBlack:hover, .button:link.whiteBlack:hover, .button:visited.whiteBlack:hover {
+  background: #000000 !important;
+  color: #F9F9F9 !important;
 }
 button.blancoRojo, .button.blancoRojo, .button:link.blancoRojo, .button:visited.blancoRojo {
-  background: #FFFFFF !important;
+  background: #000000 !important;
   color: #c70a0a !important;
   border: 0;
   transition: all 0.2s linear !important;
@@ -139,7 +115,7 @@ button.blancoRojo::before, button.blancoRojo::after, .button.blancoRojo::before,
 }
 button.blancoRojo:hover, .button.blancoRojo:hover, .button:link.blancoRojo:hover, .button:visited.blancoRojo:hover {
   background: #c70a0a !important;
-  color: #FFFFFF !important;
+  color: #000000 !important;
 }
 
 input[type=text],
@@ -157,14 +133,14 @@ input[type=month],
 input[type=week] {
   margin: 0;
   padding: 5px 10px;
-  background: #171717;
-  border: 1px solid #303030;
   border-radius: 5px;
   font-size: 16px;
   padding: 10px 15px;
   outline: none;
-  color: white;
   font-family: "Familjen Grotesk", sans-serif;
+  background: #FFFFFF;
+  color: #000000;
+  border: 1px solid #000000;
 }
 input[type=text][type=password],
 input[type=password][type=password],
@@ -204,14 +180,14 @@ input[type=week][type=password]:placeholder-shown {
 select {
   margin: 0;
   padding: 5px 10px;
-  background: #303030;
-  border: 1px solid #171717;
   border-radius: 5px;
   font-size: 16px;
   padding: 10px 15px;
   outline: none;
-  color: white;
   font-family: "Familjen Grotesk", sans-serif;
+  background: #FFFFFF;
+  color: #000000;
+  border: 1px solid #000000;
 }
 select:hover {
   cursor: pointer;
@@ -221,8 +197,8 @@ select:hover {
   z-index: 999;
   opacity: 0;
   position: fixed;
-  background-color: #FFFFFF;
-  color: #101010;
+  background-color: #000000;
+  color: #F9F9F9;
   max-width: 350px;
   padding: 13px;
   top: -50px;
@@ -251,21 +227,23 @@ select:hover {
 }
 
 html, body {
-  background: #0E121A;
-  background: #101010;
+  background: #F2F2F2;
+  background-image: radial-gradient(rgba(133, 92, 222, 0.5) 1px, transparent 0);
+  background-size: 15px 15px;
+  background-position: -19px -19px;
   font-family: "Familjen Grotesk", sans-serif;
 }
 
 h1 {
   margin-bottom: 0;
-  color: #fdc830;
+  color: #855CDE;
   font-weight: bold;
 }
 
 h2 {
   margin-top: 0;
   margin-bottom: 0.5em;
-  color: white;
+  color: #000000;
   font-weight: normal;
 }
 
@@ -283,9 +261,9 @@ form .card {
   justify-content: center;
   align-items: center;
   padding: 10px 0;
-  background: #1a1f29;
-  background: #171717;
+  background: #F9F9F9;
   border-radius: 10px;
+  box-shadow: rgba(99, 99, 99, 0.1) 0px 2px 8px 0px;
 }
 form .card .avatar {
   width: 50px;
@@ -298,26 +276,13 @@ form .card .avatar {
 }
 form .card .username {
   flex: 1;
-  color: white;
+  color: #000000;
   font-size: 1em;
   margin-right: 20px;
   font-family: "Fira Code", monospace;
 }
 form input {
   margin-bottom: 15px !important;
-}
-form button {
-  font-family: "Familjen Grotesk", sans-serif;
-  color: white;
-  background-image: linear-gradient(to right, #fdc830, #f37335);
-  width: 100%;
-  padding: 10px 10px;
-  border-radius: 10px;
-  font-size: 16px;
-  border: none;
-}
-form button:hover {
-  cursor: pointer;
 }
 form .message {
   color: #c70a0a;
