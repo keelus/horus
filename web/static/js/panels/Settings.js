@@ -9,6 +9,10 @@ $(".saveButton").on("click", (e) => {
 		postData.Username = $("#userInfo0").val()
 		postData.Password = $("#userInfo1").val()
 		break
+	case "ColorTheme":
+		colorTheme = $(".themeOptions .option.selected").attr("theme")
+		postData.ColorTheme = colorTheme
+		break
 	case "SessionSettings":
 		activeRadio = $('input[name="sessionDurationType"]:checked').attr("id")
 		if(activeRadio == "sessionDuration0"){
@@ -51,6 +55,9 @@ $(".saveButton").on("click", (e) => {
 			switch(category) {
 				case "UserInfo":
 					$(".username").text(postData.Username)
+					break
+				case "ColorTheme":
+					window.location.href = window.location.href
 					break
 				case "SessionSettings":
 					break
@@ -100,4 +107,9 @@ $(".saveButton").on("click", (e) => {
 			showPopup(popupMessage, 3000, "error")
 		}
 	});
+})
+
+$(".themeOptions .option").on("click", (e) => {
+	$(".themeOptions .option.selected").removeClass("selected")
+	$(e.target).closest(".option").addClass("selected")
 })

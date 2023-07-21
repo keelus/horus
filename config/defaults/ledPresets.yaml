@@ -1,13 +1,11 @@
 StaticColor:
-    - FDC830
+    - 855CDE
 StaticGradient:
-    - - FF0000
-      - 00FF00
-      - 0000FF
-    - - FDC830
-      - F37335
+    - - 855CDE
+      - A189D6
+      - 855CDE
 FadingRainbow: 50
 BreathingColor:
   Cooldown: 40
   Colors:
-  - F37335
+  - 855CDE

@@ -54,6 +54,16 @@ func SaveConfiguration(c *gin.Context) {
 			}
 		}
 		break
+	case "ColorTheme":
+		colorTheme := c.PostForm("ColorTheme")
+		switch colorTheme {
+		case "light":
+			config.UserConfiguration.ColorModeDark = false
+		case "dark":
+			config.UserConfiguration.ColorModeDark = true
+		default:
+			returnError = append(returnError, map[string]string{"details": "Unexpected color mode.", "field": "null"})
+		}
 	case "SessionSettings":
 		lifespanString := c.PostForm("Lifespan")
 		unit := c.PostForm("Unit")
