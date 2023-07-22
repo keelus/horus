@@ -6,6 +6,7 @@ if (window.location.search.indexOf('added') !== -1) {
 $(".checkLine").on("click", (e) => {
 	e.preventDefault()
 	$(".color.selected").removeClass("selected")
+	$(".gradient.selected").removeClass("selected")
 
 	mode = $(e.target).closest(".option").attr("mode")
 
