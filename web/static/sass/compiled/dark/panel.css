@@ -492,6 +492,11 @@ select:hover {
   font-size: 1.25em;
   font-weight: bold;
 }
+.modal .subtitle {
+  color: #bbbbbb;
+  font-weight: lighter;
+  margin-bottom: 5px;
+}
 .modal .doubleButton {
   margin-top: 15px;
   display: flex;
@@ -571,36 +576,57 @@ input[type=range]:hover {
   height: 50px;
 }
 #newGradientModal > .modal .hexCodes {
+  margin-top: 0;
   width: auto;
   list-style-type: none;
   padding: 0;
 }
 #newGradientModal > .modal .hexCodes li.hexCode {
+  margin-bottom: 5px;
   display: flex;
   align-items: center;
   gap: 6px;
   position: relative;
 }
 #newGradientModal > .modal .hexCodes li.hexCode .drag {
-  width: 15px;
+  width: 20px;
   height: 30px;
-  background: #FFFFFF;
+  display: flex;
+  align-items: center;
+}
+#newGradientModal > .modal .hexCodes li.hexCode .drag svg {
+  width: 30px;
+  fill: #bbbbbb;
+  transition: all 0.1s linear;
 }
 #newGradientModal > .modal .hexCodes li.hexCode .drag:hover {
   cursor: move;
 }
+#newGradientModal > .modal .hexCodes li.hexCode .drag:hover svg {
+  fill: #FFFFFF;
+}
 #newGradientModal > .modal .hexCodes li.hexCode .remove {
   padding: 3px 2px;
-  background: #c70a0a;
+  background: #181818;
   border-radius: 5px;
-  transition: all 0.3s linear;
+  transition: all 0.1s linear;
+  height: auto;
+}
+#newGradientModal > .modal .hexCodes li.hexCode .remove svg {
+  transition: all 0.1s linear;
+  width: 20px;
+  height: 20px;
+  fill: #FFFFFF;
 }
 #newGradientModal > .modal .hexCodes li.hexCode .remove:hover {
-  background: #FFFFFF;
-  color: #212121;
+  cursor: pointer;
+  background: #c70a0a;
+}
+#newGradientModal > .modal .hexCodes li.hexCode .remove:hover svg {
+  fill: white;
 }
 #newGradientModal > .modal .hexCodes li.addColorToGradient {
-  color: #bbbbbb;
+  color: #9a74ec;
 }
 #newGradientModal > .modal .hexCodes li.addColorToGradient:hover {
   cursor: pointer;

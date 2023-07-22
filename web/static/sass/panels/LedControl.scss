@@ -313,6 +313,11 @@
 		font-size:1.25em;
 		font-weight: bold;
 	}
+	.subtitle {
+		color:$textPrimary2;
+		font-weight: lighter;
+		margin-bottom:5px;
+	}
 
 	.doubleButton {
 		margin-top:15px;
@@ -403,38 +408,61 @@ input[type="range"]:hover {
 	color:$textPrimary;
 	
 	.hexCodes {
+		margin-top:0;
 		width:auto;
 		list-style-type: none;
 		padding: 0;
 		li.hexCode {
+			margin-bottom:5px;
 			display:flex;
 			align-items: center;
 			gap:6px;
 			.drag {
-				width:15px;
+				width:20px;
 				height:30px;
-				background:$textPrimary;
+				display:flex;
+				align-items: center;
+				& svg {
+					width:30px;
+					fill: $textPrimary2;
+					transition:all .1s linear;
+				}
 				&:hover{
 					cursor:move;
+					& svg {
+						fill: $textPrimary;
+					}
+
 				}
 			}
 
 			.remove {
 				padding:3px 2px;
-				background:$error;
+				background:$bg-4;
 				border-radius:5px;
-				transition:all .3s linear;
+				transition:all .1s linear;
+				height:auto;
+
+				& svg {
+					transition:all .1s linear;
+					width: 20px;
+					height: 20px;
+					fill: $textPrimary;
+				}
 
 				&:hover {
-					background:$textPrimary;
-					color:$bg-2;
+					cursor:pointer;
+					background:$error;
+					svg {
+						fill:white;
+					}
 				}
 			}
 			position:relative;
 
 		}
 		li.addColorToGradient {
-			color:$textPrimary2;
+			color:$accent;
 
 			&:hover {
 				cursor:pointer;
