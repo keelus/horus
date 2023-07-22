@@ -693,12 +693,17 @@ input[type=range]:hover {
 }
 .categories > .category.UserInfo .avatar {
   width: 50px;
+  max-width: 50px;
   height: 50px;
   border-radius: 0.25rem;
   display: inline-block;
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
+  flex: 1;
+}
+.categories > .category.UserInfo .note {
+  flex: 2;
 }
 .categories > .category.SystemStats .note {
   display: none;
@@ -760,7 +765,7 @@ label:hover {
   cursor: pointer;
 }
 
-.saveButton {
+.saveButton:not(.deletion) {
   margin: auto;
   margin-bottom: 0;
 }
