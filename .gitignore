@@ -1,3 +1,7 @@
 *.exe
 config/*.yaml
 logs/*.log
+avatar.jpg
+avatar.png
+avatar.webp
+avatar.gif

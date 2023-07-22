@@ -68,6 +68,7 @@ func SetupRouter() *gin.Engine {
 		apiGroup.POST("/login", apiHandler.HandleLogin)
 		apiGroup.GET("/logout", apiHandler.HandleLogout)
 		apiGroup.GET("/getStats", apiHandler.HandleGetStats)
+		apiGroup.GET("/avatar", apiHandler.HandleAvatar)
 
 		ledControlGroup := apiGroup.Group("/ledControl")
 		{

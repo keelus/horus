@@ -169,7 +169,7 @@ func SaveConfiguration(c *gin.Context) {
 			_ = os.Remove("config/ledActive.yaml")
 			_ = os.Remove("config/ledPresets.yaml")
 			_ = os.Remove("config/userConfig.yaml")
-			_ = os.Remove("web/static/images/avatar.jpg")
+			_ = os.Remove("avatar.jpg")
 
 			logger.Log(c, logger.SETTING, "Horus data deleted successfully.")
 

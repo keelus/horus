@@ -21,7 +21,7 @@
 			<input type="text" placeholder="Username" id="usernameInput"> <br>
 		{{else}}
 			<div class="card">
-				<div class="avatar" style="background-image: url('/static/images/avatar.jpg{{fPreventCaching}}');"></div>
+				<div class="avatar" style="background-image: url('/api/avatar');"></div>
 				<div class="username">{{.UserConfiguration.UserInfo.Username}}</div>
 			</div>
 			<div class="message">Incorrect password.</div>
