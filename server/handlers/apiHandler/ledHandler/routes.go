@@ -253,6 +253,11 @@ func SetBrightness(c *gin.Context) {
 		return
 	}
 
+	if led.ApplyingBrightness {
+		c.JSON(http.StatusBadGateway, gin.H{"details": "Brightness is being applied, please wait."})
+		return
+	}
+
 	valuePercent, err := strconv.Atoi(c.Param("valuePercent"))
 	if err != nil || !(valuePercent >= 0 && valuePercent <= 100) {
 		c.JSON(http.StatusBadGateway, gin.H{"details": "Unexpected brightness value type."})

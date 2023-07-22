@@ -29,6 +29,8 @@ var StopBreathing = false
 
 var LedStrip *ws2811.WS2811
 
+var ApplyingBrightness = false
+
 func Init() {
 	var err error
 
@@ -81,6 +83,10 @@ func SetBrightness(brightness int) { // TODO: Will return true once transition i
 		LedStrip.SetBrightness(0, brightness)
 		internal.SaveFile(&config.LedActive)
 	} else { // Brightness fading will only occur on Static Color to prevent unexpected flashing
+		if ApplyingBrightness {
+			return
+		}
+		ApplyingBrightness = true
 		currentBrightness := config.LedActive.Brightness
 
 		config.LedActive.Brightness = brightness
@@ -108,6 +114,7 @@ func SetBrightness(brightness int) { // TODO: Will return true once transition i
 		}
 
 		Draw()
+		ApplyingBrightness = false
 	}
 }
 
