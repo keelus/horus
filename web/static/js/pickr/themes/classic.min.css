@@ -234,6 +234,7 @@
 
 .color-picker .button {
 	width:100% !important;
+	border:2px dashed rgba(154, 116, 236, .8);
 }
 [data-type="HEX"] {
 	display:none;
