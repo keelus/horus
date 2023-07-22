@@ -69,6 +69,7 @@ func Add(c *gin.Context) {
 				if raw == rawPreviousGradient {
 					config.LedPresets.StaticGradient[i] = hexValues
 					config.LedActive.Color = hexValues
+					led.DrawGradient()
 				}
 			}
 
@@ -79,6 +80,8 @@ func Add(c *gin.Context) {
 			}
 
 			config.LedPresets.StaticGradient = append(config.LedPresets.StaticGradient, hexValues)
+			config.LedActive.Color = hexValues
+			led.DrawGradient()
 		}
 
 	} else {
@@ -111,6 +114,7 @@ func Add(c *gin.Context) {
 
 			config.LedActive.Color = []string{hex}
 			config.LedPresets.StaticColor = newPreset
+			led.Draw()
 
 		} else if mode == "BreathingColor" {
 			if sliceutil.Contains(config.LedPresets.BreathingColor, hex) {

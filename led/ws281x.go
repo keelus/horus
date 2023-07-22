@@ -119,6 +119,7 @@ func SetBrightness(brightness int) { // TODO: Will return true once transition i
 }
 
 func Draw() {
+	LedStrip.SetBrightness(0, config.LedActive.Brightness)
 	if LedStrip == nil {
 		fmt.Printf("LED strip is not initialized\n")
 	}
