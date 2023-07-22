@@ -82,6 +82,11 @@ func SetBrightness(brightness int) { // TODO: Will return true once transition i
 		internal.SaveFile(&config.LedActive)
 	} else { // Brightness fading will only occur on Static Color to prevent unexpected flashing
 		currentBrightness := config.LedActive.Brightness
+
+		config.LedActive.Brightness = brightness
+		LedStrip.SetBrightness(0, brightness)
+		internal.SaveFile(&config.LedActive)
+
 		duration := 1 * time.Second
 
 		steps := 1
@@ -102,9 +107,6 @@ func SetBrightness(brightness int) { // TODO: Will return true once transition i
 			time.Sleep(interval)
 		}
 
-		config.LedActive.Brightness = brightness
-		LedStrip.SetBrightness(0, brightness)
-		internal.SaveFile(&config.LedActive)
 		Draw()
 	}
 }

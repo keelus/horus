@@ -5,6 +5,7 @@ import (
 	"horus/config"
 	"horus/internal"
 	"html/template"
+	"math"
 	"math/rand"
 	"time"
 
@@ -57,6 +58,9 @@ func Renderer() multitemplate.Renderer {
 		"isActiveMode": func(mode string) bool {
 			activeMode := config.LedActive.ActiveMode
 			return mode == activeMode
+		},
+		"convertBrightness": func(brightness int) int {
+			return int(math.Ceil(float64(brightness) * 100 / 255))
 		},
 	}
 
