@@ -8,7 +8,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-const CUR_VERSION = "0.9.2 beta"
+const CUR_VERSION = "0.9.3 beta"
 
 func IsLogged(c *gin.Context) bool {
 	session := sessions.Default(c)
