@@ -1,6 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Familjen+Grotesk:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap");
 body {
-  background: #F9F9F9;
+  background: #212121;
   color: rgba(255, 255, 255, 0.7);
   padding: 0;
   margin: 0;
@@ -72,12 +72,12 @@ button, .button, .button:link, .button:visited {
   align-items: center;
   box-sizing: border-box;
   z-index: 1;
-  background-color: #855CDE;
+  background-color: #9a74ec;
   transition: background-color 0.1s linear;
 }
 button:hover, .button:hover, .button:link:hover, .button:visited:hover {
   cursor: pointer;
-  background-color: rgba(133, 92, 222, 0.8);
+  background-color: rgba(154, 116, 236, 0.8);
 }
 button:hover::after, .button:hover::after, .button:link:hover::after, .button:visited:hover::after {
   opacity: 1;
@@ -92,20 +92,20 @@ button:disabled:hover, .button:disabled:hover, .button:link:disabled:hover, .but
   cursor: default;
 }
 button.whiteBlack, .button.whiteBlack, .button:link.whiteBlack, .button:visited.whiteBlack {
-  background: #FFFFFF !important;
-  color: #000000 !important;
-  border: 1px solid #000000;
+  background: #222222 !important;
+  color: #FFFFFF !important;
+  border: 1px solid #FFFFFF;
   transition: all 0.2s linear !important;
 }
 button.whiteBlack::before, button.whiteBlack::after, .button.whiteBlack::before, .button.whiteBlack::after, .button:link.whiteBlack::before, .button:link.whiteBlack::after, .button:visited.whiteBlack::before, .button:visited.whiteBlack::after {
   all: unset !important;
 }
 button.whiteBlack:hover, .button.whiteBlack:hover, .button:link.whiteBlack:hover, .button:visited.whiteBlack:hover {
-  background: #000000 !important;
-  color: #F9F9F9 !important;
+  background: #FFFFFF !important;
+  color: #212121 !important;
 }
 button.blancoRojo, .button.blancoRojo, .button:link.blancoRojo, .button:visited.blancoRojo {
-  background: #000000 !important;
+  background: #FFFFFF !important;
   color: #c70a0a !important;
   border: 0;
   transition: all 0.2s linear !important;
@@ -115,7 +115,7 @@ button.blancoRojo::before, button.blancoRojo::after, .button.blancoRojo::before,
 }
 button.blancoRojo:hover, .button.blancoRojo:hover, .button:link.blancoRojo:hover, .button:visited.blancoRojo:hover {
   background: #c70a0a !important;
-  color: #000000 !important;
+  color: #FFFFFF !important;
 }
 
 input[type=text],
@@ -138,9 +138,9 @@ input[type=week] {
   padding: 10px 15px;
   outline: none;
   font-family: "Familjen Grotesk", sans-serif;
-  background: #FFFFFF;
-  color: #000000;
-  border: 1px solid #000000;
+  background: #222222;
+  color: #FFFFFF;
+  border: 1px solid #FFFFFF;
 }
 input[type=text][type=password],
 input[type=password][type=password],
@@ -185,9 +185,9 @@ select {
   padding: 10px 15px;
   outline: none;
   font-family: "Familjen Grotesk", sans-serif;
-  background: #FFFFFF;
-  color: #000000;
-  border: 1px solid #000000;
+  background: #222222;
+  color: #FFFFFF;
+  border: 1px solid #FFFFFF;
 }
 select:hover {
   cursor: pointer;
@@ -197,8 +197,8 @@ select:hover {
   z-index: 999;
   opacity: 0;
   position: fixed;
-  background-color: #000000;
-  color: #F9F9F9;
+  background-color: #FFFFFF;
+  color: #212121;
   max-width: 350px;
   padding: 13px;
   top: -50px;
@@ -256,10 +256,10 @@ select:hover {
   transition: all 0.1s linear;
 }
 .option .content .colors .color:not(.noInteraction).selected > .background {
-  outline-color: #855CDE;
+  outline-color: #9a74ec;
 }
 .option .content .colors .color:not(.noInteraction):not(.new):not(.selected) > .background:hover {
-  outline-color: rgba(133, 92, 222, 0.5);
+  outline-color: rgba(154, 116, 236, 0.5);
   cursor: pointer;
 }
 .option .content .colors .color > .delete {
@@ -267,7 +267,7 @@ select:hover {
   height: 20px;
   border-radius: 100%;
   color: #c70a0a;
-  background: #FFFFFF;
+  background: #222222;
   position: absolute;
   top: -10px;
   right: -10px;
@@ -275,11 +275,11 @@ select:hover {
   justify-content: center;
   align-items: center;
   transition: all 0.1s linear;
-  border: 1px solid rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.3);
 }
 .option .content .colors .color > .delete > svg {
   width: 14px;
-  fill: #000000;
+  fill: #FFFFFF;
 }
 .option .content .colors .color > .delete:hover {
   cursor: pointer;
@@ -289,8 +289,8 @@ select:hover {
   fill: white !important;
 }
 .option .content .colors .color.new {
-  border: 2px dashed #855CDE;
-  color: #855CDE;
+  border: 2px dashed #9a74ec;
+  color: #9a74ec;
   opacity: 0.7;
   box-sizing: border-box;
   display: flex;
@@ -324,10 +324,10 @@ select:hover {
   transition: all 0.1s linear;
 }
 .option .content .gradients .gradient:not(.noInteraction).selected > .background {
-  outline-color: #855CDE;
+  outline-color: #9a74ec;
 }
 .option .content .gradients .gradient:not(.noInteraction):not(.new):not(.selected) > .background:hover {
-  outline-color: rgba(133, 92, 222, 0.5);
+  outline-color: rgba(154, 116, 236, 0.5);
   cursor: pointer;
 }
 .option .content .gradients .gradient > .delete {
@@ -335,7 +335,7 @@ select:hover {
   height: 20px;
   border-radius: 100%;
   color: #c70a0a;
-  background: #FFFFFF;
+  background: #222222;
   position: absolute;
   top: -10px;
   right: -10px;
@@ -343,11 +343,11 @@ select:hover {
   justify-content: center;
   align-items: center;
   transition: all 0.1s linear;
-  border: 1px solid rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.3);
 }
 .option .content .gradients .gradient > .delete > svg {
   width: 14px;
-  fill: #000000;
+  fill: #FFFFFF;
 }
 .option .content .gradients .gradient > .delete:hover {
   cursor: pointer;
@@ -356,9 +356,35 @@ select:hover {
 .option .content .gradients .gradient > .delete:hover svg {
   fill: white !important;
 }
+.option .content .gradients .gradient > .edit {
+  width: 20px;
+  height: 20px;
+  border-radius: 100%;
+  color: #c70a0a;
+  background: #222222;
+  position: absolute;
+  top: -10px;
+  right: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.1s linear;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+.option .content .gradients .gradient > .edit > svg {
+  width: 14px;
+  fill: #FFFFFF;
+}
+.option .content .gradients .gradient > .edit:hover {
+  cursor: pointer;
+  background: #9a74ec;
+}
+.option .content .gradients .gradient > .edit:hover svg {
+  fill: white !important;
+}
 .option .content .gradients .gradient.new {
-  border: 2px dashed #855CDE;
-  color: #855CDE;
+  border: 2px dashed #9a74ec;
+  color: #9a74ec;
   opacity: 0.7;
   box-sizing: border-box;
   display: flex;
@@ -385,10 +411,10 @@ select:hover {
 .option > .checkLine .checkbox .on > svg, .option > .checkLine .checkbox .off > svg {
   width: 1.25em;
   height: 1.25em;
-  fill: #855CDE;
+  fill: #9a74ec;
 }
 .option > .checkLine .checkbox .off > svg {
-  fill: #525151;
+  fill: #bbbbbb;
 }
 .option > .checkLine .checkbox .on {
   display: none;
@@ -403,7 +429,7 @@ select:hover {
   display: none;
 }
 .option.active > .checkLine > .text {
-  color: #000000;
+  color: #FFFFFF;
   position: relative;
 }
 .option.active > .checkLine > .text::after {
@@ -411,10 +437,10 @@ select:hover {
   display: inline-block;
   padding-left: 10px;
   font-weight: bold;
-  color: #855CDE;
+  color: #9a74ec;
 }
 .option:not(.active) > .checkLine > .text {
-  color: #525151;
+  color: #bbbbbb;
 }
 .option:not(.active) > .checkLine, .option:not(.active) > .checkLine > *:hover {
   cursor: pointer;
@@ -423,7 +449,7 @@ select:hover {
   display: none;
 }
 .option .checkLine > .text {
-  color: #000000;
+  color: #FFFFFF;
 }
 .option .checkLine > .text:hover {
   cursor: pointer;
@@ -438,7 +464,7 @@ select:hover {
   height: 100%;
   top: 0;
   left: 0;
-  background-color: rgba(249, 249, 249, 0.95);
+  background-color: rgba(33, 33, 33, 0.95);
   z-index: 998;
   display: none;
 }
@@ -449,7 +475,7 @@ select:hover {
 .modal {
   position: fixed;
   width: 500px;
-  background-color: #FFFFFF;
+  background-color: #222222;
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
   z-index: 999;
   display: flex;
@@ -462,7 +488,7 @@ select:hover {
   box-sizing: border-box;
 }
 .modal .title {
-  color: #000000;
+  color: #FFFFFF;
   font-size: 1.25em;
   font-weight: bold;
 }
@@ -471,6 +497,14 @@ select:hover {
   display: flex;
   justify-content: center;
   gap: 15px;
+}
+.modal .gradientNote {
+  font-size: 0.9em;
+  color: #9a74ec;
+}
+.modal .gradientNote:hover {
+  cursor: pointer;
+  text-decoration: underline;
 }
 .modal .inputBox {
   width: 100%;
@@ -482,7 +516,7 @@ select:hover {
   align-items: center;
   justify-content: flex-start;
   min-width: 150px;
-  color: #000000;
+  color: #FFFFFF;
 }
 .modal .inputBox > *:nth-child(2) {
   flex: 1;
@@ -508,7 +542,7 @@ select:hover {
   align-items: center;
   justify-content: flex-start;
   min-width: 150px;
-  color: #000000;
+  color: #FFFFFF;
 }
 .inputBox > *:nth-child(2) {
   flex: 1;
@@ -529,10 +563,10 @@ input[type=range]:hover {
 }
 
 #newGradientModal > .modal {
-  color: #000000;
+  color: #FFFFFF;
 }
 #newGradientModal > .modal .gradientPreview {
-  border: 1px solid #000000;
+  border: 1px solid #FFFFFF;
   width: 100%;
   height: 50px;
 }
@@ -550,7 +584,7 @@ input[type=range]:hover {
 #newGradientModal > .modal .hexCodes li.hexCode .drag {
   width: 15px;
   height: 30px;
-  background: #000000;
+  background: #FFFFFF;
 }
 #newGradientModal > .modal .hexCodes li.hexCode .drag:hover {
   cursor: move;
@@ -562,11 +596,11 @@ input[type=range]:hover {
   transition: all 0.3s linear;
 }
 #newGradientModal > .modal .hexCodes li.hexCode .remove:hover {
-  background: #000000;
-  color: #F9F9F9;
+  background: #FFFFFF;
+  color: #212121;
 }
 #newGradientModal > .modal .hexCodes li.addColorToGradient {
-  color: #525151;
+  color: #bbbbbb;
 }
 #newGradientModal > .modal .hexCodes li.addColorToGradient:hover {
   cursor: pointer;
@@ -574,7 +608,7 @@ input[type=range]:hover {
 }
 
 #brightnessVisual {
-  color: #000000;
+  color: #FFFFFF;
 }
 
 .stats {
@@ -590,7 +624,7 @@ input[type=range]:hover {
   align-items: center;
   flex-direction: column;
   gap: 15px;
-  background-color: #F5F5F5;
+  background-color: #1E1E1E;
   border-radius: 10px;
   padding: 20px 0;
 }
@@ -637,7 +671,7 @@ input[type=range]:hover {
   fill: #c70a0a;
 }
 .stats > .stat .text {
-  color: #000000;
+  color: #FFFFFF;
   font-size: 1.25em;
 }
 
@@ -648,7 +682,7 @@ input[type=range]:hover {
   }
 }
 .categories {
-  color: #000000;
+  color: #FFFFFF;
   display: flex;
   flex-direction: column;
   gap: 15px;
@@ -659,9 +693,9 @@ input[type=range]:hover {
   width: 100%;
   display: flex;
   flex-direction: column;
-  border: 2px dashed rgba(133, 92, 222, 0.2);
+  border: 2px dashed rgba(154, 116, 236, 0.2);
   border-radius: 5px;
-  background: #F9F9F9;
+  background: #212121;
 }
 .categories > .category:nth-last-child(1) {
   margin-top: 50px;
@@ -672,13 +706,13 @@ input[type=range]:hover {
   font-family: "Familjen Grotesk", sans-serif;
   font-weight: bold;
   font-size: 22px;
-  color: #000000;
+  color: #FFFFFF;
   margin-right: auto;
   margin-bottom: 0.1em;
 }
 .categories > .category > .details {
   font-size: 0.85em;
-  color: #525151;
+  color: #bbbbbb;
   margin-bottom: 0.5em;
 }
 .categories > .category > .content {
@@ -689,7 +723,7 @@ input[type=range]:hover {
   margin-top: 5px;
 }
 .categories > .category label {
-  color: #525151;
+  color: #bbbbbb;
 }
 .categories > .category.UserInfo .avatar {
   width: 50px;
@@ -759,7 +793,7 @@ input[type=checkbox]:disabled + label:hover, input[type=radio]:disabled + label:
 label {
   box-sizing: border-box;
   margin-left: 0;
-  color: #000000;
+  color: #FFFFFF;
 }
 label:hover {
   cursor: pointer;
@@ -780,10 +814,10 @@ label:hover {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background-color: #FFFFFF;
+  background-color: #222222;
   width: 150px;
   height: 100px;
-  border: 2px solid rgba(133, 92, 222, 0.2);
+  border: 2px solid rgba(154, 116, 236, 0.2);
   border-radius: 6px;
   padding: 10px;
   transition: background-color 0.1s linear;
@@ -797,19 +831,19 @@ label:hover {
   border-radius: 5px;
 }
 .content.themeOptions .option .title {
-  color: #000000;
+  color: #FFFFFF;
 }
 .content.themeOptions .option.selected {
-  background-color: rgba(133, 92, 222, 0.1);
+  background-color: rgba(154, 116, 236, 0.1);
 }
 .content.themeOptions .option:not(.selected):hover {
   cursor: pointer;
-  background-color: rgba(133, 92, 222, 0.05);
+  background-color: rgba(154, 116, 236, 0.05);
 }
 
 body {
-  background-color: #F2F2F2;
-  background-image: radial-gradient(rgba(133, 92, 222, 0.5) 1px, transparent 0);
+  background-color: #181818;
+  background-image: radial-gradient(rgba(154, 116, 236, 0.5) 1px, transparent 0);
   background-size: 15px 15px;
   background-position: -19px -19px;
 }
@@ -820,11 +854,11 @@ body > .title {
 }
 body > .title > a {
   text-decoration: none;
-  color: #855CDE;
+  color: #9a74ec;
 }
 body > .subtitle {
   text-decoration: none;
-  color: #525151;
+  color: #bbbbbb;
   text-align: center;
   font-weight: lighter;
   font-size: 16px;
@@ -853,7 +887,7 @@ body > .mainContent > .leftNav > .element {
   gap: 0.5em;
   padding: 0.6em 22px;
   box-sizing: border-box;
-  background: #FFFFFF;
+  background: #222222;
 }
 body > .mainContent > .leftNav > .element, body > .mainContent > .leftNav > .element * {
   text-decoration: none !important;
@@ -867,7 +901,7 @@ body > .mainContent > .leftNav > .element.lowerRadius {
   border-bottom-right-radius: 15px;
 }
 body > .mainContent > .leftNav > .element.active {
-  background: #F2F2F2 !important;
+  background: #181818 !important;
 }
 body > .mainContent > .leftNav > .element:not(.user) {
   transition: background 0.1s linear;
@@ -875,7 +909,7 @@ body > .mainContent > .leftNav > .element:not(.user) {
 body > .mainContent > .leftNav > .element:not(.user) > .icono {
   width: 40px;
   height: 40px;
-  background: rgba(133, 92, 222, 0.07);
+  background: rgba(154, 116, 236, 0.07);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -883,11 +917,11 @@ body > .mainContent > .leftNav > .element:not(.user) > .icono {
   border-radius: 0.25rem;
 }
 body > .mainContent > .leftNav > .element:not(.user) > .texto {
-  color: #000000;
+  color: #FFFFFF;
   flex: 1;
 }
 body > .mainContent > .leftNav > .element:not(.user):hover {
-  background: #F5F5F5;
+  background: #1E1E1E;
 }
 body > .mainContent > .leftNav > .element:not(.user):nth-last-child(2) {
   margin-top: auto;
@@ -925,18 +959,18 @@ body > .mainContent > .leftNav > .element.user > .texts {
   height: 40px;
 }
 body > .mainContent > .leftNav > .element.user > .texts > .username {
-  color: #000000;
+  color: #FFFFFF;
   font-weight: bold;
   font-family: "Familjen Grotesk", sans-serif;
 }
 body > .mainContent > .leftNav > .element.user > .texts > .status {
   font-size: 14px;
-  color: #525151;
+  color: #bbbbbb;
 }
 body > .mainContent > .rightNav {
   box-shadow: rgba(99, 99, 99, 0.1) 0px 2px 8px 0px;
   flex: 1;
-  background-color: #FFFFFF;
+  background-color: #222222;
   border-radius: 15px;
   padding: 20px 40px;
   padding-bottom: 40px;
@@ -959,7 +993,7 @@ body > .mainContent > .rightNav > *:not(.darker) > .title {
   font-size: 25px;
   line-height: 25px;
   height: 25px;
-  color: #855CDE;
+  color: #9a74ec;
   margin-right: auto;
   margin-bottom: 15px;
   display: flex;
