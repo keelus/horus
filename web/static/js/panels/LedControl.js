@@ -257,7 +257,9 @@ $("#brightness").on("change", () => {
 			showPopup(`Brightness applied.`, 3000, "success")
 		},
 		error: function(r) {
+			console.log(r.responseJSON)
 			if (r.responseJSON.brightness != null) {
+				$("#brightnessVisual").text(r.responseJSON.brightness + "%")
 				$("#brightness").val(r.responseJSON.brightness)
 			}
 			showPopup(r.responseJSON.details, 3000, "error")

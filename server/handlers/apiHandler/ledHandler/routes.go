@@ -7,6 +7,7 @@ import (
 	"horus/internal"
 	"horus/led"
 	"horus/logger"
+	"math"
 	"net/http"
 	"strconv"
 	"strings"
@@ -254,7 +255,7 @@ func SetBrightness(c *gin.Context) {
 	}
 
 	if led.ApplyingBrightness {
-		convertedBrightness := int(float64(config.LedActive.Brightness) * 100 / 255) // We return brightness 100% to set the slider value again.
+		convertedBrightness := int(math.Ceil(float64(config.LedActive.Brightness) * 100 / 255)) // We return brightness 100% to set the slider value again.
 		c.JSON(http.StatusBadGateway, gin.H{"details": "Brightness is being applied, please wait.", "brightness": convertedBrightness})
 		return
 	}
