@@ -41,7 +41,7 @@ $(".saveButton").on("click", (e) => {
 		postData.Temperature = $("#units1").val()
 		break
 	case "Deletion":
-		// TODO
+		postData.Password = $("#deletion0").val()
 		break
 	}
 
@@ -85,11 +85,12 @@ $(".saveButton").on("click", (e) => {
 				case "Units":
 					break
 				case "Deletion":
-					// TODO
+					window.location.href = "/dataRemoved"
 					break
 			}
 		},
 		error: function(r) {
+			console.log(r)
 			popupMessage = ""
 			for(i=0;i<r.responseJSON.length;i++){
 				console.error(r.responseJSON[i].details)
@@ -104,6 +105,7 @@ $(".saveButton").on("click", (e) => {
 				}
 			}
 
+			console.log(r)
 			showPopup(popupMessage, 3000, "error")
 		}
 	});
@@ -112,4 +114,10 @@ $(".saveButton").on("click", (e) => {
 $(".themeOptions .option").on("click", (e) => {
 	$(".themeOptions .option.selected").removeClass("selected")
 	$(e.target).closest(".option").addClass("selected")
+})
+$("#openDeletionModal").on("click", () => {
+	$("#deletionModal").addClass("show")
+})
+$("#cancelDeletion").on("click", () => {
+	$("#deletionModal").removeClass("show")
 })

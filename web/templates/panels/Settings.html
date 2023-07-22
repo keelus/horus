@@ -142,10 +142,21 @@
 			
 			<div class="category Deletion" category="Deletion">
 				<div class="title">Deletion</div>
-				<div class="details">Delete all your Horus data [user information, led configuration, and logs]</div>
+				<div class="details">Delete all your Horus data [user information, led configuration, and avatar]. Horus process will shutdown.</div>
 				<div class="content">
 				</div>
-				<button class="saveButton">Delete</button>
+				<button id="openDeletionModal">Delete</button>
+				<div class="darker" id="deletionModal">
+					<div class="modal" activeMode="">
+						<div class="title">Delete horus data</div>
+						<div class="subtitle" style="margin:5px 0 10px 0;">This process is irreversible.</div>
+						<input type="password" placeholder="Your password..." id="deletion0">
+						<div class="doubleButton">
+							<button class="whiteBlack" id="cancelDeletion">Cancel</button>
+							<button class="saveButton deletion">Confirm</button>
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>

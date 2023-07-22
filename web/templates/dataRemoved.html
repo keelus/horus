@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Horus :: data deleted</title>
+
+	<link rel="apple-touch-icon" sizes="180x180" href="/static/images/icos/apple-touch-icon.png">
+	<link rel="icon" type="image/png" sizes="32x32" href="/static/images/icos/favicon-32x32.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="/static/images/icos/favicon-16x16.png">
+	<link rel="manifest" href="/site.manifest">
+	<style>
+		@import url('https://fonts.googleapis.com/css2?family=Familjen+Grotesk:ital,wght@0,400;0,700;1,400&display=swap');
+		body, html {
+			background-color:#9a74ec;
+			font-family: 'Familjen Grotesk', sans-serif;
+			color:white;
+		}
+		.center {
+			left:50%;
+			top:30%;
+			transform:translate(-50%, -30%);
+			position: absolute;
+			text-align: center;
+			display:flex;
+			flex-direction: column;
+			gap:10px;
+		}
+
+		.title {
+			font-weight: bold;
+			font-size: 2em;
+		}
+		.subtitle {
+			font-size:1.2em;
+			color:rgba(255, 255, 255, .8);
+		}
+		.note {
+			font-size:1em;
+			font-style: italic;
+		}
+		pre {
+			font-style: normal;
+			display:inline-block;
+			background:#855CDE;
+			padding:3px;
+			border-radius: 5px;
+			margin:0;
+		}
+
+		.repo {
+			position: fixed;
+			left:50%;
+			bottom: 30%;
+			transform:translate(-50%, -30%);
+			background:#855CDE;
+			padding:6px;
+			border-radius: 5px;
+		}
+		a, a:link, a:visited {
+			text-transform: none;
+			color:blue;
+		}
+
+		.shutdown {
+			color:#c70a0a;
+			font-size:.9em;
+			width:fit-content;
+			margin:0 auto;
+			background:#000;
+			padding:6px;
+			border-radius: 5px;
+		}
+	</style>
+</head>
+<body>
+	<div class="center">
+		<div class="title">User data removed ❌</div>
+		<div class="subtitle">Now horus should be like the first time. You can start setting up again if you want.</div>
+		<div class="note">Logs have been preserved just in case. Feel free to delete them in <pre>horus/logs/</pre></div>
+		<div class="shutdown">Horus has been shutdown.</div>
+	</div>
+	<div class="repo">Project repo: <a href="http://github.com/keelus/horus">http://github.com/keelus/horus</a></div>
+</body>
+</html>

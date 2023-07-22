@@ -6,9 +6,12 @@ import (
 	"horus/config"
 	"horus/internal"
 	"horus/logger"
+	"horus/server/handlers/mainHandler"
 	"net/http"
+	"os"
 	"strconv"
 	"strings"
+	"time"
 
 	"github.com/forestgiant/sliceutil"
 	"github.com/gin-gonic/gin"
@@ -154,6 +157,32 @@ func SaveConfiguration(c *gin.Context) {
 			config.UserConfiguration.Units.TemperatureC = temperature == "C"
 		}
 		break
+	case "Deletion":
+		password := c.PostForm("Password")
+
+		err := bcrypt.CompareHashAndPassword([]byte(config.UserConfiguration.UserInfo.Password), []byte(password))
+		if err != nil {
+			returnError = append(returnError, map[string]string{"details": "Incorrect password.", "field": "deletion0"})
+		}
+
+		if len(returnError) == 0 {
+			_ = os.Remove("config/ledActive.yaml")
+			_ = os.Remove("config/ledPresets.yaml")
+			_ = os.Remove("config/userConfig.yaml")
+			_ = os.Remove("web/static/images/avatar.jpg")
+
+			logger.Log(c, logger.SETTING, "Horus data deleted successfully.")
+
+			mainHandler.AllowDataRemovedPage = true
+
+			go Shutdown(2)
+
+			c.JSON(http.StatusOK, gin.H{
+				"Status": "OK",
+			})
+			return
+		}
+		break
 	}
 
 	if len(returnError) == 0 {
@@ -168,4 +197,9 @@ func SaveConfiguration(c *gin.Context) {
 	}
 
 	c.JSON(http.StatusBadRequest, returnError)
+}
+
+func Shutdown(seconds int) {
+	time.Sleep(time.Duration(seconds) * time.Second)
+	os.Exit(0)
 }

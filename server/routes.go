@@ -54,6 +54,7 @@ func SetupRouter() *gin.Engine {
 		mainGroup.GET("/", mainHandler.HandleIndex)
 		mainGroup.GET("/login", mainHandler.HandleLogin)
 		mainGroup.GET("/site.manifest", mainHandler.SiteManifestHandler)
+		mainGroup.GET("/dataRemoved", mainHandler.DataRemovedHandler)
 	}
 
 	panelGroup := r.Group("/panel")

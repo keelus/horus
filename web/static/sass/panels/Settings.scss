@@ -139,7 +139,7 @@ label {
 	}
 }
 
-.saveButton {
+.saveButton:not(.deletion) {
 	margin:auto;
 	margin-bottom:0;
 }

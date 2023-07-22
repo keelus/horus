@@ -760,7 +760,7 @@ label:hover {
   cursor: pointer;
 }
 
-.saveButton {
+.saveButton:not(.deletion) {
   margin: auto;
   margin-bottom: 0;
 }
