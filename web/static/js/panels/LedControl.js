@@ -315,11 +315,10 @@ $("#setCooldownBreathingColor").on("click", () => {
 	});
 })
 
-
 // StaticColor & breathing color modal's picker & hsv converter
 const hexPicker = new Pickr({
 	el: '#hexPicker',
-	default: '#ffffff',
+	default: '#FFFFFF',
 	components: {
 		preview: true,
 		opacity: false,
