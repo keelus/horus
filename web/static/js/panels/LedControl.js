@@ -254,9 +254,12 @@ $("#brightness").on("change", () => {
 		type: "POST",
 		url: `/api/ledControl/brightness/${brightness}`,
 		success: function (r) {
-			showPopup(`Led color applied.`, 3000, "success")
+			showPopup(`Brightness applied.`, 3000, "success")
 		},
 		error: function(r) {
+			if (r.responseJSON.brightness != null) {
+				$("#brightness").val(r.responseJSON.brightness)
+			}
 			showPopup(r.responseJSON.details, 3000, "error")
 		}
 	});
