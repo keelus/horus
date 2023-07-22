@@ -246,7 +246,7 @@ function drawGradientPreview() {
 	$(".gradientPreview").css("background-image", `linear-gradient(to right, ${gradientHexesStr})`)
 }
 
-
+let kira = null
 $("#brightness").on("change", () => {
 	brightness = parseInt($("#brightness").val())
  	
@@ -258,7 +258,7 @@ $("#brightness").on("change", () => {
 		},
 		error: function(r) {
 			console.log(r.responseJSON)
-			if (r.responseJSON.brightness != null) {
+			if ("brightness" in r.responseJSON) {
 				$("#brightnessVisual").text(r.responseJSON.brightness + "%")
 				$("#brightness").val(r.responseJSON.brightness)
 			}
