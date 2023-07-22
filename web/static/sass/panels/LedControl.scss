@@ -401,7 +401,7 @@ input[type="range"]:hover {
 
 #newGradientModal > .modal {
 	.gradientPreview {
-		border:1px solid $textPrimary;
+		border:2px dashed rgba($accent, .8);
 		width:100%;
 		height:50px;
 	}

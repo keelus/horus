@@ -571,7 +571,7 @@ input[type=range]:hover {
   color: #FFFFFF;
 }
 #newGradientModal > .modal .gradientPreview {
-  border: 1px solid #FFFFFF;
+  border: 2px dashed rgba(154, 116, 236, 0.8);
   width: 100%;
   height: 50px;
 }
