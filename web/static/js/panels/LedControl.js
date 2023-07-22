@@ -65,8 +65,9 @@ $(".color:not(.color.new)").on("click", (e) => {
 
 $(".gradient:not(.gradient.new)").on("click", (e) => {
 	e.preventDefault()
-
-	if($(e.target).hasClass("delete") || $(e.target).is("svg")){
+	
+	console.log(e.target)
+	if($(e.target).hasClass("edit") || $(e.target).hasClass("delete") || $(e.target).is("svg") || $(e.target).is("path")){
 		return false
 	}
 
@@ -141,6 +142,13 @@ $(".color.new").on("click", (e) => {
 })
 
 $(".gradient.new").on("click", (e) => {
+	$("#newGradientModal > .modal").attr("editing", "false")
+	$(".hexCode").remove()
+	$("#addGradient").text("Add gradient")
+
+	addColorToGradient("#000000")
+	addColorToGradient("#FFFFFF")
+
 	mode = $(e.target).closest(".option").attr("mode")
 	$("#newGradientModal > .modal").attr("activeMode", mode)
 	$("#newGradientModal").addClass("show")
@@ -148,7 +156,8 @@ $(".gradient.new").on("click", (e) => {
 
 $(document).on("click", "#addColor", (e) => {
 	mode = $("#newColorModal > .modal").attr("activeMode")
-	hex =  $("#newHex").val() ? $("#newHex").val() : "000000"
+	hsv =  hexPicker.getColor()
+	hex = hsvToHex(hsv)
 	
 	$.ajax({
 		type: "POST",
@@ -169,17 +178,22 @@ $(document).on("click", "#addColor", (e) => {
 
 $(document).on("click", "#addGradient", (e) => {
 	hexValues = []
-	
+	previousHexValues = []
+
 	$(".hexCodes").children().slice(0, -1).each((i, e) => {
-	  hexValues.push($(e).find("input").val())
+	  hexValues.push(hexFromGradients(e))
 	})
-	console.log(hexValues)
+	
+	if ($(".modal[activemode='StaticGradient']").attr("editing") == "true") {
+		previousHexValues = $(".modal[activemode='StaticGradient']").attr("previousRawGradient").replaceAll("#", "").split(",")
+	}
 	
 	$.ajax({
 		type: "POST",
 		url: `/api/ledControl/add/StaticGradient`,
 		data: {
-			"hexValues":JSON.stringify(hexValues)
+			"hexValues":JSON.stringify(hexValues),
+			"previousHexValues":JSON.stringify(previousHexValues),
 		},
 		success: function (r) {
 			showPopup(`Gradient added.`, 3000, "success")
@@ -200,17 +214,13 @@ $("#cancelAddColor").on("click", (e) => {
 $("#cancelAddGradient").on("click", (e) => {
 	mode = $("#newGradientModal > .modal").attr("activeMode", "")
 	$("#newGradientModal").removeClass("show")
+	$(".hexCode").remove()
 })
 
 $(".addColorToGradient").on("click", () => {
 	lastIndex = $(".hexCodes").children().length - 1 - 1
-	$($(".hexCodes").children()[lastIndex]).after(`
-		<li class="hexCode">
-			<div class="drag"></div>
-			<div>#<input type="text" placeholder="XXXXXX" maxlength="6" value="000000"></div>
-			<div class="remove">Remove</div>
-		</li>`);
 	drawGradientPreview()
+	addColorToGradient("#000000")
 })
 
 $(document).ready(function() {
@@ -225,12 +235,15 @@ $(document).ready(function() {
 
 
 $(document).on("click", ".remove", (e) => {
+	if ($(".hexCode").length == 2) {
+		showPopup("Gradient must have 2 color at least.", 3000, "error")
+		return
+	}
 	$(e.target).closest(".hexCode").remove()
 	drawGradientPreview()
 })
 
-$(document).on("key keyup keydown value input focus click change", ".hexCode input", () => {
-	console.log("update")
+$(document).on("key keyup keydown value input focus click change", ".hexCode", () => {
 	drawGradientPreview()
 })
 
@@ -238,7 +251,7 @@ function drawGradientPreview() {
 	gradientHexesStr = ""
 	console.log($(".hexCodes").children())
 	$(".hexCodes").children().slice(0, -1).each((i, e) => {
-	  gradientHexesStr += "#" + $(e).find("input").val()
+	  gradientHexesStr += "#" + hexFromGradients(e)
 	  if (i != $(".hexCodes").children().length - 1 - 1){
 		  gradientHexesStr += ","
 	  }
@@ -300,4 +313,88 @@ $("#setCooldownBreathingColor").on("click", () => {
 			showPopup(r.responseJSON.details, 3000, "error")
 		}
 	});
+})
+
+
+// StaticColor & breathing color modal's picker & hsv converter
+const hexPicker = new Pickr({
+	el: '#hexPicker',
+	default: '#ffffff',
+	components: {
+		preview: true,
+		opacity: false,
+		hue: true,
+		output: {
+			hex: true,
+			rgba: false,
+			hsva: false,
+			input: true
+		},
+	},
+});
+
+function hsvToHex(hsv) {
+	let color = tinycolor(hsv)
+	hexColor = color.toHexString().replace("#", "")
+	return hexColor
+}
+
+// Gradient color modal's picker & others
+function hexFromGradients(pickerDiv) {
+	rgb = $(pickerDiv).children(".color-picker").children(".button").css("background").split(") ")[0].replace("rgb(", "").split(", ")
+	hex = tinycolor({r:rgb[0],g:rgb[1],b:rgb[2]}).toHexString().replace("#", "")
+	return hex
+}
+
+
+let lastGradientAdded = 0
+
+
+
+function addColorToGradient(initialHex) {
+	length = $(".hexCodes").children().length - 1
+	$($(".hexCodes").children()[length]).before(`
+		<li class="hexCode">
+			<div class="drag"></div>
+			<div class='gradientPicker${lastGradientAdded}'></div>
+			<div class="remove">Remove</div>
+		</li>`);
+	let newPicker = new Pickr({
+	el: '.gradientPicker' + lastGradientAdded,
+	default: initialHex,
+	components: {
+		preview: true,
+		opacity: false,
+		hue: true,
+		output: {
+			hex: true,
+			rgba: false,
+			hsva: false,
+			input: true
+			},
+		},
+	})
+	lastGradientAdded ++ ;
+}
+
+$(".gradientNote").on("click", drawGradientPreview)
+
+
+$(".gradient .edit").on("click", (e) => {
+	$(".hexCode").remove()
+	$("#addGradient").text("Edit gradient")
+	
+	rawGradient = $(e.target).closest(".gradient").attr("raw-gradient")
+	gradientColors = rawGradient.split(",")
+	for(i=0;i<gradientColors.length;i++){
+		addColorToGradient(gradientColors[i])
+	}
+
+	mode = $(e.target).closest(".option").attr("mode")
+	$("#newGradientModal > .modal").attr("activeMode", mode)
+	$("#newGradientModal > .modal").attr("previousRawGradient", rawGradient)
+	$("#newGradientModal").addClass("show")
+	$("#newGradientModal > .modal").attr("editing", "true")
+
+	drawGradientPreview()
 })

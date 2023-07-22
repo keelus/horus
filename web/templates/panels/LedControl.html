@@ -1,5 +1,9 @@
 {{ define "LedControl.html" }}
 <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.min.js"></script>
+
+<script src="/static/js/pickr/pickr.min.js"></script>
+<link rel="stylesheet" href="/static/js/pickr/themes/classic.min.css">
+
 <div class="ledControlPane">
 	<div class="title"><div class="icono"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="var(--svg)"><path d="M12 2c5.514 0 10 4.486 10 10s-4.486 10-10 10-10-4.486-10-10 4.486-10 10-10zm0-2c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm-2 19l1.5-5h-4.5l7-9-1.5 5h4.5l-7 9z"/></svg></div>Led control</div>
 	<div class="inputBox" style="padding-top:5px;padding-bottom:20px;">
@@ -43,6 +47,7 @@
 					<div class="gradients">
 						{{ range $i, $gradient := .LedPresets.StaticGradient}}
 							<div class="gradient {{if isActiveGradient $gradient}}selected{{end}}" raw-gradient="{{gradientString $gradient}}">
+								<div class="edit"><svg clip-rule="evenodd" fill-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m4.481 15.659c-1.334 3.916-1.48 4.232-1.48 4.587 0 .528.46.749.749.749.352 0 .668-.137 4.574-1.492zm1.06-1.061 3.846 3.846 11.321-11.311c.195-.195.293-.45.293-.707 0-.255-.098-.51-.293-.706-.692-.691-1.742-1.74-2.435-2.432-.195-.195-.451-.293-.707-.293-.254 0-.51.098-.706.293z" fill-rule="nonzero"/></svg></div>
 								<div class="delete"><svg clip-rule="evenodd" fill-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m12 10.93 5.719-5.72c.146-.146.339-.219.531-.219.404 0 .75.324.75.749 0 .193-.073.385-.219.532l-5.72 5.719 5.719 5.719c.147.147.22.339.22.531 0 .427-.349.75-.75.75-.192 0-.385-.073-.531-.219l-5.719-5.719-5.719 5.719c-.146.146-.339.219-.531.219-.401 0-.75-.323-.75-.75 0-.192.073-.384.22-.531l5.719-5.719-5.72-5.719c-.146-.147-.219-.339-.219-.532 0-.425.346-.749.75-.749.192 0 .385.073.531.219z"/></svg></div>
 								<div class="background" style="background-image:linear-gradient(to right, {{ gradientString $gradient }})"></div>
 							</div>
@@ -102,10 +107,12 @@
 	<div class="darker" id="newColorModal">
 		<div class="modal" activeMode="">
 			<div class="title">Create new color</div>
-			<div class="inputBox">
+			<div class="subtitle" style="margin-bottom:5px;">Click on the rectangle below, and select your desired color.</div>
+			<!-- <div class="inputBox">
 				<div class="text">Hex code:</div>
 				<div>#<input type="text" placeholder="XXXXXX" id="newHex" maxlength="6"></div>
-			</div>
+			</div> -->
+			<div id="hexPicker" style="width:100% !important;"></div>
 			<div class="doubleButton">
 				<button class="whiteBlack" id="cancelAddColor">Cancel</button>
 				<button id="addColor">Add color</button>
@@ -115,12 +122,13 @@
 	<div class="darker" id="newGradientModal">
 		<div class="modal" activeMode="">
 			<div class="title">Create new gradient</div>
-			Gradient preview:
+			<div class="subtitle">Gradient preview:</div>
 			<div class="gradientPreview" style="background-image:linear-gradient(to right, #000000, #FFFFFF)"></div>
+			<div class="gradientNote">If the gradient is not visually updated, click here</div>
 			<br>
 			From left to right:
 			<ol class="hexCodes">
-				<li class="hexCode">
+				<!-- <li class="hexCode">
 					<div class="drag"></div>
 					<div>#<input type="text" placeholder="XXXXXX" maxlength="6" value="000000"></div>
 					<div class="remove">Remove</div>
@@ -129,7 +137,7 @@
 					<div class="drag"></div>
 					<div>#<input type="text" placeholder="XXXXXX" maxlength="6" value="FFFFFF"></div>
 					<div class="remove">Remove</div>
-				</li>
+				</li> -->
 				<li class="addColorToGradient">+ Add color</li>
 			</ol>
 
@@ -140,4 +148,7 @@
 		</div>
 	</div>
 	<script src="/static/js/panels/LedControl.js"></script>
+	<script src="/static/js/tinycolor/tinycolor-min.js"></script>
+	<script>
+	</script>
 {{ end }}

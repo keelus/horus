@@ -147,6 +147,34 @@
 					}
 				}
 
+				& > .edit {
+					width:20px;
+					height:20px;
+					border-radius: 100%;
+					color:$error;
+					background:$bg-1;
+					position: absolute;
+					top:-10px;
+					right:15px;
+					display: flex;
+					justify-content: center;
+					align-items: center;
+					transition: all .1s linear;
+					border: 1px solid rgba($textPrimary, .3);
+
+					& > svg {
+						width: 14px;
+						fill:$textPrimary;
+					}
+					&:hover {
+						cursor:pointer;
+						background:$accent;
+						svg {
+							fill:white !important;
+						}
+					}
+				}
+
 
 				&.new {
 					border:2px dashed $accent;
@@ -293,6 +321,14 @@
 		gap:15px;
 	}
 	
+	.gradientNote {
+		font-size:.9em;
+		color:$accent;
+		&:hover {
+			cursor:pointer;
+			text-decoration: underline;
+		}
+	}
 
 	.inputBox {
 		width:100%;

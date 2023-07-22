@@ -356,6 +356,32 @@ select:hover {
 .option .content .gradients .gradient > .delete:hover svg {
   fill: white !important;
 }
+.option .content .gradients .gradient > .edit {
+  width: 20px;
+  height: 20px;
+  border-radius: 100%;
+  color: #c70a0a;
+  background: #222222;
+  position: absolute;
+  top: -10px;
+  right: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.1s linear;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+.option .content .gradients .gradient > .edit > svg {
+  width: 14px;
+  fill: #FFFFFF;
+}
+.option .content .gradients .gradient > .edit:hover {
+  cursor: pointer;
+  background: #9a74ec;
+}
+.option .content .gradients .gradient > .edit:hover svg {
+  fill: white !important;
+}
 .option .content .gradients .gradient.new {
   border: 2px dashed #9a74ec;
   color: #9a74ec;
@@ -471,6 +497,14 @@ select:hover {
   display: flex;
   justify-content: center;
   gap: 15px;
+}
+.modal .gradientNote {
+  font-size: 0.9em;
+  color: #9a74ec;
+}
+.modal .gradientNote:hover {
+  cursor: pointer;
+  text-decoration: underline;
 }
 .modal .inputBox {
   width: 100%;

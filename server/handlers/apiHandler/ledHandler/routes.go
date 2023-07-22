@@ -25,8 +25,18 @@ func Add(c *gin.Context) {
 	mode := c.Param("mode")
 
 	if mode == "StaticGradient" {
+		var editingGradient bool
 		var hexValues []string
-		hexValuesStr := c.PostForm("hexValues")
+		var previousHexValues []string
+		hexValuesStr := strings.ToUpper(c.PostForm("hexValues"))
+		previousHexValuesStr := strings.ToUpper(c.PostForm("previousHexValues"))
+		fmt.Println(hexValuesStr)
+		fmt.Println(previousHexValuesStr)
+
+		editingGradient = false
+		if previousHexValuesStr != "[]" {
+			editingGradient = true
+		}
 
 		err := json.Unmarshal([]byte(hexValuesStr), &hexValues)
 		if err != nil {
@@ -35,12 +45,41 @@ func Add(c *gin.Context) {
 		}
 
 		rawGradient := internal.GetGradientStr(hexValues)
-		if internal.GradientExists(rawGradient, config.LedPresets.StaticGradient) {
-			c.JSON(http.StatusBadRequest, gin.H{"details": "That exact gradient already exists."})
-			return
-		}
+		if editingGradient {
+			err := json.Unmarshal([]byte(previousHexValuesStr), &previousHexValues)
+			if err != nil {
+				c.JSON(http.StatusInternalServerError, gin.H{"details": "Error with the old gradient JSON format."})
+				return
+			}
+			// Check if the gradient we want to edit actually exists
+			rawPreviousGradient := internal.GetGradientStr(previousHexValues)
+			if !internal.GradientExists(rawPreviousGradient, config.LedPresets.StaticGradient) {
+				c.JSON(http.StatusBadRequest, gin.H{"details": "That gradient you want to edit doesn't exist."})
+				return
+			}
 
-		config.LedPresets.StaticGradient = append(config.LedPresets.StaticGradient, hexValues)
+			// Check if the gradient we want to edit to actually exists
+			if internal.GradientExists(rawGradient, config.LedPresets.StaticGradient) {
+				c.JSON(http.StatusBadRequest, gin.H{"details": "That gradient you want to edit to already exists."})
+				return
+			}
+
+			for i := 0; i < len(config.LedPresets.StaticGradient); i++ {
+				raw := internal.GetGradientStr(config.LedPresets.StaticGradient[i])
+				if raw == rawPreviousGradient {
+					config.LedPresets.StaticGradient[i] = hexValues
+					config.LedActive.Color = hexValues
+				}
+			}
+
+		} else {
+			if internal.GradientExists(rawGradient, config.LedPresets.StaticGradient) {
+				c.JSON(http.StatusBadRequest, gin.H{"details": "That exact gradient already exists."})
+				return
+			}
+
+			config.LedPresets.StaticGradient = append(config.LedPresets.StaticGradient, hexValues)
+		}
 
 	} else {
 		// TODO: Better overall code
