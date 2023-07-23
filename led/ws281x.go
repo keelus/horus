@@ -247,7 +247,7 @@ func DrawGradient() {
 }
 
 func generateGradient(colors []Color) []Color {
-	leds := []Color{}
+	leds := make([]Color, config.LedActive.LedAmount)
 
 	increment := float64(config.LedActive.LedAmount-1) / float64(len(colors)-1)
 
