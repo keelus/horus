@@ -19,10 +19,6 @@ func HandleCategory(c *gin.Context) {
 		return
 	}
 
-	// if latestVersion > config.UserConfiguration.Version {
-	// 	usingLatest = false
-	// }
-
 	category := c.Param("category")
 	c.HTML(http.StatusOK, "panel", gin.H{
 		"CurrentVersion":     internal.VERSION_CURRENT,
