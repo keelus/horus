@@ -1,6 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Familjen+Grotesk:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap");
 body {
-  background: #F9F9F9;
+  background: #212121;
   color: rgba(255, 255, 255, 0.7);
   padding: 0;
   margin: 0;
@@ -26,7 +26,7 @@ body {
   text-decoration: none;
   color: transparent;
   font-weight: 800;
-  color: #855CDE;
+  color: #9a74ec;
   position: relative;
 }
 .render-link::after, .render-link:link::after, .render-link:visited::after {
@@ -36,7 +36,7 @@ body {
   bottom: -2px;
   width: 100%;
   height: 1px;
-  background-color: #855CDE;
+  background-color: #9a74ec;
   transform: scaleY(0);
   transform-origin: left center;
   transition: transform 0.3s;
@@ -72,12 +72,12 @@ button, .button, .button:link, .button:visited {
   align-items: center;
   box-sizing: border-box;
   z-index: 1;
-  background-color: #855CDE;
+  background-color: #9a74ec;
   transition: background-color 0.1s linear;
 }
 button:hover, .button:hover, .button:link:hover, .button:visited:hover {
   cursor: pointer;
-  background-color: rgba(133, 92, 222, 0.8);
+  background-color: rgba(154, 116, 236, 0.8);
 }
 button:hover::after, .button:hover::after, .button:link:hover::after, .button:visited:hover::after {
   opacity: 1;
@@ -92,17 +92,17 @@ button:disabled:hover, .button:disabled:hover, .button:link:disabled:hover, .but
   cursor: default;
 }
 button.whiteBlack, .button.whiteBlack, .button:link.whiteBlack, .button:visited.whiteBlack {
-  background: #FFFFFF !important;
-  color: #000000 !important;
-  border: 1px solid #000000;
+  background: #222222 !important;
+  color: #FFFFFF !important;
+  border: 1px solid #FFFFFF;
   transition: all 0.2s linear !important;
 }
 button.whiteBlack::before, button.whiteBlack::after, .button.whiteBlack::before, .button.whiteBlack::after, .button:link.whiteBlack::before, .button:link.whiteBlack::after, .button:visited.whiteBlack::before, .button:visited.whiteBlack::after {
   all: unset !important;
 }
 button.whiteBlack:hover, .button.whiteBlack:hover, .button:link.whiteBlack:hover, .button:visited.whiteBlack:hover {
-  background: #000000 !important;
-  color: #F9F9F9 !important;
+  background: #FFFFFF !important;
+  color: #212121 !important;
 }
 
 input[type=text],
@@ -125,9 +125,9 @@ input[type=week] {
   padding: 10px 15px;
   outline: none;
   font-family: "Familjen Grotesk", sans-serif;
-  background: #FFFFFF;
-  color: #000000;
-  border: 1px solid #000000;
+  background: #222222;
+  color: #FFFFFF;
+  border: 1px solid #FFFFFF;
 }
 input[type=text][type=password],
 input[type=password][type=password],
@@ -172,9 +172,9 @@ select {
   padding: 10px 15px;
   outline: none;
   font-family: "Familjen Grotesk", sans-serif;
-  background: #FFFFFF;
-  color: #000000;
-  border: 1px solid #000000;
+  background: #222222;
+  color: #FFFFFF;
+  border: 1px solid #FFFFFF;
 }
 select:hover {
   cursor: pointer;
@@ -184,8 +184,8 @@ select:hover {
   z-index: 999;
   opacity: 0;
   position: fixed;
-  background-color: #000000;
-  color: #F9F9F9;
+  background-color: #FFFFFF;
+  color: #212121;
   max-width: 350px;
   padding: 13px;
   top: -50px;
@@ -214,8 +214,8 @@ select:hover {
 }
 
 html, body {
-  background: #F2F2F2;
-  background-image: radial-gradient(rgba(133, 92, 222, 0.5) 1px, transparent 0);
+  background: #181818;
+  background-image: radial-gradient(rgba(154, 116, 236, 0.5) 1px, transparent 0);
   background-size: 15px 15px;
   background-position: -19px -19px;
   font-family: "Familjen Grotesk", sans-serif;
@@ -223,14 +223,14 @@ html, body {
 
 h1 {
   margin-bottom: 0;
-  color: #855CDE;
+  color: #9a74ec;
   font-weight: bold;
 }
 
 h2 {
   margin-top: 0;
   margin-bottom: 0.5em;
-  color: #000000;
+  color: #FFFFFF;
   font-weight: normal;
 }
 
@@ -248,7 +248,7 @@ form .card {
   justify-content: center;
   align-items: center;
   padding: 10px 0;
-  background: #F9F9F9;
+  background: #212121;
   border-radius: 10px;
   box-shadow: rgba(99, 99, 99, 0.1) 0px 2px 8px 0px;
 }
@@ -263,7 +263,7 @@ form .card .avatar {
 }
 form .card .username {
   flex: 1;
-  color: #000000;
+  color: #FFFFFF;
   font-size: 1em;
   margin-right: 20px;
   font-family: "Fira Code", monospace;

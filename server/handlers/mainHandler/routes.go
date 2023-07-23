@@ -12,12 +12,12 @@ import (
 var AllowDataRemovedPage = false
 
 func HandleIndex(c *gin.Context) {
-	c.Redirect(http.StatusPermanentRedirect, "/panel/main")
+	c.Redirect(http.StatusPermanentRedirect, "/panel/LedControl")
 }
 
 func HandleLogin(c *gin.Context) {
 	if internal.IsLogged(c) {
-		c.Redirect(http.StatusTemporaryRedirect, "/panel/main")
+		c.Redirect(http.StatusTemporaryRedirect, "/panel/LedControl")
 		return
 	}
 	c.HTML(http.StatusOK, "login", gin.H{

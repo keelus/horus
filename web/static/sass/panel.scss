@@ -19,15 +19,29 @@ body {
 		margin-bottom: 0;
 	}
 
-	& > .subtitle {
-		text-decoration: none;
-		color:$textPrimary2;
+	& > .subtitleOuter {
 		text-align: center;
-		font-weight: lighter;
-		font-size: 16px;
-		margin:0;
 		margin-bottom:10px;
+
+		& > .subtitle, & > .subtitle:link, & > .subtitle:visited {
+			text-decoration: none;
+			color:$textPrimary2;
+			font-weight: lighter;
+			font-size: 16px;
+			
+			svg {
+				width:14px;
+				height:14px;
+				fill:$textPrimary2;
+			}
+			
+			&:hover {
+				text-decoration: underline;
+			}
+
+		}
 	}
+
 
 	& > .mainContent {
 		margin: 0 auto;

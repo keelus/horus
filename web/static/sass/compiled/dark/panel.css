@@ -876,14 +876,23 @@ body > .title > a {
   text-decoration: none;
   color: #9a74ec;
 }
-body > .subtitle {
+body > .subtitleOuter {
+  text-align: center;
+  margin-bottom: 10px;
+}
+body > .subtitleOuter > .subtitle, body > .subtitleOuter > .subtitle:link, body > .subtitleOuter > .subtitle:visited {
   text-decoration: none;
   color: #bbbbbb;
-  text-align: center;
   font-weight: lighter;
   font-size: 16px;
-  margin: 0;
-  margin-bottom: 10px;
+}
+body > .subtitleOuter > .subtitle svg, body > .subtitleOuter > .subtitle:link svg, body > .subtitleOuter > .subtitle:visited svg {
+  width: 14px;
+  height: 14px;
+  fill: #bbbbbb;
+}
+body > .subtitleOuter > .subtitle:hover, body > .subtitleOuter > .subtitle:link:hover, body > .subtitleOuter > .subtitle:visited:hover {
+  text-decoration: underline;
 }
 body > .mainContent {
   margin: 0 auto;
