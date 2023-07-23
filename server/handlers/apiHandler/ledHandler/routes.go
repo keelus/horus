@@ -333,7 +333,6 @@ func SetCooldown(c *gin.Context) {
 			go led.BreathingColor()
 		}
 
-		//config.LedPresets.BreathingColor TODO save cooldown
 	} else if mode == "FadingRainbow" {
 		config.LedPresets.FadingRainbow = amount
 		if config.LedActive.ActiveMode != "FadingRainbow" {
