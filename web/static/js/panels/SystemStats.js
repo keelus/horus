@@ -1,9 +1,9 @@
-var temperatureUnit = temperatureUnit || "C"
-var gTemperature = Gauge(document.getElementById("graph0"),{max: 1,value: 0, extension: temperatureUnit});
-var gCpu = Gauge(document.getElementById("graph1"),{max: 1,value: 0, extension: " %"});
-var gRam = Gauge(document.getElementById("graph2"),{max: 1,value: 0, extension: " %"});
-var gDisk = Gauge(document.getElementById("graph3"),{max: 1,value: 0, extension: " GB"});
-var gSystem = Gauge(document.getElementById("graph4"),{max: 1,value: 0, extension: " s"});
+let temperatureUnit = temperatureUnit || "C"
+let gTemperature = Gauge(document.getElementById("graph0"),{max: 1,value: 0, extension: temperatureUnit});
+let gCpu = Gauge(document.getElementById("graph1"),{max: 1,value: 0, extension: " %"});
+let gRam = Gauge(document.getElementById("graph2"),{max: 1,value: 0, extension: " %"});
+let gDisk = Gauge(document.getElementById("graph3"),{max: 1,value: 0, extension: " GB"});
+let gSystem = Gauge(document.getElementById("graph4"),{max: 1,value: 0, extension: " s"});
 
 
 function getStats(animate) {
@@ -17,9 +17,8 @@ function getStats(animate) {
 			$("#graph3").removeClass("good warning danger")
 			$("#graph4").removeClass("good warning danger")
 
-			tempMax = 85
-			
-			margin = [50, 55] // TODO: Separate margins for each Stat (if needed)
+			let tempMax = 85
+			let margin = [50, 55] // TODO: Separate margins for each Stat (if needed)
 
 			gTemperature.setMaxValue(85)
 			gCpu.setMaxValue(100)
@@ -27,7 +26,7 @@ function getStats(animate) {
 			gDisk.setMaxValue(r.DiskMax)
 			gSystem.setMaxValue(100000)
 			
-			temperatureConverted = r.Temperature // Celsius
+			let temperatureConverted = r.Temperature // Celsius
 			if (temperatureUnit == "F") {
 				temperatureConverted = (r.Temperature * 1.8) + 32
 				gTemperature.setMaxValue((85 * 1.8) + 32)
@@ -59,6 +58,5 @@ function getStats(animate) {
 		}
 	});
 }
-getStats(false)
-
+getStats(false) // Don't animate for the first time
 setInterval(() => {getStats(true)}, 1000)

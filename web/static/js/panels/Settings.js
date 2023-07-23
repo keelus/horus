@@ -1,8 +1,8 @@
 $(".saveButton").on("click", (e) => {
-	category = $(e.target).closest(".category").attr("category")
+	let category = $(e.target).closest(".category").attr("category")
 	$(`[category='${category}']`).find(".hasError").removeClass("hasError")
 
-	postData = {}
+	let postData = {}
 
 	switch(category) {
 	case "UserInfo":
@@ -45,7 +45,6 @@ $(".saveButton").on("click", (e) => {
 		break
 	}
 
-	
 	$.ajax({
 		type: "POST",
 		url: `/api/settings/saveConfiguration/${category}`,
@@ -64,7 +63,7 @@ $(".saveButton").on("click", (e) => {
 				case "LedControl":
 					break
 				case "SystemStats":
-					showSystemStats = false
+					let showSystemStats = false
 					for(i=0;i<postData.SystemStatsIgnore.length;i++){
 						if(postData.SystemStatsIgnore[i])
 							showSystemStats = true
@@ -90,22 +89,18 @@ $(".saveButton").on("click", (e) => {
 			}
 		},
 		error: function(r) {
-			console.log(r)
-			popupMessage = ""
+			console.error(r)
+			let popupMessage = ""
 			for(i=0;i<r.responseJSON.length;i++){
 				console.error(r.responseJSON[i].details)
 				popupMessage += `• ${r.responseJSON[i].details}<br>`
 
-
-				
-
-				field = r.responseJSON[i].field
+				let field = r.responseJSON[i].field
 				if(field != "") {
 					$(`#${field}`).addClass("hasError")
 				}
 			}
 
-			console.log(r)
 			showPopup(popupMessage, 3000, "error")
 		}
 	});
@@ -115,12 +110,15 @@ $(".themeOptions .option").on("click", (e) => {
 	$(".themeOptions .option.selected").removeClass("selected")
 	$(e.target).closest(".option").addClass("selected")
 })
+
 $("#openDeletionModal").on("click", () => {
 	$("#deletionModal").addClass("show")
 })
+
 $("#cancelDeletion").on("click", () => {
 	$("#deletionModal").removeClass("show")
 })
+
 $("#checkUpdates").on("click", () => {
 	$.ajax({
 		type: "GET",
