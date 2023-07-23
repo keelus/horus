@@ -8,7 +8,7 @@ $(".checkLine").on("click", (e) => {
 	$(".color.selected").removeClass("selected")
 	$(".gradient.selected").removeClass("selected")
 
-	mode = $(e.target).closest(".option").attr("mode")
+	let mode = $(e.target).closest(".option").attr("mode")
 
 	
 	$.ajax({
@@ -33,7 +33,6 @@ $(".checkLine").on("click", (e) => {
 	});
 })
 
-
 $(".color:not(.color.new)").on("click", (e) => {
 	e.preventDefault()
 
@@ -43,8 +42,8 @@ $(".color:not(.color.new)").on("click", (e) => {
 
 	$(".color.selected").removeClass("selected")
 
-	mode = $(e.target).closest(".option").attr("mode")
-	hex = $(e.target).closest(".color").attr("hex")
+	let mode = $(e.target).closest(".option").attr("mode")
+	let hex = $(e.target).closest(".color").attr("hex")
 
 		
 	$.ajax({
@@ -66,21 +65,20 @@ $(".color:not(.color.new)").on("click", (e) => {
 $(".gradient:not(.gradient.new)").on("click", (e) => {
 	e.preventDefault()
 	
-	console.log(e.target)
 	if($(e.target).hasClass("edit") || $(e.target).hasClass("delete") || $(e.target).is("svg") || $(e.target).is("path")){
 		return false
 	}
 
 	$(".gradient.selected").removeClass("selected")
 
-	rawGradient = $(e.target).closest(".gradient").attr("raw-gradient")
+	let rawGradient = $(e.target).closest(".gradient").attr("raw-gradient")
 
 	
 	$.ajax({
 		type: "POST",
 		url: `/api/ledControl/activate/StaticGradient`,
 		data: {
-			"rawGradient":rawGradient
+			"rawGradient": rawGradient
 		},
 		success: function (r) {
 			$(e.target).closest(".gradient").addClass("selected")
@@ -93,8 +91,8 @@ $(".gradient:not(.gradient.new)").on("click", (e) => {
 })
 
 $(".color .delete").on("click", (e) => {
-	mode = $(e.target).closest(".option").attr("mode")
-	hex = $(e.target).closest(".color").attr("hex")
+	let mode = $(e.target).closest(".option").attr("mode")
+	let hex = $(e.target).closest(".color").attr("hex")
 
 	$.ajax({
 		type: "POST",
@@ -103,12 +101,15 @@ $(".color .delete").on("click", (e) => {
 			"hexValue":hex
 		},
 		success: function (r) {
+			let option = $(e.target).closest(".option")
+			
 			$(".color.selected").removeClass("selected")
-			option = $(e.target).closest(".option")
 			$(e.target).closest(".color").remove()
+
 			if(mode != "StaticGradient")
 				$($(option).find(".color")[0]).addClass("selected")
-			showPopup(`Color removed.`, 3000, "success")
+			
+				showPopup(`Color removed.`, 3000, "success")
 		},
 		error: function(r) {
 			showPopup(r.responseJSON.details, 3000, "error")
@@ -117,13 +118,13 @@ $(".color .delete").on("click", (e) => {
 })
 
 $(".gradient .delete").on("click", (e) => {
-	rawGradient = $(e.target).closest(".gradient").attr("raw-gradient")
+	let rawGradient = $(e.target).closest(".gradient").attr("raw-gradient")
 	
 	$.ajax({
 		type: "POST",
 		url: `/api/ledControl/delete/StaticGradient`,
 		data: {
-			"rawGradient":rawGradient
+			"rawGradient": rawGradient
 		},
 		success: function (r) {
 			$(e.target).closest(".gradient").remove()
@@ -136,7 +137,7 @@ $(".gradient .delete").on("click", (e) => {
 })
 
 $(".color.new").on("click", (e) => {
-	mode = $(e.target).closest(".option").attr("mode")
+	let mode = $(e.target).closest(".option").attr("mode")
 	$("#newColorModal > .modal").attr("activeMode", mode)
 	$("#newColorModal").addClass("show")
 })
@@ -149,25 +150,24 @@ $(".gradient.new").on("click", (e) => {
 	addColorToGradient("#000000")
 	addColorToGradient("#FFFFFF")
 
-	mode = $(e.target).closest(".option").attr("mode")
+	let mode = $(e.target).closest(".option").attr("mode")
 	$("#newGradientModal > .modal").attr("activeMode", mode)
 	$("#newGradientModal").addClass("show")
 })
 
 $(document).on("click", "#addColor", (e) => {
-	mode = $("#newColorModal > .modal").attr("activeMode")
-	hsv =  hexPicker.getColor()
-	hex = hsvToHex(hsv)
+	let mode = $("#newColorModal > .modal").attr("activeMode")
+	let hsv =  hexPicker.getColor()
+	let hex = hsvToHex(hsv)
 	
 	$.ajax({
 		type: "POST",
 		url: `/api/ledControl/add/${mode}`,
 		data:  {
-			"hexValue":hex
+			"hexValue": hex
 		},
 		success: function (r) {
 			showPopup(`Color added.`, 3000, "success")
-			
 			window.location.href = window.location.href + "?added";
 		},
 		error: function(r) {
@@ -177,8 +177,8 @@ $(document).on("click", "#addColor", (e) => {
 })
 
 $(document).on("click", "#addGradient", (e) => {
-	hexValues = []
-	previousHexValues = []
+	let hexValues = []
+	let previousHexValues = []
 
 	$(".hexCodes").children().slice(0, -1).each((i, e) => {
 	  hexValues.push(hexFromGradients(e))
@@ -192,8 +192,8 @@ $(document).on("click", "#addGradient", (e) => {
 		type: "POST",
 		url: `/api/ledControl/add/StaticGradient`,
 		data: {
-			"hexValues":JSON.stringify(hexValues),
-			"previousHexValues":JSON.stringify(previousHexValues),
+			"hexValues": JSON.stringify(hexValues),
+			"previousHexValues": JSON.stringify(previousHexValues),
 		},
 		success: function (r) {
 			showPopup(`Gradient added.`, 3000, "success")
@@ -207,18 +207,17 @@ $(document).on("click", "#addGradient", (e) => {
 })
 
 $("#cancelAddColor").on("click", (e) => {
-	mode = $("#newColorModal > .modal").attr("activeMode", "")
+	$("#newColorModal > .modal").attr("activeMode", "")
 	$("#newColorModal").removeClass("show")
 })
 
 $("#cancelAddGradient").on("click", (e) => {
-	mode = $("#newGradientModal > .modal").attr("activeMode", "")
+	$("#newGradientModal > .modal").attr("activeMode", "")
 	$("#newGradientModal").removeClass("show")
 	$(".hexCode").remove()
 })
 
 $(".addColorToGradient").on("click", () => {
-	lastIndex = $(".hexCodes").children().length - 1 - 1
 	drawGradientPreview()
 	addColorToGradient("#000000")
 })
@@ -232,7 +231,6 @@ $(document).ready(function() {
 	});
 	$(".hexCodes").disableSelection();
 });
-
 
 $(document).on("click", ".remove", (e) => {
 	if ($(".hexCode").length == 2) {
@@ -248,7 +246,7 @@ $(document).on("key keyup keydown value input focus click change", ".hexCode", (
 })
 
 function drawGradientPreview() {
-	gradientHexesStr = ""
+	let gradientHexesStr = ""
 	console.log($(".hexCodes").children())
 	$(".hexCodes").children().slice(0, -1).each((i, e) => {
 	  gradientHexesStr += "#" + hexFromGradients(e)
@@ -260,9 +258,8 @@ function drawGradientPreview() {
 	$(".gradientPreview").css("background-image", `linear-gradient(to right, ${gradientHexesStr})`)
 }
 
-let kira = null
 $("#brightness").on("change", () => {
-	brightness = parseInt($("#brightness").val())
+	let brightness = $("#brightness").val() || "0"
  	
 	$.ajax({
 		type: "POST",
@@ -280,13 +277,15 @@ $("#brightness").on("change", () => {
 		}
 	});
 })
+
 $("#brightness").on("input", () => {
-	brightness = parseInt($("#brightness").val())
+	let brightness = $("#brightness").val() || "0"
 	$("#brightnessVisual").text(brightness + "%")
 })
+
 $("#setCooldownFadingRainbow").on("click", () => {
-	amount = $("#cooldownFadingRainbow").val()
-	mode = "FadingRainbow"
+	let amount = $("#cooldownFadingRainbow").val() || "0"
+	let mode = "FadingRainbow"
 	
 	$.ajax({
 		type: "POST",
@@ -299,9 +298,10 @@ $("#setCooldownFadingRainbow").on("click", () => {
 		}
 	});
 })
+
 $("#setCooldownBreathingColor").on("click", () => {
-	amount = $("#cooldownBreathingColor").val()
-	mode = "BreathingColor"
+	let amount = $("#cooldownBreathingColor").val() || "0"
+	let mode = "BreathingColor"
 	
 	$.ajax({
 		type: "POST",
@@ -334,24 +334,19 @@ const hexPicker = new Pickr({
 
 function hsvToHex(hsv) {
 	let color = tinycolor(hsv)
-	hexColor = color.toHexString().replace("#", "")
-	return hexColor
+	return color.toHexString().replace("#", "")
 }
 
 // Gradient color modal's picker & others
 function hexFromGradients(pickerDiv) {
-	rgb = $(pickerDiv).children(".color-picker").children(".button").css("background").split(") ")[0].replace("rgb(", "").split(", ")
-	hex = tinycolor({r:rgb[0],g:rgb[1],b:rgb[2]}).toHexString().replace("#", "")
-	return hex
+	let rgb = $(pickerDiv).children(".color-picker").children(".button").css("background").split(") ")[0].replace("rgb(", "").split(", ")
+	return tinycolor({r:rgb[0],g:rgb[1],b:rgb[2]}).toHexString().replace("#", "")
 }
-
 
 let lastGradientAdded = 0
 
-
-
 function addColorToGradient(initialHex) {
-	length = $(".hexCodes").children().length - 1
+	let length = $(".hexCodes").children().length - 1
 	$($(".hexCodes").children()[length]).before(`
 		<li class="hexCode">
 			<div class="drag"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M13 6h4l-5-6-5 6h4v12h-4l5 6 5-6h-4z"/></svg></div>
@@ -373,7 +368,7 @@ function addColorToGradient(initialHex) {
 			},
 		},
 	})
-	lastGradientAdded ++ ;
+	lastGradientAdded++;
 }
 
 $(".gradientNote").on("click", drawGradientPreview)
@@ -383,13 +378,13 @@ $(".gradient .edit").on("click", (e) => {
 	$(".hexCode").remove()
 	$("#addGradient").text("Edit gradient")
 	
-	rawGradient = $(e.target).closest(".gradient").attr("raw-gradient")
-	gradientColors = rawGradient.split(",")
+	let rawGradient = $(e.target).closest(".gradient").attr("raw-gradient")
+	let gradientColors = rawGradient.split(",")
 	for(i=0;i<gradientColors.length;i++){
 		addColorToGradient(gradientColors[i])
 	}
 
-	mode = $(e.target).closest(".option").attr("mode")
+	let mode = $(e.target).closest(".option").attr("mode")
 	$("#newGradientModal > .modal").attr("activeMode", mode)
 	$("#newGradientModal > .modal").attr("previousRawGradient", rawGradient)
 	$("#newGradientModal").addClass("show")
@@ -399,7 +394,7 @@ $(".gradient .edit").on("click", (e) => {
 })
 
 $("#applyLedAmount").on("click", () => {
-	ledAmount = $("#ledAmount").val()
+	let ledAmount = $("#ledAmount").val() || "0";
 
 	$.ajax({
 		type: "POST",

@@ -357,6 +357,11 @@ func SetLedAmount(c *gin.Context) {
 		return
 	}
 
+	if ledAmount <= 0 {
+		c.JSON(http.StatusBadRequest, gin.H{"details": "Led amount should be a positive amount."})
+		return
+	}
+
 	config.LedActive.LedAmount = ledAmount
 	internal.SaveFile(&config.LedActive)
 	led.Init()
