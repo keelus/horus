@@ -1,4 +1,5 @@
-let temperatureUnit = temperatureUnit || "C"
+temperatureUnit = temperatureUnit || "C"
+
 let gTemperature = Gauge(document.getElementById("graph0"),{max: 1,value: 0, extension: temperatureUnit});
 let gCpu = Gauge(document.getElementById("graph1"),{max: 1,value: 0, extension: " %"});
 let gRam = Gauge(document.getElementById("graph2"),{max: 1,value: 0, extension: " %"});
