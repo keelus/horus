@@ -87,8 +87,6 @@ func SetupRouter() *gin.Engine {
 		}
 	}
 
-	// ##### FRONT PAGES #####
-
 	r.Run(":80")
 	return r
 }
