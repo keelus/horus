@@ -32,7 +32,7 @@ func init() {
 	⠀⠀⠻⠛⠛⠻⣶⣽⣿⣿⣿⡶⠿⠛⠋⠉⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀	██║  ██║╚██████╔╝██║  ██║╚██████╔╝███████║
 	⠀⠀⠀⠀⠀⠀⣠⣿⡏⠻⣷⣄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢠⣶⠶⢶⣤⠀⠀⠀	╚═╝  ╚═╝ ╚═════╝ ╚═╝  ╚═╝ ╚═════╝ ╚══════╝
 	⠀⠀⠀⠀⠀⠀⢹⣯⠁⠀⠈⠛⢷⣤⡀⠀⠀⠀⠀⠀⠀⠀⠸⠧⠀⠀⢹⡇⠀⠀	
-	⠀⠀⠀⠀⠀⠀⠈⣿⠀⠀⠀⠀⠀⠉⠻⠷⣦⣤⣤⣀⣀⣀⣀⣠⣤⡶⠟⠀⠀⠀	Initializing version ` + internal.CUR_VERSION + `...
+	⠀⠀⠀⠀⠀⠀⠈⣿⠀⠀⠀⠀⠀⠉⠻⠷⣦⣤⣤⣀⣀⣀⣀⣠⣤⡶⠟⠀⠀⠀	Initializing version ` + internal.VERSION_CURRENT + `...
 	⠀⠀⠀⠀⠀⠀⠀⠛⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠉⠉⠉⠉⠉⠉⠁⠀⠀⠀⠀⠀`)
 
 	if fileExists("config/userConfig.yaml") {
@@ -65,6 +65,7 @@ func main() {
 	led.Init()
 	logger.Log(nil, logger.UP, "Server UP and running on port :80.") // TODO: Check
 	BlueColor.Println("↻ Starting Gin server")
+	internal.CheckLatestVersion()
 	time.Sleep(1 * time.Second)
 	server.Init()
 }

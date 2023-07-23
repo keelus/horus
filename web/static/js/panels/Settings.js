@@ -121,3 +121,32 @@ $("#openDeletionModal").on("click", () => {
 $("#cancelDeletion").on("click", () => {
 	$("#deletionModal").removeClass("show")
 })
+$("#checkUpdates").on("click", () => {
+	$.ajax({
+		type: "GET",
+		url: "/api/getLatestVersion",
+		success: function (r) {
+			$("#updateInfo").html("")
+			$(".element[element-category='Settings']").removeClass("showNotification")
+			$(".element[element-category='Settings']").removeClass("showErrorNotification")
+			if (r.LatestVersion == "error") {
+				$(".element[element-category='Settings']").addClass("showErrorNotification")
+				showPopup("Error checking the latest version.", 3000, "error")
+				$("#updateInfo").html(`Installed version: v0.9.5 - ❓<br>
+				<div class="errorNote">
+					Error getting the latest version from Github API. Please check manually <a href="https://github.com/keelus/horus" class="render-link" target="_blank">here</a>.
+				</div>`)
+			} else {
+				showPopup("Latest version checked.", 3000, "success")
+				if (r.UsingLatestVersion) {
+					$("#updateInfo").html(`Installed version: v${r.CurrentVersion} - ✅ Latest<br>`)
+				} else {
+					$(".element[element-category='Settings']").addClass("showNotification")
+					$("#updateInfo").html(`Installed version: v${r.CurrentVersion} - ❌ Not latest<br>
+					Latest version: v${r.LatestVersion} - <a href="https://github.com/keelus/horus/releases/tag/v${r.LatestVersion}" class="render-link" target="_blank">See new version &amp; installation</a> <br> <br>`)
+				}
+			}
+			$("#lastCheck").text("Right now")
+		}
+	});
+})

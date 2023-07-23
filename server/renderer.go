@@ -62,6 +62,54 @@ func Renderer() multitemplate.Renderer {
 		"convertBrightness": func(brightness int) int {
 			return int(math.Ceil(float64(brightness) * 100 / 255))
 		},
+		"renderDate": func(unixDateInt int) string {
+			var visualAmount int
+			var pluralS string
+
+			if unixDateInt == 0 {
+				return "never"
+			}
+
+			now := time.Now()
+
+			unixDate := time.Unix(int64(unixDateInt), 0)
+
+			diffSeconds := int(math.Floor(now.Sub(unixDate).Seconds()))
+
+			if diffSeconds < 60 {
+				visualAmount = diffSeconds
+				if visualAmount != 1 {
+					pluralS = "s"
+				}
+				return fmt.Sprintf("%d second%s ago", visualAmount, pluralS)
+			} else if diffSeconds < 3600 {
+				visualAmount = int(math.Floor(float64(diffSeconds) / float64(60)))
+				if visualAmount != 1 {
+					pluralS = "s"
+				}
+				return fmt.Sprintf("%d minute%s ago", visualAmount, pluralS)
+			} else if diffSeconds < 86400 {
+				visualAmount = int(math.Floor(float64(diffSeconds) / float64(3600)))
+				if visualAmount != 1 {
+					pluralS = "s"
+				}
+				return fmt.Sprintf("%d hour%s ago", visualAmount, pluralS)
+			} else if diffSeconds < 604800 {
+				visualAmount = int(math.Floor(float64(diffSeconds) / float64(86400)))
+				if visualAmount != 1 {
+					pluralS = "s"
+				}
+				return fmt.Sprintf("%d day%s ago", visualAmount, pluralS)
+			} else if diffSeconds < 2419200 {
+				visualAmount = int(math.Floor(float64(diffSeconds) / float64(604800)))
+				if visualAmount != 1 {
+					pluralS = "s"
+				}
+				return fmt.Sprintf("%d week%s ago, at %d:%d", visualAmount, pluralS, unixDate.Hour(), unixDate.Minute())
+			} else {
+				return fmt.Sprintf("%d of %s of %d, at %d:%d", unixDate.Day(), unixDate.Month(), unixDate.Year(), unixDate.Hour(), unixDate.Minute())
+			}
+		},
 	}
 
 	r.AddFromFilesFuncs("login", funcs, "web/templates/login.html")

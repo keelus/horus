@@ -1,14 +1,26 @@
 package internal
 
 import (
+	"encoding/json"
+	"io/ioutil"
 	"math/rand"
+	"net/http"
+	"strings"
 	"time"
 
 	"github.com/gin-contrib/sessions"
 	"github.com/gin-gonic/gin"
 )
 
-const CUR_VERSION = "0.9.5 beta"
+const VERSION_CURRENT = "0.9.5"
+
+var VERSION_LAST string
+var VERSION_CHECK int
+var VERSION_UPDATED bool
+
+type GithubData struct {
+	VersionTag string `json:"tag_name"`
+}
 
 func IsLogged(c *gin.Context) bool {
 	session := sessions.Default(c)
@@ -49,4 +61,41 @@ func GradientExists(gradientToCheck string, gradientsSlice [][]string) bool {
 		}
 	}
 	return false
+}
+
+func CheckLatestVersion() {
+	VERSION_CHECK = int(time.Now().Unix())
+	response, err := http.Get("https://api.github.com/repos/keelus/horus/releases/latest")
+	if err != nil {
+		VERSION_LAST = "error"
+		return
+	}
+	defer response.Body.Close()
+
+	body, err := ioutil.ReadAll(response.Body)
+	if err != nil {
+		VERSION_LAST = "error"
+		return
+	}
+
+	data := &GithubData{}
+
+	err = json.Unmarshal(body, data)
+	if err != nil {
+		VERSION_LAST = "error"
+		return
+	}
+
+	if data.VersionTag == "" {
+		VERSION_LAST = "error"
+		return
+	}
+
+	VERSION_LAST = strings.Replace(data.VersionTag, "v", "", 1)
+
+	if VERSION_CURRENT == VERSION_LAST || VERSION_CURRENT > VERSION_LAST { // You can't have a greater version, but just in case
+		VERSION_UPDATED = true
+	} else if VERSION_CURRENT < VERSION_LAST {
+		VERSION_UPDATED = false
+	}
 }

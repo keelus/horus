@@ -21,7 +21,7 @@ func HandleLogin(c *gin.Context) {
 		return
 	}
 	c.HTML(http.StatusOK, "login", gin.H{
-		"CurrentVersion":    internal.CUR_VERSION,
+		"CurrentVersion":    internal.VERSION_CURRENT,
 		"UserConfiguration": config.UserConfiguration,
 	})
 	logger.Log(c, logger.VISIT, "Visit to /login.")

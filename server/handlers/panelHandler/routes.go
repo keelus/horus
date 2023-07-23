@@ -13,13 +13,11 @@ func HandleIndex(c *gin.Context) {
 }
 
 func HandleCategory(c *gin.Context) {
+
 	if !internal.IsLogged(c) {
 		c.Redirect(http.StatusTemporaryRedirect, "/login")
 		return
 	}
-
-	latestVersion := "X.X.X" // TODO
-	usingLatest := true
 
 	// if latestVersion > config.UserConfiguration.Version {
 	// 	usingLatest = false
@@ -27,12 +25,13 @@ func HandleCategory(c *gin.Context) {
 
 	category := c.Param("category")
 	c.HTML(http.StatusOK, "panel", gin.H{
-		"CurrentVersion":    internal.CUR_VERSION,
-		"Active":            category,
-		"UserConfiguration": config.UserConfiguration,
-		"LatestVersion":     latestVersion,
-		"UsingLatest":       usingLatest,
-		"LedPresets":        config.LedPresets,
-		"LedActive":         config.LedActive,
+		"CurrentVersion":     internal.VERSION_CURRENT,
+		"Active":             category,
+		"UserConfiguration":  config.UserConfiguration,
+		"LatestVersion":      internal.VERSION_LAST,
+		"UsingLatestVersion": internal.VERSION_UPDATED,
+		"LedPresets":         config.LedPresets,
+		"LedActive":          config.LedActive,
+		"LastChecked":        internal.VERSION_CHECK,
 	})
 }

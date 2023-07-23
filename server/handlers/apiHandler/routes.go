@@ -237,6 +237,15 @@ func HandleAvatar(c *gin.Context) {
 	c.Data(http.StatusOK, "image/jpeg", avatarData)
 }
 
+func HandleLatestVersion(c *gin.Context) {
+	internal.CheckLatestVersion()
+	c.JSON(http.StatusOK, gin.H{
+		"CurrentVersion":     internal.VERSION_CURRENT,
+		"LatestVersion":      internal.VERSION_LAST,
+		"UsingLatestVersion": internal.VERSION_UPDATED,
+	})
+}
+
 func fileExists(filename string) bool {
 	info, err := os.Stat(filename)
 	if os.IsNotExist(err) {

@@ -41,9 +41,6 @@ body {
 			display:flex;
 			flex-direction: column;
 			align-items: center;
-			// padding-bottom:20px;
-	
-			// height:calc(100vh - calc(40px + 30px + 20px + 10px + 20px + 50px));
 			height:auto;
 	
 			& > .element {
@@ -57,6 +54,7 @@ body {
 				gap:.5em;
 				padding:.6em 22px;
 				box-sizing: border-box;
+				position:relative;
 
 				&.upperRadius {
 					border-top-left-radius: 15px;
@@ -71,6 +69,35 @@ body {
 
 				&.active {
 					background:$bg-4 !important;
+				}
+
+				
+				&.showNotification[element-category='Settings']::after {
+					content:'New version available';
+					display:block;
+					position:absolute;
+					padding:1px 4px;
+					border-radius:6px;
+					font-weight:bold;
+					font-size:.8em;
+					top:-7px;
+					right:-5px;
+					background:$accent;
+					color:white;
+				}
+				
+				&.showErrorNotification[element-category='Settings']::after {
+					content:'Error checking for newer version';
+					display:block;
+					position:absolute;
+					padding:1px 4px;
+					border-radius:6px;
+					font-weight:bold;
+					font-size:.8em;
+					top:-7px;
+					right:-5px;
+					background:$error;
+					color:white;
 				}
 	
 	
