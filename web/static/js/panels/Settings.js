@@ -132,7 +132,7 @@ $("#checkUpdates").on("click", () => {
 			if (r.LatestVersion == "error") {
 				$(".element[element-category='Settings']").addClass("showErrorNotification")
 				showPopup("Error checking the latest version.", 3000, "error")
-				$("#updateInfo").html(`Installed version: v0.9.5 - ❓<br>
+				$("#updateInfo").html(`Installed version: v${r.CurrentVersion} - ❓<br>
 				<div class="errorNote">
 					Error getting the latest version from Github API. Please check manually <a href="https://github.com/keelus/horus" class="render-link" target="_blank">here</a>.
 				</div>`)
