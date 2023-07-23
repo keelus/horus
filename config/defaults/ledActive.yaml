@@ -2,4 +2,5 @@ ActiveMode: StaticColor
 Color:
     - 855CDE
 Brightness: 255
+LedAmount: 30
 Cooldown: 0

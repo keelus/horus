@@ -347,3 +347,18 @@ func SetCooldown(c *gin.Context) {
 	internal.SaveFile(&config.LedPresets)
 	c.Status(http.StatusOK)
 }
+
+func SetLedAmount(c *gin.Context) {
+	ledAmountStr := c.Param("amount")
+
+	ledAmount, err := strconv.Atoi(ledAmountStr)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"details": "Unexpected led amount type."})
+		return
+	}
+
+	config.LedActive.LedAmount = ledAmount
+	internal.SaveFile(&config.LedActive)
+	led.Init()
+	c.Status(http.StatusOK)
+}

@@ -78,6 +78,7 @@ func SetupRouter() *gin.Engine {
 			ledControlGroup.POST("/activate/:mode", ledHandler.Activate)
 			ledControlGroup.POST("/brightness/:valuePercent", ledHandler.SetBrightness)
 			ledControlGroup.POST("/cooldown/:mode/:amount", ledHandler.SetCooldown)
+			ledControlGroup.POST("/ledAmount/:amount", ledHandler.SetLedAmount)
 		}
 
 		settingsGroup := apiGroup.Group("/settings")

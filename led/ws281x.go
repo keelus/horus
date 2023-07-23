@@ -13,11 +13,6 @@ import (
 	ws2811 "github.com/rpi-ws281x/rpi-ws281x-go"
 )
 
-const (
-	DefaultBrightness = 90
-	NumberOfLeds      = 120
-)
-
 type Color struct {
 	Red   int
 	Green int
@@ -32,11 +27,15 @@ var LedStrip *ws2811.WS2811
 var ApplyingBrightness = false
 
 func Init() {
+	StopRainbow = false
+	StopBreathing = false
+	LedStrip = nil
+	ApplyingBrightness = false
 	var err error
 
 	options := ws2811.DefaultOptions
 	options.Channels[0].Brightness = config.LedActive.Brightness
-	options.Channels[0].LedCount = NumberOfLeds // TODO: Led amount given by client
+	options.Channels[0].LedCount = config.LedActive.LedAmount // TODO: Led amount given by client
 
 	LedStrip, err = ws2811.MakeWS2811(&options)
 	if err != nil {
@@ -129,7 +128,7 @@ func Draw() {
 		fmt.Printf("error parsing color hex code: %v\n", err)
 	}
 
-	for i := 0; i < NumberOfLeds; i++ {
+	for i := 0; i < config.LedActive.LedAmount; i++ {
 		LedStrip.Leds(0)[i] = uint32(colorHex)
 	}
 
@@ -147,7 +146,7 @@ func ForceDraw(color []string, brightness int) {
 	}
 
 	LedStrip.SetBrightness(0, brightness)
-	for i := 0; i < NumberOfLeds; i++ {
+	for i := 0; i < config.LedActive.LedAmount; i++ {
 		LedStrip.Leds(0)[i] = uint32(colorHex)
 	}
 
@@ -172,7 +171,7 @@ func Rainbow() {
 
 	for {
 		for j := 0; j < 256; j++ {
-			for i := 0; i < NumberOfLeds; i++ {
+			for i := 0; i < config.LedActive.LedAmount; i++ {
 				LedStrip.Leds(0)[i] = wheel((i + j) & 255)
 			}
 
@@ -247,10 +246,10 @@ func DrawGradient() {
 	LedStrip.Render()
 }
 
-func generateGradient(colors []Color) [NumberOfLeds]Color {
-	leds := [NumberOfLeds]Color{}
+func generateGradient(colors []Color) []Color {
+	leds := []Color{}
 
-	increment := float64(NumberOfLeds-1) / float64(len(colors)-1)
+	increment := float64(config.LedActive.LedAmount-1) / float64(len(colors)-1)
 
 	for i := 0; i < len(colors); i++ {
 		idx := int(math.Floor(float64(i) * increment))

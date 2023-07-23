@@ -36,5 +36,6 @@ type LedActive struct {
 	ActiveMode string   `yaml:"ActiveMode"`
 	Color      []string `yaml:"Color"`
 	Brightness int      `yaml:"Brightness"`
+	LedAmount  int      `yaml:"LedAmount"`
 	Cooldown   int      `yaml:"Cooldown"`
 }

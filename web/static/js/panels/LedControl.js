@@ -397,3 +397,18 @@ $(".gradient .edit").on("click", (e) => {
 
 	drawGradientPreview()
 })
+
+$("#applyLedAmount").on("click", () => {
+	ledAmount = $("#ledAmount").val()
+
+	$.ajax({
+		type: "POST",
+		url: `/api/ledControl/ledAmount/${ledAmount}`,
+		success: function (r) {
+			showPopup(`Led amount applied.`, 3000, "success")
+		},
+		error: function (r) {
+			showPopup(r.responseJSON.details, 3000, "error")
+		}
+	});
+})
