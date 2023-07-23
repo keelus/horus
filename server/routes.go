@@ -86,7 +86,5 @@ func SetupRouter() *gin.Engine {
 			settingsGroup.POST("/saveConfiguration/:category", settingsHandler.SaveConfiguration)
 		}
 	}
-
-	r.Run(":80")
 	return r
 }
