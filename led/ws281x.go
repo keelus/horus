@@ -249,6 +249,10 @@ func DrawGradient() {
 func generateGradient(colors []Color) []Color {
 	leds := make([]Color, config.LedActive.LedAmount)
 
+	if config.LedActive.LedAmount == 0 { // Prevent index out of range
+		return leds
+	}
+
 	increment := float64(config.LedActive.LedAmount-1) / float64(len(colors)-1)
 
 	for i := 0; i < len(colors); i++ {
