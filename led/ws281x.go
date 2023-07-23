@@ -77,10 +77,14 @@ func SetColor(color []string) {
 }
 
 func SetBrightness(brightness int) { // TODO: Will return true once transition is finished to avoid glitching while sending multiple SetBrightness from client
-	if config.LedActive.ActiveMode != "StaticColor" && config.LedActive.ActiveMode != "StaticGradient" {
+	if config.LedActive.ActiveMode != "StaticColor" {
 		config.LedActive.Brightness = brightness
 		LedStrip.SetBrightness(0, brightness)
 		internal.SaveFile(&config.LedActive)
+
+		if config.LedActive.ActiveMode == "StaticGradient" { // Static gradient needs to be re-drawn()
+			DrawGradient()
+		}
 	} else { // Brightness fading will only occur on Static Color to prevent unexpected flashing
 		if ApplyingBrightness {
 			return
