@@ -77,7 +77,7 @@ func SetColor(color []string) {
 }
 
 func SetBrightness(brightness int) { // TODO: Will return true once transition is finished to avoid glitching while sending multiple SetBrightness from client
-	if config.LedActive.ActiveMode != "StaticColor" {
+	if config.LedActive.ActiveMode != "StaticColor" && config.LedActive.ActiveMode != "StaticGradient" {
 		config.LedActive.Brightness = brightness
 		LedStrip.SetBrightness(0, brightness)
 		internal.SaveFile(&config.LedActive)
