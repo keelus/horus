@@ -12,7 +12,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-const VERSION_CURRENT = "0.9.5"
+const VERSION_CURRENT = "1.0.0"
 
 var VERSION_LAST string
 var VERSION_CHECK int
