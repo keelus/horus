@@ -22,10 +22,10 @@ import (
 var BlueColor = color.New(color.FgBlue, color.Bold)
 var RedColor = color.New(color.FgRed, color.Bold)
 var GreenColor = color.New(color.FgGreen, color.Bold)
-var YellowColor = color.New(color.FgYellow, color.Bold)
+var MagentaColor = color.New(color.FgMagenta, color.Bold)
 
 func init() {
-	YellowColor.Println(`
+	MagentaColor.Println(`
 	⠀⠀⠀⠀⣀⣤⣶⠾⠿⠿⠿⠿⢶⣦⣤⣀⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
 	⠀⠀⣤⠾⠛⠉⠀⠀⠀⠀⠀⠀⠀⠀⠉⠙⠛⠻⠷⣶⣤⣤⣤⣀⣀⣀⣀⣀⠀⠀  ██╗  ██╗ ██████╗ ██████╗ ██╗   ██╗███████╗
 	⠀⠀⠀⠀⠀⠀⢀⣀⣀⣀⣀⣀⡀⠀⠀⠀⠀⠀⠀⠀⠀⠉⠉⠉⠉⠉⠉⠉⠀⠀	██║  ██║██╔═══██╗██╔══██╗██║   ██║██╔════╝
@@ -107,7 +107,7 @@ func fileExists(filename string) bool {
 }
 
 func setupConfig() {
-	YellowColor.Println("Horus first time setup:")
+	MagentaColor.Println("Horus first time setup:")
 	var username string
 	var password string
 
@@ -144,9 +144,9 @@ func readLine(field string) string {
 
 	switch field {
 	case "username":
-		YellowColor.Print("\t-Username:")
+		MagentaColor.Print("\t-Username:")
 	case "password":
-		YellowColor.Print("\t-Password:")
+		MagentaColor.Print("\t-Password:")
 		fmt.Print("\033[8m")
 	}
 
