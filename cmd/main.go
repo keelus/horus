@@ -10,6 +10,8 @@ import (
 	"horus/server"
 	"os"
 	"os/signal"
+	"runtime"
+	"strings"
 	"syscall"
 	"time"
 
@@ -62,7 +64,26 @@ func init() {
 
 func main() {
 	logger.Init()
-	led.Init()
+
+	// Check for sudo
+	euid := os.Geteuid()
+	if euid == 0 {
+		BlueColor.Println("✓ Sudo privileges found, starting WS281X Led module...")
+		led.Init()
+	} else {
+		RedColor.Println("⨉ Sudo privileges were not found. They are required to access the GPIO of your Raspberry Pi, in order to control your WS281X Led strip... WS281X Led module not initialized.")
+		logger.Log(nil, logger.ERROR, "⨉ Sudo privileges were not found. They are required to access the GPIO of your Raspberry Pi, in order to control your WS281X Led strip... WS281X Led module not initialized.")
+	}
+
+	userOS := runtime.GOOS
+	if userOS != "linux" {
+		RedColor.Printf("⨉ '%s' OS detected. Keep in mind this software is Linux & Raspberry Pi focused. Most features won't work/take effect on other systems/operative systems.\n", strings.ToUpper(userOS))
+		logger.Log(nil, logger.ERROR, fmt.Sprintf("⨉ '%s' OS detected. Keep in mind this software is Linux & Raspberry Pi focused. Most features won't work/take effect on other systems/operative systems.", strings.ToUpper(userOS)))
+	} else {
+		GreenColor.Printf("✓ Linux detected (keep in mind some features only work on Raspberry Pi systems).")
+		logger.Log(nil, logger.POWERON, "✓ Linux detected (keep in mind some features only work on Raspberry Pi systems).")
+	}
+
 	logger.Log(nil, logger.UP, "Server UP and running on port :80.") // TODO: Check
 	BlueColor.Println("↻ Starting Gin server")
 	internal.CheckLatestVersion()

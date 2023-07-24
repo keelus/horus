@@ -332,7 +332,8 @@
 		top:50%;
 		left:50%;
 		transform:translate(-50%, -50%);
-		width:500px;
+		width:90%;
+		max-width:500px;
 		padding:20px;
 		box-sizing: border-box;
 		border-radius:10px;
@@ -531,5 +532,11 @@
 	.note {
 		padding-left:10px;
 		font-size:.75rem;
+	}
+}
+
+@media (max-width:400px) {
+	.inputBox > .text{
+		min-width: 100px !important;
 	}
 }

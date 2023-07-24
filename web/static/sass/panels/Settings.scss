@@ -75,7 +75,16 @@
 				flex:1;
 			}
 
+			.passwordNote {
+				color:$textPrimary2;
+
+				font-size:.7em;
+				line-height:.7em;
+			}
+
 			.note {
+				color:$textPrimary2;
+				
 				flex:2;
 			}
 		}
@@ -226,6 +235,51 @@ label {
 		&:not(.selected):hover {
 			cursor:pointer;
 			background-color:rgba($accent, 0.05);
+		}
+	}
+}
+
+
+
+
+
+@media (width < 520px) {
+	.mainContent {
+		& > .rightNav {
+			& > .settingsPane {
+				.category {
+					& > .content {
+						padding:0 !important;
+					}
+				}
+			}
+		}
+	}
+}
+
+
+@media (width < 460px) {
+	.mainContent {
+		& > .rightNav {
+			& > .settingsPane {
+				.category {
+					margin:0 auto !important;
+					width: 90% !important;
+				}
+			}
+		}
+	}
+}
+
+
+@media (width < 410px) {
+	.mainContent {
+		& > .rightNav {
+			& > .settingsPane {
+				.category {
+					width: 85% !important;
+				}
+			}
 		}
 	}
 }

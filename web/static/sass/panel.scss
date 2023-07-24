@@ -59,6 +59,12 @@ body {
 			flex-direction: column;
 			align-items: center;
 	
+			& > .separator {
+				margin:auto 0;
+				width:0;
+				height:0;
+			}
+
 			& > .element {
 				width:100%;
 				padding:.6em 22px;
@@ -129,7 +135,7 @@ body {
 						background:$bg-3;
 					}
 
-					& > .icono {
+					& > .icon {
 						background: rgba($accent, .07);
 						--svg: #855CDE;
 
@@ -142,17 +148,13 @@ body {
 						align-items: center;
 					}
 
-					& > .texto {
+					& > .text {
 						color:$textPrimary;
 						flex:1;
 					}
 					
-					&:nth-last-child(2) {
-						margin-top:auto;
-					}
-
 					&.logOut {
-						& > .icono {
+						& > .icon {
 							--rojo:rgb(201 0 0);
 							background:rgba($error, .08);
 						}
@@ -246,7 +248,7 @@ body {
 					justify-content: center;
 					align-items: center;
 	
-					.icono {
+					.icon {
 						--svg:#855CDE;
 						height:25px;
 						margin-right:5px;
@@ -258,6 +260,174 @@ body {
 						align-items: center;
 
 					}
+				}
+			}
+		}
+	}
+}
+
+
+
+
+@media (width < 1020px) {
+	.mainContent {
+		margin:unset !important;
+		padding-left:20px !important;
+		padding-right:20px !important;
+	}
+
+}
+
+$radius:10px;
+$bottom-nav-height:50px;
+
+@media (width < 760px) {
+	body {
+		display: flex !important;
+		flex-direction: column !important;
+		// height:100vh !important;
+		height:-webkit-fill-available !important;
+	}
+	html {
+		height:-webkit-fill-available !important;
+	}
+	body > .title {
+		margin:0 !important;
+	}
+	.mainContent { 
+		flex:1 !important;
+		padding:0 20px !important;
+		flex-direction: column-reverse;
+		height:calc(100vh - 40px - 20px - 10px) !important;
+
+		
+		& > .leftNav {
+			width:100% !important;
+			max-height:$bottom-nav-height !important;
+			overflow:hidden;
+			margin-top:10px !important;
+			margin-bottom:10px !important;
+
+			border-radius: 6px !important;
+
+			flex-direction:  row !important;
+			
+			& > .separator {
+				margin:0 10px !important;
+			}
+			& > .element {
+				flex:1;
+				width:unset !important; 
+				border-radius: 0 !important;
+				box-shadow:none !important;
+				padding: 0.6em 10px !important;
+				justify-content: space-evenly !important;
+
+
+
+				height:$bottom-nav-height !important;
+
+				&:nth-child(2), &:nth-child(5) {
+					border-right:2px dashed rgba($accent, .3);
+				}
+				
+				
+				&:nth-child(2), &.upperRadius {
+					border-top-left-radius: $radius !important;
+					border-bottom-left-radius: $radius !important;
+				}
+
+				&.lowerRadius {
+					border-top-right-radius: $radius !important;
+					border-bottom-right-radius: $radius !important;
+				}
+
+				&.user {
+					display:none !important;
+				}
+				&.showNotification::after, &.showErrorNotification::after {
+					display:none !important;
+				}
+
+
+				& > .icon {
+					width:30px !important;
+					height:30px !important;
+
+					& > svg {
+						width:16px !important;
+						height:16px !important;
+					}
+				}
+				& > .text {
+					color:$textPrimary2 !important;
+					font-size:.9em !important;
+					flex:unset !important;
+				}
+				&.active {
+					& > .text {
+						color:$textPrimary !important;
+					}
+				}
+			}
+		}
+		& > .rightNav {
+			margin:0 !important;
+			flex:1 !important;
+			height:unset !important;
+			max-height: unset !important;
+			min-height: unset !important;
+			// min-height:calc(100vh - calc(40px + 20px + 10px + $bottom-nav-height + 10px + 3px)) !important;
+			// max-height:calc(100vh - calc(40px + 20px + 10px + $bottom-nav-height + 10px + 3px)) !important;
+		}
+	}
+}
+
+@media (width < 560px) {
+	.mainContent {
+		padding:0 10px !important;
+
+		& > .leftNav {
+			& > .separator {
+				margin:0 !important;
+			}
+
+			& > .element {
+				flex-direction: column;
+				border-radius: 0 !important;
+				gap:2px !important;
+
+				& > .icon {
+					background:transparent !important;
+				}
+				
+				&.upperRadius {
+					border-top-left-radius: 0 !important;
+					border-bottom-left-radius: 0 !important;
+				}
+
+				&.lowerRadius {
+					border-top-right-radius: 0 !important;
+					border-bottom-right-radius: 0 !important;
+				}
+
+				& > .text {
+					font-size:.8em !important;
+				}
+				&:nth-child(3) {
+					border-right:2px dashed rgba($accent, .3) !important;
+				}
+			}
+		}
+	}
+}
+
+@media (width < 390px) {
+	.mainContent {
+		& > .leftNav {
+			& > .element {
+				& > .text {
+					font-size:.6em !important;
 				}
 			}
 		}

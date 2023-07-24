@@ -16,6 +16,7 @@ import (
 )
 
 func SetupRouter() *gin.Engine {
+	gin.SetMode(gin.ReleaseMode)
 	r := gin.Default()
 
 	cookieAge := 0
@@ -53,7 +54,7 @@ func SetupRouter() *gin.Engine {
 	{
 		mainGroup.GET("/", mainHandler.HandleIndex)
 		mainGroup.GET("/login", mainHandler.HandleLogin)
-		mainGroup.GET("/site.manifest", mainHandler.SiteManifestHandler)
+		mainGroup.GET("/manifest.json", mainHandler.SiteManifestHandler)
 		mainGroup.GET("/dataRemoved", mainHandler.DataRemovedHandler)
 	}
 

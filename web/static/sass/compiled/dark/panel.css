@@ -446,7 +446,8 @@ select:hover {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 500px;
+  width: 90%;
+  max-width: 500px;
   padding: 20px;
   box-sizing: border-box;
   border-radius: 10px;
@@ -600,6 +601,11 @@ select:hover {
   font-size: 0.75rem;
 }
 
+@media (max-width: 400px) {
+  .inputBox > .text {
+    min-width: 100px !important;
+  }
+}
 .stats {
   width: 100%;
   height: 100%;
@@ -723,7 +729,13 @@ select:hover {
   display: inline-block;
   flex: 1;
 }
+.categories > .category.UserInfo .passwordNote {
+  color: #bbbbbb;
+  font-size: 0.7em;
+  line-height: 0.7em;
+}
 .categories > .category.UserInfo .note {
+  color: #bbbbbb;
   flex: 2;
 }
 .categories > .category.SystemStats .note {
@@ -834,6 +846,22 @@ label:hover {
   background-color: rgba(154, 116, 236, 0.05);
 }
 
+@media (width < 520px) {
+  .mainContent > .rightNav > .settingsPane .category > .content {
+    padding: 0 !important;
+  }
+}
+@media (width < 460px) {
+  .mainContent > .rightNav > .settingsPane .category {
+    margin: 0 auto !important;
+    width: 90% !important;
+  }
+}
+@media (width < 410px) {
+  .mainContent > .rightNav > .settingsPane .category {
+    width: 85% !important;
+  }
+}
 body {
   background-color: #181818;
   background-image: radial-gradient(rgba(154, 116, 236, 0.5) 1px, transparent 0);
@@ -880,6 +908,11 @@ body > .mainContent > .leftNav {
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+body > .mainContent > .leftNav > .separator {
+  margin: auto 0;
+  width: 0;
+  height: 0;
 }
 body > .mainContent > .leftNav > .element {
   width: 100%;
@@ -938,7 +971,7 @@ body > .mainContent > .leftNav > .element:not(.user) {
 body > .mainContent > .leftNav > .element:not(.user):hover {
   background: #1E1E1E;
 }
-body > .mainContent > .leftNav > .element:not(.user) > .icono {
+body > .mainContent > .leftNav > .element:not(.user) > .icon {
   background: rgba(154, 116, 236, 0.07);
   --svg: #855CDE;
   width: 40px;
@@ -948,14 +981,11 @@ body > .mainContent > .leftNav > .element:not(.user) > .icono {
   justify-content: center;
   align-items: center;
 }
-body > .mainContent > .leftNav > .element:not(.user) > .texto {
+body > .mainContent > .leftNav > .element:not(.user) > .text {
   color: #FFFFFF;
   flex: 1;
 }
-body > .mainContent > .leftNav > .element:not(.user):nth-last-child(2) {
-  margin-top: auto;
-}
-body > .mainContent > .leftNav > .element:not(.user).logOut > .icono {
+body > .mainContent > .leftNav > .element:not(.user).logOut > .icon {
   --rojo:rgb(201 0 0);
   background: rgba(199, 10, 10, 0.08);
 }
@@ -1029,7 +1059,7 @@ body > .mainContent > .rightNav > *:not(.darker) > .title {
   justify-content: center;
   align-items: center;
 }
-body > .mainContent > .rightNav > *:not(.darker) > .title .icono {
+body > .mainContent > .rightNav > *:not(.darker) > .title .icon {
   --svg:#855CDE;
   height: 25px;
   margin-right: 5px;
@@ -1038,6 +1068,129 @@ body > .mainContent > .rightNav > *:not(.darker) > .title .icono {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+@media (width < 1020px) {
+  .mainContent {
+    margin: unset !important;
+    padding-left: 20px !important;
+    padding-right: 20px !important;
+  }
+}
+@media (width < 760px) {
+  body {
+    display: flex !important;
+    flex-direction: column !important;
+    height: -webkit-fill-available !important;
+  }
+  html {
+    height: -webkit-fill-available !important;
+  }
+  body > .title {
+    margin: 0 !important;
+  }
+  .mainContent {
+    flex: 1 !important;
+    padding: 0 20px !important;
+    flex-direction: column-reverse;
+    height: calc(100vh - 40px - 20px - 10px) !important;
+  }
+  .mainContent > .leftNav {
+    width: 100% !important;
+    max-height: 50px !important;
+    overflow: hidden;
+    margin-top: 10px !important;
+    margin-bottom: 10px !important;
+    border-radius: 6px !important;
+    flex-direction: row !important;
+  }
+  .mainContent > .leftNav > .separator {
+    margin: 0 10px !important;
+  }
+  .mainContent > .leftNav > .element {
+    flex: 1;
+    width: unset !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    padding: 0.6em 10px !important;
+    justify-content: space-evenly !important;
+    height: 50px !important;
+  }
+  .mainContent > .leftNav > .element:nth-child(2), .mainContent > .leftNav > .element:nth-child(5) {
+    border-right: 2px dashed rgba(154, 116, 236, 0.3);
+  }
+  .mainContent > .leftNav > .element:nth-child(2), .mainContent > .leftNav > .element.upperRadius {
+    border-top-left-radius: 10px !important;
+    border-bottom-left-radius: 10px !important;
+  }
+  .mainContent > .leftNav > .element.lowerRadius {
+    border-top-right-radius: 10px !important;
+    border-bottom-right-radius: 10px !important;
+  }
+  .mainContent > .leftNav > .element.user {
+    display: none !important;
+  }
+  .mainContent > .leftNav > .element.showNotification::after, .mainContent > .leftNav > .element.showErrorNotification::after {
+    display: none !important;
+  }
+  .mainContent > .leftNav > .element > .icon {
+    width: 30px !important;
+    height: 30px !important;
+  }
+  .mainContent > .leftNav > .element > .icon > svg {
+    width: 16px !important;
+    height: 16px !important;
+  }
+  .mainContent > .leftNav > .element > .text {
+    color: #bbbbbb !important;
+    font-size: 0.9em !important;
+    flex: unset !important;
+  }
+  .mainContent > .leftNav > .element.active > .text {
+    color: #FFFFFF !important;
+  }
+  .mainContent > .rightNav {
+    margin: 0 !important;
+    flex: 1 !important;
+    height: unset !important;
+    max-height: unset !important;
+    min-height: unset !important;
+  }
+}
+@media (width < 560px) {
+  .mainContent {
+    padding: 0 10px !important;
+  }
+  .mainContent > .leftNav > .separator {
+    margin: 0 !important;
+  }
+  .mainContent > .leftNav > .element {
+    flex-direction: column;
+    border-radius: 0 !important;
+    gap: 2px !important;
+  }
+  .mainContent > .leftNav > .element > .icon {
+    background: transparent !important;
+  }
+  .mainContent > .leftNav > .element.upperRadius {
+    border-top-left-radius: 0 !important;
+    border-bottom-left-radius: 0 !important;
+  }
+  .mainContent > .leftNav > .element.lowerRadius {
+    border-top-right-radius: 0 !important;
+    border-bottom-right-radius: 0 !important;
+  }
+  .mainContent > .leftNav > .element > .text {
+    font-size: 0.8em !important;
+  }
+  .mainContent > .leftNav > .element:nth-child(3) {
+    border-right: 2px dashed rgba(154, 116, 236, 0.3) !important;
+  }
+}
+@media (width < 390px) {
+  .mainContent > .leftNav > .element > .text {
+    font-size: 0.6em !important;
+  }
 }
 
 /*# sourceMappingURL=panel.css.map */

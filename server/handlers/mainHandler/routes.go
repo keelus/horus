@@ -1,6 +1,7 @@
 package mainHandler
 
 import (
+	"fmt"
 	"horus/config"
 	"horus/internal"
 	"horus/logger"
@@ -28,7 +29,31 @@ func HandleLogin(c *gin.Context) {
 }
 
 func SiteManifestHandler(c *gin.Context) {
-	c.HTML(http.StatusOK, "sitewebmanifest", gin.H{})
+	themeColor := "181818"
+	if !config.UserConfiguration.ColorModeDark {
+		themeColor = "F2F2F2"
+	}
+	manifest := fmt.Sprintf(`{
+		"name": "Horus",
+		"short_name": "Horus",
+		"icons": [
+		  {
+			"src": "/static/images/icos/android-chrome-192x192.png",
+			"sizes": "192x192",
+			"type": "image/png"
+		  },
+		  {
+			"src": "/static/images/icos/android-chrome-512x512.png",
+			"sizes": "512x512",
+			"type": "image/png"
+		  }
+		],
+		"theme_color": "#%s",
+		"background_color": "#%s",
+		"display": "standalone"
+	  }`, themeColor, themeColor)
+	c.Header("Content-Type", "application/json")
+	c.Writer.WriteString(manifest)
 }
 
 func DataRemovedHandler(c *gin.Context) {

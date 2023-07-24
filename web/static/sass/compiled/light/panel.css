@@ -938,7 +938,7 @@ body > .mainContent > .leftNav > .element:not(.user) {
 body > .mainContent > .leftNav > .element:not(.user):hover {
   background: #F5F5F5;
 }
-body > .mainContent > .leftNav > .element:not(.user) > .icono {
+body > .mainContent > .leftNav > .element:not(.user) > .icon {
   background: rgba(133, 92, 222, 0.07);
   --svg: #855CDE;
   width: 40px;
@@ -948,14 +948,14 @@ body > .mainContent > .leftNav > .element:not(.user) > .icono {
   justify-content: center;
   align-items: center;
 }
-body > .mainContent > .leftNav > .element:not(.user) > .texto {
+body > .mainContent > .leftNav > .element:not(.user) > .text {
   color: #000000;
   flex: 1;
 }
 body > .mainContent > .leftNav > .element:not(.user):nth-last-child(2) {
   margin-top: auto;
 }
-body > .mainContent > .leftNav > .element:not(.user).logOut > .icono {
+body > .mainContent > .leftNav > .element:not(.user).logOut > .icon {
   --rojo:rgb(201 0 0);
   background: rgba(199, 10, 10, 0.08);
 }
@@ -1029,7 +1029,7 @@ body > .mainContent > .rightNav > *:not(.darker) > .title {
   justify-content: center;
   align-items: center;
 }
-body > .mainContent > .rightNav > *:not(.darker) > .title .icono {
+body > .mainContent > .rightNav > *:not(.darker) > .title .icon {
   --svg:#855CDE;
   height: 25px;
   margin-right: 5px;

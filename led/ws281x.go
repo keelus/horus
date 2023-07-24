@@ -10,6 +10,7 @@ import (
 	"strconv"
 	"time"
 
+	"github.com/fatih/color"
 	ws2811 "github.com/rpi-ws281x/rpi-ws281x-go"
 )
 
@@ -21,6 +22,8 @@ type Color struct {
 
 var StopRainbow = false
 var StopBreathing = false
+
+var RedColor = color.New(color.FgRed, color.Bold)
 
 var LedStrip *ws2811.WS2811
 
@@ -39,12 +42,14 @@ func Init() {
 
 	LedStrip, err = ws2811.MakeWS2811(&options)
 	if err != nil {
-		fmt.Printf("failed initializing LED strip: %v\n", err)
+		RedColor.Printf("⨉ Failed initializing LED strip: %v\n", err)
+		logger.Log(nil, logger.ERROR, fmt.Sprintf("⨉ Failed initializing LED strip: %v\n", err))
 	}
 
 	err = LedStrip.Init()
 	if err != nil {
-		fmt.Printf("failed to initialize LED strip: %v\n", err)
+		RedColor.Printf("⨉ Failed to initialize LED strip: %v\n", err)
+		logger.Log(nil, logger.ERROR, fmt.Sprintf("⨉ Failed to initialize LED strip: %v\n", err))
 	}
 
 	switch config.LedActive.ActiveMode {
@@ -61,12 +66,12 @@ func Init() {
 		go BreathingColor()
 		break
 	default:
-		fmt.Println("Unexpected LED color mode.")
+		RedColor.Println("Unexpected LED color mode.")
 		os.Exit(-1)
 		break
 	}
 
-	logger.Log(nil, logger.UP, "Led strip service loaded.")
+	logger.Log(nil, logger.UP, "Led module loaded.")
 }
 
 func SetColor(color []string) {
@@ -77,6 +82,11 @@ func SetColor(color []string) {
 }
 
 func SetBrightness(brightness int) { // TODO: Will return true once transition is finished to avoid glitching while sending multiple SetBrightness from client
+	if LedStrip == nil {
+		RedColor.Println("⨉ LED Strip not initialized... Check sudo privileges.")
+		return
+	}
+
 	if config.LedActive.ActiveMode != "StaticColor" {
 		config.LedActive.Brightness = brightness
 		LedStrip.SetBrightness(0, brightness)
@@ -122,10 +132,12 @@ func SetBrightness(brightness int) { // TODO: Will return true once transition i
 }
 
 func Draw() {
-	LedStrip.SetBrightness(0, config.LedActive.Brightness)
 	if LedStrip == nil {
-		fmt.Printf("LED strip is not initialized\n")
+		RedColor.Println("⨉ LED Strip not initialized... Check sudo privileges.")
+		return
 	}
+
+	LedStrip.SetBrightness(0, config.LedActive.Brightness)
 
 	colorHex, err := strconv.ParseUint(config.LedActive.Color[0], 16, 32) // TODO
 	if err != nil {
@@ -141,7 +153,8 @@ func Draw() {
 
 func ForceDraw(color []string, brightness int) {
 	if LedStrip == nil {
-		fmt.Printf("LED strip is not initialized\n")
+		RedColor.Println("⨉ LED Strip not initialized... Check sudo privileges.")
+		return
 	}
 
 	colorHex, err := strconv.ParseUint(config.LedActive.Color[0], 16, 32) // TODO
@@ -171,6 +184,11 @@ func wheel(pos int) uint32 {
 }
 
 func Rainbow() {
+	if LedStrip == nil {
+		RedColor.Println("⨉ LED Strip not initialized... Check sudo privileges.")
+		return
+	}
+
 	LedStrip.SetBrightness(0, config.LedActive.Brightness)
 
 	for {
@@ -198,10 +216,14 @@ func gaussVal(x int, speed int) int {
 }
 
 func BreathingColor() { // TODO: Be able to invert (255 - val)
+	if LedStrip == nil {
+		RedColor.Println("⨉ LED Strip not initialized... Check sudo privileges.")
+		return
+	}
+
 	Draw()
 
 	// Normal value := 50 => 500 of smoothness | 10 => 100 (faster)
-	//
 
 	for {
 		speed := config.LedActive.Cooldown * 10
@@ -222,11 +244,12 @@ func BreathingColor() { // TODO: Be able to invert (255 - val)
 }
 
 func DrawGradient() {
-	LedStrip.SetBrightness(0, config.LedActive.Brightness)
-
 	if LedStrip == nil {
-		fmt.Printf("LED strip is not initialized\n")
+		RedColor.Println("⨉ LED Strip not initialized... Check sudo privileges.")
+		return
 	}
+
+	LedStrip.SetBrightness(0, config.LedActive.Brightness)
 
 	colorGradientIndexes := []Color{}
 	for _, colorStr := range config.LedActive.Color {
