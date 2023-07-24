@@ -89,8 +89,17 @@ func main() {
 		logger.Log(nil, logger.UP, "Server UP and running on port :80.") // TODO: Check
 	} else {
 		RedColor.Println("⨉ Sudo privileges were not found. They are required to access to the root-privileged port 80. Gin web server couldn't be initialized.") // TODO: Be able to change the port and use a non-privileged one.
-		logger.Log(nil, logger.ERROR, "⨉ Sudo privileges were not found. They are required to access the GPIO of your Raspberry Pi, in order to control your WS281X Led strip... WS281X Led module not initialized.")
-		os.Exit(-1)
+		logger.Log(nil, logger.ERROR, "⨉ Sudo privileges were not found. They are required to access to the root-privileged port 80. Gin web server couldn't be initialized.")
+
+		devMode := false
+		for _, arg := range os.Args {
+			if arg == "-d" {
+				devMode = true
+			}
+		}
+		if !devMode { // Only force exit if not development mode
+			os.Exit(-1)
+		}
 	}
 
 	internal.CheckLatestVersion()
