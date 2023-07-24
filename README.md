@@ -86,7 +86,7 @@ On the first time execution, you will be asked to enter a username and password,
 
 
 ## ⚖️ License
-This project is open source under the terms of the [MIT License](https://choosealicense.com/licenses/mit/)
+This project is open source under the terms of the [MIT License](https://github.com/keelus/horus/blob/main/LICENSE)
 
 
 ## 📸 Screenshots
