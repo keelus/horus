@@ -80,12 +80,19 @@ func main() {
 		RedColor.Printf("⨉ '%s' OS detected. Keep in mind this software is Linux & Raspberry Pi focused. Most features won't work/take effect on other systems/operative systems.\n", strings.ToUpper(userOS))
 		logger.Log(nil, logger.ERROR, fmt.Sprintf("⨉ '%s' OS detected. Keep in mind this software is Linux & Raspberry Pi focused. Most features won't work/take effect on other systems/operative systems.", strings.ToUpper(userOS)))
 	} else {
-		GreenColor.Printf("✓ Linux detected (keep in mind some features only work on Raspberry Pi systems).")
+		GreenColor.Println("✓ Linux detected (keep in mind some features only work on Raspberry Pi systems).")
 		logger.Log(nil, logger.POWERON, "✓ Linux detected (keep in mind some features only work on Raspberry Pi systems).")
 	}
 
-	logger.Log(nil, logger.UP, "Server UP and running on port :80.") // TODO: Check
-	BlueColor.Println("↻ Starting Gin server")
+	if euid == 0 {
+		BlueColor.Println("✓ Sudo privileges found, initializing GIN web server...")
+		logger.Log(nil, logger.UP, "Server UP and running on port :80.") // TODO: Check
+	} else {
+		RedColor.Println("⨉ Sudo privileges were not found. They are required to access to the root-privileged port 80. Gin web server couldn't be initialized.") // TODO: Be able to change the port and use a non-privileged one.
+		logger.Log(nil, logger.ERROR, "⨉ Sudo privileges were not found. They are required to access the GPIO of your Raspberry Pi, in order to control your WS281X Led strip... WS281X Led module not initialized.")
+		os.Exit(-1)
+	}
+
 	internal.CheckLatestVersion()
 	time.Sleep(1 * time.Second)
 	server.Init()
