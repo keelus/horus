@@ -7,21 +7,6 @@ body {
   font-family: "Familjen Grotesk", sans-serif;
 }
 
-.recortado {
-  max-width: 1400px;
-}
-
-.cuerpo {
-  max-width: 1400px;
-  margin: 0 auto;
-}
-
-@media (max-width: 1500px) {
-  .cuerpo {
-    width: 95%;
-    padding: 0 auto;
-  }
-}
 .render-link, .render-link:link, .render-link:visited {
   text-decoration: none;
   color: transparent;
@@ -81,15 +66,6 @@ button:hover, .button:hover, .button:link:hover, .button:visited:hover {
 }
 button:hover::after, .button:hover::after, .button:link:hover::after, .button:visited:hover::after {
   opacity: 1;
-}
-button:disabled, .button:disabled, .button:link:disabled, .button:visited:disabled {
-  background: gray !important;
-}
-button:disabled::before, button:disabled::after, .button:disabled::before, .button:disabled::after, .button:link:disabled::before, .button:link:disabled::after, .button:visited:disabled::before, .button:visited:disabled::after {
-  all: unset !important;
-}
-button:disabled:hover, .button:disabled:hover, .button:link:disabled:hover, .button:visited:disabled:hover {
-  cursor: default;
 }
 button.whiteBlack, .button.whiteBlack, .button:link.whiteBlack, .button:visited.whiteBlack {
   background: #222222 !important;
@@ -158,6 +134,10 @@ input[type=datetime-local][type=password]:placeholder-shown,
 input[type=month][type=password]:placeholder-shown,
 input[type=week][type=password]:placeholder-shown {
   letter-spacing: 0;
+}
+
+input[type=range]:hover {
+  cursor: pointer;
 }
 
 .hasError {

@@ -1,8 +1,9 @@
 .option {
 	width:100%;
+	margin-bottom:10px;
+
 	display:flex;
 	flex-direction: column;
-	margin-bottom:10px;
 
 	.content {
 		padding:10px 30px;
@@ -23,6 +24,7 @@
 					width:100%;
 					height:100%;
 					border-radius:6px;
+
 					outline: 2px solid rgba(0, 0, 0, 0);
 					outline-offset: 2px;
 					transition: all .1s linear;
@@ -40,17 +42,20 @@
 				}
 
 				& > .delete {
-					width:20px;
-					height:20px;
-					border-radius: 100%;
-					color:$error;
 					background:$bg-1;
+					color:$error;
+
 					position: absolute;
 					top:-10px;
 					right:-10px;
+					width:20px;
+					height:20px;
+					border-radius: 100%;
+
 					display: flex;
 					justify-content: center;
 					align-items: center;
+
 					transition: all .1s linear;
 					border: 1px solid rgba($textPrimary, .3);
 
@@ -58,24 +63,28 @@
 						width: 14px;
 						fill:$textPrimary;
 					}
+
 					&:hover {
 						cursor:pointer;
 						background:$error;
+
 						svg {
 							fill:white !important;
 						}
 					}
 				}
 
-
 				&.new {
-					border:2px dashed $accent;
 					color:$accent;
 					opacity: .7;
 					box-sizing: border-box;
+
+					border:2px dashed $accent;
+
 					display: flex;
 					justify-content: center;
 					align-items: center;
+
 					font-size: 2em;
 					line-height: 2em;
 
@@ -93,18 +102,22 @@
 			grid-gap: 15px;
 
 			.gradient {
+				position:relative;
 				width:125px;
 				height:75px;
+
 				border-radius:6px;
-				position:relative;
+
 				transition: all .1s linear;
 
 				& > .background {
 					width:100%;
 					height:100%;
 					border-radius:6px;
+
 					outline: 2px solid rgba(0, 0, 0, 0);
 					outline-offset: 2px;
+
 					transition: all .1s linear;
 				}
 
@@ -120,27 +133,32 @@
 				}
 
 				& > .delete {
-					width:20px;
-					height:20px;
-					border-radius: 100%;
 					color:$error;
 					background:$bg-1;
+
 					position: absolute;
 					top:-10px;
 					right:-10px;
+					width:20px;
+					height:20px;
+					border-radius: 100%;
+
 					display: flex;
 					justify-content: center;
 					align-items: center;
-					transition: all .1s linear;
+
 					border: 1px solid rgba($textPrimary, .3);
+
+					transition: all .1s linear;
 
 					& > svg {
 						width: 14px;
 						fill:$textPrimary;
 					}
 					&:hover {
-						cursor:pointer;
 						background:$error;
+						cursor:pointer;
+
 						svg {
 							fill:white !important;
 						}
@@ -148,19 +166,23 @@
 				}
 
 				& > .edit {
-					width:20px;
-					height:20px;
-					border-radius: 100%;
-					color:$error;
 					background:$bg-1;
+					color:$error;
+
 					position: absolute;
 					top:-10px;
 					right:15px;
+					width:20px;
+					height:20px;
+					border-radius: 100%;
+
 					display: flex;
 					justify-content: center;
 					align-items: center;
-					transition: all .1s linear;
+
 					border: 1px solid rgba($textPrimary, .3);
+					
+					transition: all .1s linear;
 
 					& > svg {
 						width: 14px;
@@ -169,6 +191,7 @@
 					&:hover {
 						cursor:pointer;
 						background:$accent;
+
 						svg {
 							fill:white !important;
 						}
@@ -177,13 +200,16 @@
 
 
 				&.new {
-					border:2px dashed $accent;
 					color:$accent;
 					opacity: .7;
+
+					border:2px dashed $accent;
 					box-sizing: border-box;
+
 					display: flex;
 					justify-content: center;
 					align-items: center;
+
 					font-size: 2em;
 					line-height: 2em;
 
@@ -199,28 +225,33 @@
 	& > .checkLine {
 		display:flex;
 		align-items: center;
+
 		.checkbox {
-			margin-right:.3em;
 			width:1.25em;
 			height:1.25em;
+			margin-right:.3em;
+
 			display:inline-block;
+
 			overflow:hidden;
-
-			.on > svg, .off > svg {
-				width:1.25em;
-				height:1.25em;
-				fill:$accent;
-			}
-
-			.off > svg {
-				fill:$textPrimary2;
-			}
 
 			.on {
 				display:none;
+
+				& > svg {
+					fill:$accent;
+					width:1.25em;
+					height:1.25em;
+				}
 			}
 			.off {
 				display:block;
+
+				& > svg {
+					fill:$textPrimary2;
+					width:1.25em;
+					height:1.25em;
+				}
 			}
 		}
 	}
@@ -237,14 +268,15 @@
 		}
 		& > .checkLine > .text {
 			color:$textPrimary;
+
 			position:relative;
 
 			&::after {
 				content:"- Active";
+				color:$accent;
 				display:inline-block;
 				padding-left:10px;
 				font-weight: bold;
-				color:$accent;
 			}
 		}
 	}
@@ -264,6 +296,7 @@
 	.checkLine {
 		& > .text {
 			color:$textPrimary;
+
 			&:hover {
 				cursor:pointer;
 			}
@@ -276,94 +309,197 @@
 }
 
 .darker {
+	background-color:rgba($bg-2, .95);
+
 	position:fixed;
-	width:100%;
-	height:100%;
 	top:0;
 	left:0;
-	background-color:rgba($bg-2, .95);
-	z-index:998;
+	width:100%;
+	height:100%;
+	
 	display:none;
+
+	z-index:998;
 
 	&.show {
 		display:block;
 	}
-}
-
-.modal {
-	position:fixed;
-	width:500px;
-	background-color:$bg-1;
-	box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
-	z-index:999;
-	display: flex;
-	flex-direction: column;
-
-	border-radius:10px;
-
-	top:50%;
-	left:50%;
-	transform:translate(-50%, -50%);
-
-	padding:20px;
-	box-sizing: border-box;
-
-	.title {
-		color:$textPrimary;
-		font-size:1.25em;
-		font-weight: bold;
-	}
-	.subtitle {
-		color:$textPrimary2;
-		font-weight: lighter;
-		margin-bottom:5px;
-	}
-
-	.doubleButton {
-		margin-top:15px;
-		display:flex;
-		justify-content: center;
-		gap:15px;
-	}
 	
-	.gradientNote {
-		font-size:.9em;
-		color:$accent;
-		&:hover {
-			cursor:pointer;
-			text-decoration: underline;
+	& > .modal {
+		background-color:$bg-1;
+	
+		position:fixed;
+		top:50%;
+		left:50%;
+		transform:translate(-50%, -50%);
+		width:500px;
+		padding:20px;
+		box-sizing: border-box;
+		border-radius:10px;
+		
+		display: flex;
+		flex-direction: column;
+	
+		box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+	
+		z-index:999;
+	
+		.title {
+			color:$textPrimary;
+			font-size:1.25em;
+			font-weight: bold;
 		}
-	}
-
-	.inputBox {
-		width:100%;
-		display:flex;
-		padding:2px 20px;
-
-		& > .text {
-			display:flex;
-			align-items: center;
-			justify-content: flex-start;
-			min-width:150px;
-			color: $textPrimary;
+		.subtitle {
+			color:$textPrimary2;
+			font-weight: lighter;
+			margin-bottom:5px;
 		}
-
-		& > *:nth-child(2) {
-			flex:1;
+	
+		.doubleButton {
+			margin-top:15px;
 			display:flex;
-			align-items: center;
-			justify-content: flex-start;
-
-			& > input {
-				width:80%;
+			justify-content: center;
+			gap:15px;
+		}
+		
+		.gradientNote {
+			color:$accent;
+			font-size:.9em;
+	
+			&:hover {
+				cursor:pointer;
+				text-decoration: underline;
 			}
 		}
-
-		.note {
-			padding-left:10px;
-			font-size:.75rem;
+	
+		.inputBox {
+			width:100%;
+			padding:2px 20px;
+	
+			display:flex;
+	
+			& > .text {
+				color: $textPrimary;
+	
+				min-width:150px;
+	
+				display:flex;
+				align-items: center;
+				justify-content: flex-start;
+			}
+	
+			& > *:nth-child(2) {
+				flex:1;
+				display:flex;
+				align-items: center;
+				justify-content: flex-start;
+	
+				& > input {
+					width:80%;
+				}
+			}
+	
+			.note {
+				padding-left:10px;
+				font-size:.75rem;
+			}
+	
+			&#brightnessVisual {
+				color:$textPrimary;
+			}
 		}
 	}
+	
+	&#newGradientModal > .modal {
+		color:$textPrimary;
+
+		.gradientPreview {
+			width:100%;
+			height:50px;
+
+			border:2px solid $accent;
+			border-radius:6px;
+		}
+		
+		.hexCodes {
+			width:auto;
+			margin-top:0;
+			padding: 0;
+
+			list-style-type: none;
+
+			li.hexCode {
+				margin-bottom:5px;
+				position:relative;
+
+				display:flex;
+				align-items: center;
+				gap:6px;
+
+				.drag {
+					width:20px;
+					height:30px;
+
+					display:flex;
+					align-items: center;
+
+					& svg {
+						fill: $textPrimary2;
+
+						width:30px;
+
+						transition:all .1s linear;
+					}
+
+					&:hover{
+						cursor:move;
+						& svg {
+							fill: $textPrimary;
+						}
+					}
+				}
+
+				.remove {
+					background:$bg-4;
+
+					padding:3px 2px;
+					height:auto;
+
+					border-radius:5px;
+
+					transition:all .1s linear;
+
+					& svg {
+						fill: $textPrimary;
+
+						width: 20px;
+						height: 20px;
+
+						transition:all .1s linear;
+					}
+
+					&:hover {
+						background:$error;
+						cursor:pointer;
+						
+						svg {
+							fill:white;
+						}
+					}
+				}
+			}
+
+			li.addColorToGradient {
+				color:$accent;
+
+				&:hover {
+					cursor:pointer;
+					text-decoration: underline;
+				}
+			}
+		}
+	}
+
 }
 
 .inputBox {
@@ -372,11 +508,13 @@
 	padding:2px 0;
 
 	& > .text {
+		color: $textPrimary;
+
+		min-width:150px;
+
 		display:flex;
 		align-items: center;
 		justify-content: flex-start;
-		min-width:150px;
-		color: $textPrimary;
 	}
 
 	& > *:nth-child(2) {
@@ -394,85 +532,4 @@
 		padding-left:10px;
 		font-size:.75rem;
 	}
-}
-input[type="range"]:hover {
-	cursor:pointer;
-}
-
-#newGradientModal > .modal {
-	.gradientPreview {
-		border:2px solid $accent;
-		border-radius:6px;
-		width:100%;
-		height:50px;
-	}
-	color:$textPrimary;
-	
-	.hexCodes {
-		margin-top:0;
-		width:auto;
-		list-style-type: none;
-		padding: 0;
-		li.hexCode {
-			margin-bottom:5px;
-			display:flex;
-			align-items: center;
-			gap:6px;
-			.drag {
-				width:20px;
-				height:30px;
-				display:flex;
-				align-items: center;
-				& svg {
-					width:30px;
-					fill: $textPrimary2;
-					transition:all .1s linear;
-				}
-				&:hover{
-					cursor:move;
-					& svg {
-						fill: $textPrimary;
-					}
-
-				}
-			}
-
-			.remove {
-				padding:3px 2px;
-				background:$bg-4;
-				border-radius:5px;
-				transition:all .1s linear;
-				height:auto;
-
-				& svg {
-					transition:all .1s linear;
-					width: 20px;
-					height: 20px;
-					fill: $textPrimary;
-				}
-
-				&:hover {
-					cursor:pointer;
-					background:$error;
-					svg {
-						fill:white;
-					}
-				}
-			}
-			position:relative;
-
-		}
-		li.addColorToGradient {
-			color:$accent;
-
-			&:hover {
-				cursor:pointer;
-				text-decoration: underline;
-			}
-		}
-	}
-}
-
-#brightnessVisual {
-	color:$textPrimary;
 }

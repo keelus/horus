@@ -3,20 +3,21 @@
 @import 'panels/SystemStats.scss';
 @import 'panels/Settings.scss';
 
-
 body {
 	background-color:$bg-4;
 	background-image: radial-gradient($bg-dots 1px, transparent 0);
 	background-size: 15px 15px;
 	background-position: -19px -19px;
+
 	& > .title {
+		text-align: center;
+		margin:30px 0;
+		margin-bottom: 0;
+		
 		& > a {
 			text-decoration: none;
 			color:$accent;
 		}
-		text-align: center;
-		margin:30px 0;
-		margin-bottom: 0;
 	}
 
 	& > .subtitleOuter {
@@ -52,23 +53,28 @@ body {
 	
 		& > .leftNav {
 			width:200px;
+			height:auto;
+
 			display:flex;
 			flex-direction: column;
 			align-items: center;
-			height:auto;
 	
 			& > .element {
+				width:100%;
+				padding:.6em 22px;
+				position:relative;
+				box-sizing: border-box;
+				background:$bg-1;
+
+				display: flex;
+				gap:.5em;
+				align-items: center;
+
 				box-shadow: rgba(99, 99, 99, 0.1) 0px 2px 8px 0px;
+				
 				&, & * {
 					text-decoration: none !important;
 				}
-				display: flex;
-				align-items: center;
-				width:100%;
-				gap:.5em;
-				padding:.6em 22px;
-				box-sizing: border-box;
-				position:relative;
 
 				&.upperRadius {
 					border-top-left-radius: 15px;
@@ -79,66 +85,72 @@ body {
 					border-bottom-left-radius: 15px;
 					border-bottom-right-radius: 15px;
 				}
-				background:$bg-1;
 
 				&.active {
 					background:$bg-4 !important;
 				}
-
 				
 				&.showNotification[element-category='Settings']::after {
 					content:'New version available';
-					display:block;
-					position:absolute;
-					padding:1px 4px;
-					border-radius:6px;
-					font-weight:bold;
-					font-size:.8em;
-					top:-7px;
-					right:-5px;
 					background:$accent;
 					color:white;
+
+					position:absolute;
+					top:-7px;
+					right:-5px;
+					display:block;
+					padding:1px 4px;
+					border-radius:6px;
+
+					font-weight:bold;
+					font-size:.8em;
 				}
 				
 				&.showErrorNotification[element-category='Settings']::after {
 					content:'Error checking for newer version';
-					display:block;
-					position:absolute;
-					padding:1px 4px;
-					border-radius:6px;
-					font-weight:bold;
-					font-size:.8em;
-					top:-7px;
-					right:-5px;
 					background:$error;
 					color:white;
+
+					position:absolute;
+					top:-7px;
+					right:-5px;
+					display:block;
+					padding:1px 4px;
+					border-radius:6px;
+
+					font-weight:bold;
+					font-size:.8em;
 				}
 	
-	
 				&:not(.user) {
+					transition:background .1s linear;
+
+					&:hover {
+						background:$bg-3;
+					}
+
 					& > .icono {
+						background: rgba($accent, .07);
+						--svg: #855CDE;
+
 						width:40px;
 						height:40px;
-						background: rgba($accent, .07);
+						border-radius:.25rem;
+
 						display: flex;
 						justify-content: center;
 						align-items: center;
-						--svg: #855CDE;
-						border-radius:.25rem;
 					}
+
 					& > .texto {
 						color:$textPrimary;
 						flex:1;
 					}
-					&:hover {
-						background:$bg-3;
-					}
-					transition:background .1s linear;
 					
-		
 					&:nth-last-child(2) {
 						margin-top:auto;
 					}
+
 					&.logOut {
 						& > .icono {
 							--rojo:rgb(201 0 0);
@@ -148,34 +160,37 @@ body {
 				}
 	
 				&.user {
-					// padding-top:0;
-					cursor:default;
+					&:hover {
+						cursor:default;
+					}
+
 					& > .avatar {
+						position:relative;
 						width:40px;
 						height:40px;
+						border-radius:.25rem;
+
 						background-size: cover;
 						background-repeat: no-repeat;
 						background-position: center;
-						border-radius:.25rem;
-						position:relative;
 	
 						&::after {
 							content:"";
-							display:block;
 							position:absolute;
-							background-color: $online;
 							bottom:-3px;
 							right:-3px;
 							width: 12px;
 							height:12px;
 							border-radius: 100%;
+							display:block;
+							background-color: $success;
 						}
 					}
 	
 					& > .texts {
+						height:40px;
 						display:flex;
 						flex-direction: column;
-						height:40px;
 	
 						& > .username {
 							color:$textPrimary;
@@ -192,54 +207,56 @@ body {
 			}
 	
 		}
-	
 		
 		& > .rightNav {
-			box-shadow: rgba(99, 99, 99, 0.1) 0px 2px 8px 0px;
-			flex:1;
 			background-color:$bg-1;
-			// height:450px;
+			height:calc(100vh - calc(40px + 30px + 20px + 10px + 20px + 50px));
+			flex:1;
 			border-radius:15px;
 			padding:20px 40px;
 			padding-bottom:40px;
-			box-sizing: border-box;
-
 			margin-left:15px;
+
+			box-sizing: border-box;
+			box-shadow: rgba(99, 99, 99, 0.1) 0px 2px 8px 0px;
 			
-			height:calc(100vh - calc(40px + 30px + 20px + 10px + 20px + 50px));
 			overflow:hidden;
 			overflow-y:auto;
 	
 			& > *:not(.darker) {
+				width:100%;
+				height: auto;
+
 				display:flex;
 				flex-direction: column;
 				align-items: center;
-				width:100%;
-				height: auto;
 	
 				& > .title {
+					height:25px;
+					margin-right:auto;
+					margin-bottom:15px;
+
 					font-family: "Familjen Grotesk", sans-serif;
+					color:$accent;
 					font-weight: bold;
 					font-size:25px;
 					line-height:25px;
-					height:25px;
-					color:$accent;
-					margin-right:auto;
-					margin-bottom:15px;
+					
 					display:flex;
 					justify-content: center;
 					align-items: center;
 	
 					.icono {
-						line-height:25px;
+						--svg:#855CDE;
 						height:25px;
 						margin-right:5px;
-						display:inline-block;
-						--svg:#855CDE;
+						padding-top:3px;
+						line-height:25px;
+
 						display:flex;
 						justify-content: center;
 						align-items: center;
-						padding-top:3px;
+
 					}
 				}
 			}

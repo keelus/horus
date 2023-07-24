@@ -1,41 +1,54 @@
 .categories {
 	color:$textPrimary;
+	
 	display:flex;
 	flex-direction: column;
 	gap:15px;
+
 	& > .category {
+		background: $bg-2;
+		
+		width:100%;
 		padding:10px 20px;
 		box-sizing: border-box;
-		width:100%;
+		
 		display:flex;
 		flex-direction: column;
-		// border: 2px dashed #fdc8301c;
+
 		border: 2px dashed rgba($accent, 0.2);
 		border-radius: 5px;
-		background: $bg-2;
 
 		&:nth-last-child(1) {
-			margin-top:50px;
-			border: 2px dashed rgba($error, .1);
 			background: rgba($error, .1);
+
+			margin-top:50px;
+
+			border: 2px dashed rgba($error, .1);
 		}
 	
 		& > .title {
+			color:$textPrimary;
+
+			margin-right:auto;
+			margin-bottom:.1em;
+
 			font-family: "Familjen Grotesk", sans-serif;
 			font-weight: bold;
 			font-size:22px;
-			color:$textPrimary;
-			margin-right:auto;
-			margin-bottom:.1em;
 		}
+
 		& > .details {
-			font-size:.85em;
 			color:$textPrimary2;
+			
 			margin-bottom:.5em;
+
+			font-size:.85em;
 		}
+
 		& > .content {
 			padding:0px 20px;
 		}
+		
 		& > button {
 			margin:0 auto;
 			margin-top:5px;
@@ -48,16 +61,20 @@
 
 		&.UserInfo {
 			.avatar {
+				background-position: center;
+				background-size: cover;
+				background-repeat: no-repeat;
+
 				width:50px;
 				max-width: 50px;
 				height:50px;
 				border-radius:.25rem;
+
 				display:inline-block;
-				background-position: center;
-				background-size: cover;
-				background-repeat: no-repeat;
+
 				flex:1;
 			}
+
 			.note {
 				flex:2;
 			}
@@ -65,10 +82,13 @@
 
 		&.SystemStats {
 			.note {
-				display:none;
 				color:$error;
+
+				display:none;
+				
 				font-size: 14px;
 			}
+
 			&:not(:has(*:checked)) {
 				.note {
 					display:block;
@@ -78,11 +98,13 @@
 
 		&.SessionSettings {
 			.note {
-				margin:.5em 0;
-				text-align: center;
-				padding-left:10px;
-				font-size:.75rem;
 				color:$error;
+
+				padding-left:10px;
+				margin:.5em 0;
+
+				text-align: center;
+				font-size:.75rem;
 			}
 		}
 
@@ -97,14 +119,17 @@
 
 		.inputBox {
 			width:100%;
-			display:flex;
+
 			padding:2px 0;
 
+			display:flex;
+
 			& > .text {
+				min-width:150px;
+
 				display:flex;
 				align-items: center;
 				justify-content: flex-start;
-				min-width:150px;
 			}
 
 			& > *:nth-child(2) {
@@ -120,6 +145,7 @@
 
 			.note {
 				padding-left:10px;
+
 				font-size:.75rem;
 			}
 		}
@@ -143,7 +169,6 @@ input[type="checkbox"]:disabled + label, input[type="radio"]:disabled + label {
 }
 
 label {
-	// width:522px;
 	box-sizing: border-box;
 	margin-left: 0;
 	color:$textPrimary;
@@ -158,32 +183,38 @@ label {
 	margin-bottom:0;
 }
 
-
 .content.themeOptions {
 	display:flex;
 	justify-content: center;
 	gap:25px;
+
 	.option {
+		background-color:$bg-1;
+
+		width:150px;
+		height:100px;
+		padding:10px;
+
 		display:flex;
 		flex-direction: column;
 		align-items: center;
 		justify-content: center;
-		background-color:$bg-1;
-		width:150px;
-		height:100px;
+		
 		border:2px solid rgba($accent, 0.2);
 		border-radius:6px;
-		padding:10px;
+
 		transition:background-color .1s linear;
 
 		.image {
-			width:120px;
-			height:100%;
 			background-size: contain;
 			background-position:center;
 			background-repeat: no-repeat;
+
+			width:120px;
+			height:100%;
 			border-radius: 5px;
 		}
+
 		.title {
 			color:$textPrimary;
 		}
@@ -191,10 +222,10 @@ label {
 		&.selected {
 			background-color:rgba($accent, 0.1);
 		}
+
 		&:not(.selected):hover {
 			cursor:pointer;
 			background-color:rgba($accent, 0.05);
 		}
-
 	}
 }

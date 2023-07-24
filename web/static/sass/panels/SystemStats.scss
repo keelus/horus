@@ -6,67 +6,80 @@
 	grid-template-columns: repeat(2, calc(50% - calc(15px / 2)));
 	grid-gap: 15px;
 
-
 	& > .stat {
+		background-color:$bg-3;
+
+		border-radius:10px;
+		padding: 20px 0;
+
 		display:flex;
 		justify-content: center;
 		align-items: center;
 		flex-direction: column;
 		gap:15px;
-		background-color:$bg-3;
-		border-radius:10px;
-		padding: 20px 0;
+		
 
 		.graph {
 			width:150px;
 			height:125px;
 
-			& > svg > .text-container > .value-text {
-				font-size: .8em;
+			& > svg {
+				& > .text-container > .value-text {
+					font-size: .8em;
+				}
+				
+				& > path {
+					stroke-linecap:round;
+					stroke-linejoin: round;
+				}
 			}
-			& > svg > path {
-				stroke-linecap:round;
-				stroke-linejoin: round;
-			}
-			& > .gauge > .dial {
-				stroke: #334455;
-				stroke-width: 2;
-				/*stroke-dasharray: 125, 20;*/
-			}
-			& > .gauge > .value {
-				stroke: #FFFFFF;
-				stroke-width: 5;
-				/*stroke-dasharray: 125, 20;*/
-			}
-			& > .gauge > .value-text {
-				fill: #FFFFFF;
+
+
+			& > .gauge {
+				& > .dial {
+					stroke: #334455;
+					stroke-width: 2;
+				}
+				& > .value {
+					stroke: #FFFFFF;
+					stroke-width: 5;
+				}
+				& > .value-text {
+					fill: #FFFFFF;
+				}
 			}
 
 			&.good {
-				& > .gauge > .value {
-					stroke: $good;
-				}
-				& > .gauge > .value-text {
-					fill: $good;
+				& > .gauge {
+					& > .value {
+						stroke: $good;
+					}
+					& > .value-text {
+						fill: $good;
+					}
 				}
 			}
+
 			&.warning {
-				& > .gauge > .value {
-					stroke: $warning;
+				& > .gauge {
+					& > .value {
+						stroke: $warning;
+					}
+					& > .value-text {
+						fill: $warning;
+					}
 				}
-				& > .gauge > .value-text {
-					fill: $warning;
-				}
-
 			}
-			&.danger {
-				& > .gauge > .value {
-					stroke: $danger;
-				}
-				& > .gauge > .value-text {
-					fill: $danger;
-				}
 
+			&.danger {
+				& > .gauge {
+					& > .value {
+						stroke: $danger;
+					}
+					& > .value-text {
+						fill: $danger;
+					}
+				}
 			}
 		}
 	

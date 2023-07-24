@@ -7,21 +7,6 @@ body {
   font-family: "Familjen Grotesk", sans-serif;
 }
 
-.recortado {
-  max-width: 1400px;
-}
-
-.cuerpo {
-  max-width: 1400px;
-  margin: 0 auto;
-}
-
-@media (max-width: 1500px) {
-  .cuerpo {
-    width: 95%;
-    padding: 0 auto;
-  }
-}
 .render-link, .render-link:link, .render-link:visited {
   text-decoration: none;
   color: transparent;
@@ -81,15 +66,6 @@ button:hover, .button:hover, .button:link:hover, .button:visited:hover {
 }
 button:hover::after, .button:hover::after, .button:link:hover::after, .button:visited:hover::after {
   opacity: 1;
-}
-button:disabled, .button:disabled, .button:link:disabled, .button:visited:disabled {
-  background: gray !important;
-}
-button:disabled::before, button:disabled::after, .button:disabled::before, .button:disabled::after, .button:link:disabled::before, .button:link:disabled::after, .button:visited:disabled::before, .button:visited:disabled::after {
-  all: unset !important;
-}
-button:disabled:hover, .button:disabled:hover, .button:link:disabled:hover, .button:visited:disabled:hover {
-  cursor: default;
 }
 button.whiteBlack, .button.whiteBlack, .button:link.whiteBlack, .button:visited.whiteBlack {
   background: #FFFFFF !important;
@@ -160,6 +136,10 @@ input[type=week][type=password]:placeholder-shown {
   letter-spacing: 0;
 }
 
+input[type=range]:hover {
+  cursor: pointer;
+}
+
 .hasError {
   border: 1px solid #c70a0a !important;
 }
@@ -215,9 +195,9 @@ select:hover {
 
 .option {
   width: 100%;
+  margin-bottom: 10px;
   display: flex;
   flex-direction: column;
-  margin-bottom: 10px;
 }
 .option .content {
   padding: 10px 30px;
@@ -250,14 +230,14 @@ select:hover {
   cursor: pointer;
 }
 .option .content .colors .color > .delete {
-  width: 20px;
-  height: 20px;
-  border-radius: 100%;
-  color: #c70a0a;
   background: #FFFFFF;
+  color: #c70a0a;
   position: absolute;
   top: -10px;
   right: -10px;
+  width: 20px;
+  height: 20px;
+  border-radius: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -276,10 +256,10 @@ select:hover {
   fill: white !important;
 }
 .option .content .colors .color.new {
-  border: 2px dashed #855CDE;
   color: #855CDE;
   opacity: 0.7;
   box-sizing: border-box;
+  border: 2px dashed #855CDE;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -296,10 +276,10 @@ select:hover {
   grid-gap: 15px;
 }
 .option .content .gradients .gradient {
+  position: relative;
   width: 125px;
   height: 75px;
   border-radius: 6px;
-  position: relative;
   transition: all 0.1s linear;
 }
 .option .content .gradients .gradient > .background {
@@ -318,45 +298,45 @@ select:hover {
   cursor: pointer;
 }
 .option .content .gradients .gradient > .delete {
-  width: 20px;
-  height: 20px;
-  border-radius: 100%;
   color: #c70a0a;
   background: #FFFFFF;
   position: absolute;
   top: -10px;
   right: -10px;
+  width: 20px;
+  height: 20px;
+  border-radius: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
-  transition: all 0.1s linear;
   border: 1px solid rgba(0, 0, 0, 0.3);
+  transition: all 0.1s linear;
 }
 .option .content .gradients .gradient > .delete > svg {
   width: 14px;
   fill: #000000;
 }
 .option .content .gradients .gradient > .delete:hover {
-  cursor: pointer;
   background: #c70a0a;
+  cursor: pointer;
 }
 .option .content .gradients .gradient > .delete:hover svg {
   fill: white !important;
 }
 .option .content .gradients .gradient > .edit {
-  width: 20px;
-  height: 20px;
-  border-radius: 100%;
-  color: #c70a0a;
   background: #FFFFFF;
+  color: #c70a0a;
   position: absolute;
   top: -10px;
   right: 15px;
+  width: 20px;
+  height: 20px;
+  border-radius: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
-  transition: all 0.1s linear;
   border: 1px solid rgba(0, 0, 0, 0.3);
+  transition: all 0.1s linear;
 }
 .option .content .gradients .gradient > .edit > svg {
   width: 14px;
@@ -370,9 +350,9 @@ select:hover {
   fill: white !important;
 }
 .option .content .gradients .gradient.new {
-  border: 2px dashed #855CDE;
   color: #855CDE;
   opacity: 0.7;
+  border: 2px dashed #855CDE;
   box-sizing: border-box;
   display: flex;
   justify-content: center;
@@ -389,25 +369,27 @@ select:hover {
   align-items: center;
 }
 .option > .checkLine .checkbox {
-  margin-right: 0.3em;
   width: 1.25em;
   height: 1.25em;
+  margin-right: 0.3em;
   display: inline-block;
   overflow: hidden;
-}
-.option > .checkLine .checkbox .on > svg, .option > .checkLine .checkbox .off > svg {
-  width: 1.25em;
-  height: 1.25em;
-  fill: #855CDE;
-}
-.option > .checkLine .checkbox .off > svg {
-  fill: #525151;
 }
 .option > .checkLine .checkbox .on {
   display: none;
 }
+.option > .checkLine .checkbox .on > svg {
+  fill: #855CDE;
+  width: 1.25em;
+  height: 1.25em;
+}
 .option > .checkLine .checkbox .off {
   display: block;
+}
+.option > .checkLine .checkbox .off > svg {
+  fill: #525151;
+  width: 1.25em;
+  height: 1.25em;
 }
 .option.active > .checkLine > .checkbox > .on {
   display: block;
@@ -421,10 +403,10 @@ select:hover {
 }
 .option.active > .checkLine > .text::after {
   content: "- Active";
+  color: #855CDE;
   display: inline-block;
   padding-left: 10px;
   font-weight: bold;
-  color: #855CDE;
 }
 .option:not(.active) > .checkLine > .text {
   color: #525151;
@@ -446,82 +428,150 @@ select:hover {
 }
 
 .darker {
+  background-color: rgba(249, 249, 249, 0.95);
   position: fixed;
-  width: 100%;
-  height: 100%;
   top: 0;
   left: 0;
-  background-color: rgba(249, 249, 249, 0.95);
-  z-index: 998;
+  width: 100%;
+  height: 100%;
   display: none;
+  z-index: 998;
 }
 .darker.show {
   display: block;
 }
-
-.modal {
-  position: fixed;
-  width: 500px;
+.darker > .modal {
   background-color: #FFFFFF;
-  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
-  z-index: 999;
-  display: flex;
-  flex-direction: column;
-  border-radius: 10px;
+  position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  width: 500px;
   padding: 20px;
   box-sizing: border-box;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  z-index: 999;
 }
-.modal .title {
+.darker > .modal .title {
   color: #000000;
   font-size: 1.25em;
   font-weight: bold;
 }
-.modal .subtitle {
+.darker > .modal .subtitle {
   color: #525151;
   font-weight: lighter;
   margin-bottom: 5px;
 }
-.modal .doubleButton {
+.darker > .modal .doubleButton {
   margin-top: 15px;
   display: flex;
   justify-content: center;
   gap: 15px;
 }
-.modal .gradientNote {
-  font-size: 0.9em;
+.darker > .modal .gradientNote {
   color: #855CDE;
+  font-size: 0.9em;
 }
-.modal .gradientNote:hover {
+.darker > .modal .gradientNote:hover {
   cursor: pointer;
   text-decoration: underline;
 }
-.modal .inputBox {
+.darker > .modal .inputBox {
   width: 100%;
-  display: flex;
   padding: 2px 20px;
+  display: flex;
 }
-.modal .inputBox > .text {
+.darker > .modal .inputBox > .text {
+  color: #000000;
+  min-width: 150px;
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  min-width: 150px;
-  color: #000000;
 }
-.modal .inputBox > *:nth-child(2) {
+.darker > .modal .inputBox > *:nth-child(2) {
   flex: 1;
   display: flex;
   align-items: center;
   justify-content: flex-start;
 }
-.modal .inputBox > *:nth-child(2) > input {
+.darker > .modal .inputBox > *:nth-child(2) > input {
   width: 80%;
 }
-.modal .inputBox .note {
+.darker > .modal .inputBox .note {
   padding-left: 10px;
   font-size: 0.75rem;
+}
+.darker > .modal .inputBox#brightnessVisual {
+  color: #000000;
+}
+.darker#newGradientModal > .modal {
+  color: #000000;
+}
+.darker#newGradientModal > .modal .gradientPreview {
+  width: 100%;
+  height: 50px;
+  border: 2px solid #855CDE;
+  border-radius: 6px;
+}
+.darker#newGradientModal > .modal .hexCodes {
+  width: auto;
+  margin-top: 0;
+  padding: 0;
+  list-style-type: none;
+}
+.darker#newGradientModal > .modal .hexCodes li.hexCode {
+  margin-bottom: 5px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.darker#newGradientModal > .modal .hexCodes li.hexCode .drag {
+  width: 20px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+}
+.darker#newGradientModal > .modal .hexCodes li.hexCode .drag svg {
+  fill: #525151;
+  width: 30px;
+  transition: all 0.1s linear;
+}
+.darker#newGradientModal > .modal .hexCodes li.hexCode .drag:hover {
+  cursor: move;
+}
+.darker#newGradientModal > .modal .hexCodes li.hexCode .drag:hover svg {
+  fill: #000000;
+}
+.darker#newGradientModal > .modal .hexCodes li.hexCode .remove {
+  background: #F2F2F2;
+  padding: 3px 2px;
+  height: auto;
+  border-radius: 5px;
+  transition: all 0.1s linear;
+}
+.darker#newGradientModal > .modal .hexCodes li.hexCode .remove svg {
+  fill: #000000;
+  width: 20px;
+  height: 20px;
+  transition: all 0.1s linear;
+}
+.darker#newGradientModal > .modal .hexCodes li.hexCode .remove:hover {
+  background: #c70a0a;
+  cursor: pointer;
+}
+.darker#newGradientModal > .modal .hexCodes li.hexCode .remove:hover svg {
+  fill: white;
+}
+.darker#newGradientModal > .modal .hexCodes li.addColorToGradient {
+  color: #855CDE;
+}
+.darker#newGradientModal > .modal .hexCodes li.addColorToGradient:hover {
+  cursor: pointer;
+  text-decoration: underline;
 }
 
 .inputBox {
@@ -530,11 +580,11 @@ select:hover {
   padding: 2px 0;
 }
 .inputBox > .text {
+  color: #000000;
+  min-width: 150px;
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  min-width: 150px;
-  color: #000000;
 }
 .inputBox > *:nth-child(2) {
   flex: 1;
@@ -550,81 +600,6 @@ select:hover {
   font-size: 0.75rem;
 }
 
-input[type=range]:hover {
-  cursor: pointer;
-}
-
-#newGradientModal > .modal {
-  color: #000000;
-}
-#newGradientModal > .modal .gradientPreview {
-  border: 2px solid #855CDE;
-  border-radius: 6px;
-  width: 100%;
-  height: 50px;
-}
-#newGradientModal > .modal .hexCodes {
-  margin-top: 0;
-  width: auto;
-  list-style-type: none;
-  padding: 0;
-}
-#newGradientModal > .modal .hexCodes li.hexCode {
-  margin-bottom: 5px;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  position: relative;
-}
-#newGradientModal > .modal .hexCodes li.hexCode .drag {
-  width: 20px;
-  height: 30px;
-  display: flex;
-  align-items: center;
-}
-#newGradientModal > .modal .hexCodes li.hexCode .drag svg {
-  width: 30px;
-  fill: #525151;
-  transition: all 0.1s linear;
-}
-#newGradientModal > .modal .hexCodes li.hexCode .drag:hover {
-  cursor: move;
-}
-#newGradientModal > .modal .hexCodes li.hexCode .drag:hover svg {
-  fill: #000000;
-}
-#newGradientModal > .modal .hexCodes li.hexCode .remove {
-  padding: 3px 2px;
-  background: #F2F2F2;
-  border-radius: 5px;
-  transition: all 0.1s linear;
-  height: auto;
-}
-#newGradientModal > .modal .hexCodes li.hexCode .remove svg {
-  transition: all 0.1s linear;
-  width: 20px;
-  height: 20px;
-  fill: #000000;
-}
-#newGradientModal > .modal .hexCodes li.hexCode .remove:hover {
-  cursor: pointer;
-  background: #c70a0a;
-}
-#newGradientModal > .modal .hexCodes li.hexCode .remove:hover svg {
-  fill: white;
-}
-#newGradientModal > .modal .hexCodes li.addColorToGradient {
-  color: #855CDE;
-}
-#newGradientModal > .modal .hexCodes li.addColorToGradient:hover {
-  cursor: pointer;
-  text-decoration: underline;
-}
-
-#brightnessVisual {
-  color: #000000;
-}
-
 .stats {
   width: 100%;
   height: 100%;
@@ -633,14 +608,14 @@ input[type=range]:hover {
   grid-gap: 15px;
 }
 .stats > .stat {
+  background-color: #F5F5F5;
+  border-radius: 10px;
+  padding: 20px 0;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
   gap: 15px;
-  background-color: #F5F5F5;
-  border-radius: 10px;
-  padding: 20px 0;
 }
 .stats > .stat .graph {
   width: 150px;
@@ -656,12 +631,10 @@ input[type=range]:hover {
 .stats > .stat .graph > .gauge > .dial {
   stroke: #334455;
   stroke-width: 2;
-  /*stroke-dasharray: 125, 20;*/
 }
 .stats > .stat .graph > .gauge > .value {
   stroke: #FFFFFF;
   stroke-width: 5;
-  /*stroke-dasharray: 125, 20;*/
 }
 .stats > .stat .graph > .gauge > .value-text {
   fill: #FFFFFF;
@@ -702,32 +675,32 @@ input[type=range]:hover {
   gap: 15px;
 }
 .categories > .category {
+  background: #F9F9F9;
+  width: 100%;
   padding: 10px 20px;
   box-sizing: border-box;
-  width: 100%;
   display: flex;
   flex-direction: column;
   border: 2px dashed rgba(133, 92, 222, 0.2);
   border-radius: 5px;
-  background: #F9F9F9;
 }
 .categories > .category:nth-last-child(1) {
+  background: rgba(199, 10, 10, 0.1);
   margin-top: 50px;
   border: 2px dashed rgba(199, 10, 10, 0.1);
-  background: rgba(199, 10, 10, 0.1);
 }
 .categories > .category > .title {
-  font-family: "Familjen Grotesk", sans-serif;
-  font-weight: bold;
-  font-size: 22px;
   color: #000000;
   margin-right: auto;
   margin-bottom: 0.1em;
+  font-family: "Familjen Grotesk", sans-serif;
+  font-weight: bold;
+  font-size: 22px;
 }
 .categories > .category > .details {
-  font-size: 0.85em;
   color: #525151;
   margin-bottom: 0.5em;
+  font-size: 0.85em;
 }
 .categories > .category > .content {
   padding: 0px 20px;
@@ -740,33 +713,33 @@ input[type=range]:hover {
   color: #525151;
 }
 .categories > .category.UserInfo .avatar {
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
   width: 50px;
   max-width: 50px;
   height: 50px;
   border-radius: 0.25rem;
   display: inline-block;
-  background-position: center;
-  background-size: cover;
-  background-repeat: no-repeat;
   flex: 1;
 }
 .categories > .category.UserInfo .note {
   flex: 2;
 }
 .categories > .category.SystemStats .note {
-  display: none;
   color: #c70a0a;
+  display: none;
   font-size: 14px;
 }
 .categories > .category.SystemStats:not(:has(*:checked)) .note {
   display: block;
 }
 .categories > .category.SessionSettings .note {
+  color: #c70a0a;
+  padding-left: 10px;
   margin: 0.5em 0;
   text-align: center;
-  padding-left: 10px;
   font-size: 0.75rem;
-  color: #c70a0a;
 }
 .categories > .category.Updates .note {
   color: #525151;
@@ -776,14 +749,14 @@ input[type=range]:hover {
 }
 .categories > .category .inputBox {
   width: 100%;
-  display: flex;
   padding: 2px 0;
+  display: flex;
 }
 .categories > .category .inputBox > .text {
+  min-width: 150px;
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  min-width: 150px;
 }
 .categories > .category .inputBox > *:nth-child(2) {
   flex: 1;
@@ -830,24 +803,24 @@ label:hover {
   gap: 25px;
 }
 .content.themeOptions .option {
+  background-color: #FFFFFF;
+  width: 150px;
+  height: 100px;
+  padding: 10px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background-color: #FFFFFF;
-  width: 150px;
-  height: 100px;
   border: 2px solid rgba(133, 92, 222, 0.2);
   border-radius: 6px;
-  padding: 10px;
   transition: background-color 0.1s linear;
 }
 .content.themeOptions .option .image {
-  width: 120px;
-  height: 100%;
   background-size: contain;
   background-position: center;
   background-repeat: no-repeat;
+  width: 120px;
+  height: 100%;
   border-radius: 5px;
 }
 .content.themeOptions .option .title {
@@ -903,21 +876,21 @@ body > .mainContent {
 }
 body > .mainContent > .leftNav {
   width: 200px;
+  height: auto;
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: auto;
 }
 body > .mainContent > .leftNav > .element {
-  box-shadow: rgba(99, 99, 99, 0.1) 0px 2px 8px 0px;
-  display: flex;
-  align-items: center;
   width: 100%;
-  gap: 0.5em;
   padding: 0.6em 22px;
-  box-sizing: border-box;
   position: relative;
+  box-sizing: border-box;
   background: #FFFFFF;
+  display: flex;
+  gap: 0.5em;
+  align-items: center;
+  box-shadow: rgba(99, 99, 99, 0.1) 0px 2px 8px 0px;
 }
 body > .mainContent > .leftNav > .element, body > .mainContent > .leftNav > .element * {
   text-decoration: none !important;
@@ -935,49 +908,49 @@ body > .mainContent > .leftNav > .element.active {
 }
 body > .mainContent > .leftNav > .element.showNotification[element-category=Settings]::after {
   content: "New version available";
-  display: block;
+  background: #855CDE;
+  color: white;
   position: absolute;
+  top: -7px;
+  right: -5px;
+  display: block;
   padding: 1px 4px;
   border-radius: 6px;
   font-weight: bold;
   font-size: 0.8em;
-  top: -7px;
-  right: -5px;
-  background: #855CDE;
-  color: white;
 }
 body > .mainContent > .leftNav > .element.showErrorNotification[element-category=Settings]::after {
   content: "Error checking for newer version";
-  display: block;
+  background: #c70a0a;
+  color: white;
   position: absolute;
+  top: -7px;
+  right: -5px;
+  display: block;
   padding: 1px 4px;
   border-radius: 6px;
   font-weight: bold;
   font-size: 0.8em;
-  top: -7px;
-  right: -5px;
-  background: #c70a0a;
-  color: white;
 }
 body > .mainContent > .leftNav > .element:not(.user) {
   transition: background 0.1s linear;
 }
+body > .mainContent > .leftNav > .element:not(.user):hover {
+  background: #F5F5F5;
+}
 body > .mainContent > .leftNav > .element:not(.user) > .icono {
+  background: rgba(133, 92, 222, 0.07);
+  --svg: #855CDE;
   width: 40px;
   height: 40px;
-  background: rgba(133, 92, 222, 0.07);
+  border-radius: 0.25rem;
   display: flex;
   justify-content: center;
   align-items: center;
-  --svg: #855CDE;
-  border-radius: 0.25rem;
 }
 body > .mainContent > .leftNav > .element:not(.user) > .texto {
   color: #000000;
   flex: 1;
-}
-body > .mainContent > .leftNav > .element:not(.user):hover {
-  background: #F5F5F5;
 }
 body > .mainContent > .leftNav > .element:not(.user):nth-last-child(2) {
   margin-top: auto;
@@ -986,33 +959,33 @@ body > .mainContent > .leftNav > .element:not(.user).logOut > .icono {
   --rojo:rgb(201 0 0);
   background: rgba(199, 10, 10, 0.08);
 }
-body > .mainContent > .leftNav > .element.user {
+body > .mainContent > .leftNav > .element.user:hover {
   cursor: default;
 }
 body > .mainContent > .leftNav > .element.user > .avatar {
+  position: relative;
   width: 40px;
   height: 40px;
+  border-radius: 0.25rem;
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
-  border-radius: 0.25rem;
-  position: relative;
 }
 body > .mainContent > .leftNav > .element.user > .avatar::after {
   content: "";
-  display: block;
   position: absolute;
-  background-color: #23A55A;
   bottom: -3px;
   right: -3px;
   width: 12px;
   height: 12px;
   border-radius: 100%;
+  display: block;
+  background-color: #23A55A;
 }
 body > .mainContent > .leftNav > .element.user > .texts {
+  height: 40px;
   display: flex;
   flex-direction: column;
-  height: 40px;
 }
 body > .mainContent > .leftNav > .element.user > .texts > .username {
   color: #000000;
@@ -1024,48 +997,47 @@ body > .mainContent > .leftNav > .element.user > .texts > .status {
   color: #525151;
 }
 body > .mainContent > .rightNav {
-  box-shadow: rgba(99, 99, 99, 0.1) 0px 2px 8px 0px;
-  flex: 1;
   background-color: #FFFFFF;
+  height: calc(100vh - 170px);
+  flex: 1;
   border-radius: 15px;
   padding: 20px 40px;
   padding-bottom: 40px;
-  box-sizing: border-box;
   margin-left: 15px;
-  height: calc(100vh - 170px);
+  box-sizing: border-box;
+  box-shadow: rgba(99, 99, 99, 0.1) 0px 2px 8px 0px;
   overflow: hidden;
   overflow-y: auto;
 }
 body > .mainContent > .rightNav > *:not(.darker) {
+  width: 100%;
+  height: auto;
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 100%;
-  height: auto;
 }
 body > .mainContent > .rightNav > *:not(.darker) > .title {
+  height: 25px;
+  margin-right: auto;
+  margin-bottom: 15px;
   font-family: "Familjen Grotesk", sans-serif;
+  color: #855CDE;
   font-weight: bold;
   font-size: 25px;
   line-height: 25px;
-  height: 25px;
-  color: #855CDE;
-  margin-right: auto;
-  margin-bottom: 15px;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 body > .mainContent > .rightNav > *:not(.darker) > .title .icono {
-  line-height: 25px;
+  --svg:#855CDE;
   height: 25px;
   margin-right: 5px;
-  display: inline-block;
-  --svg:#855CDE;
+  padding-top: 3px;
+  line-height: 25px;
   display: flex;
   justify-content: center;
   align-items: center;
-  padding-top: 3px;
 }
 
 /*# sourceMappingURL=panel.css.map */

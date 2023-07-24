@@ -10,23 +10,6 @@ body {
 	font-family: "Familjen Grotesk", sans-serif;
 }
 
-.recortado { 
-	max-width:1400px;
-}
-
-
-.cuerpo {
-	max-width:1400px;
-	margin: 0 auto;
-}
-@media (max-width:1500px) {
-	.cuerpo {
-		width:95%;
-		padding:0 auto;
-	}
-}
-
-
 
 .render-link, .render-link:link, .render-link:visited {
 	text-decoration: none;
@@ -91,19 +74,6 @@ button, .button, .button:link, .button:visited {
 		opacity: 1;
 	}
 
-
-
-	&:disabled {
-		&::before, &::after {
-			all:unset !important;
-		}
-
-		background:gray !important;
-		&:hover {
-			cursor:default;
-		}
-	}
-
 	&.whiteBlack {
 		&::before, &::after {
 			all:unset !important;
@@ -155,6 +125,11 @@ input[type="week"] {
 		}
 	}
 }
+
+input[type="range"]:hover {
+	cursor:pointer;
+}
+
 .hasError {
 	border:1px solid $error !important;
 }
