@@ -77,8 +77,8 @@ And simply run
   sudo ./horus
 ```
 On the first time execution, you will be asked to enter a username and password, which will be used to log in.
-<br>
-To prevent Linux for asking for sudoers password, or to prevent it from stopping `Horus` when disconnected from the `SSH` connection, please check [RUINGUIDE.md](RUNGUIDE.md).
+
+Also, to prevent Linux for asking for sudoers password, or to prevent it from stopping `Horus` when disconnected from the `SSH` connection, please check the [RUN GUIDE](RUNGUIDE.md).
 
 ## 📦 Build it yourself
 After cloning the repo and entering the project directory, install the dependencies:
@@ -97,8 +97,8 @@ Now, you will be left with a `horus.sh`, which I recommend placing into the proj
 ```bash
   sudo ./horus
 ```
-<br>
-To prevent Linux for asking for sudoers password, or to prevent it from stopping `Horus` when disconnected from the `SSH` connection, please check [RUINGUIDE.md](RUNGUIDE.md).
+
+To prevent Linux for asking for sudoers password, or to prevent it from stopping `Horus` when disconnected from the `SSH` connection, please check the [RUN GUIDE](RUNGUIDE.md).
 
 
 ## ⚖️ License
