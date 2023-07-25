@@ -21,7 +21,7 @@
 # Horus
 Horus is a project I decided to make to be able to control the ws281B Led Strip that I installed on my house from anywhere (usually for my computer or phone). The led strip is attached to the Raspberry Pi, so, I the project focuses in that.
 
-Horus has a well made user interface (compatible with mobile devices) that lets the user log in, and control the led strip & view your Pi's stats (cpu temperature, ram usage, etc). 
+Horus has a well made user interface (compatible with mobile devices) that lets the user log in, and control the led strip & view your Pi's stats (CPU temperature, RAM usage, etc). 
 
 
 ## 🛠️ Tech Stack
@@ -49,14 +49,6 @@ Horus has a well made user interface (compatible with mobile devices) that lets 
 - Logging system: Keep all the error that could happen & changes you make to your Led & configuration logged.
 - Restful API: Integrate Horus with your own scripts (e.g. change your led color)
 - Made with ❤️
-
-
-## 👨‍💻 Authors
-- [@keelus](https://www.github.com/keelus)
-
-
-## 📚 Appendix
-Any additional information goes here
 
 
 ## ️🚀 Installation
@@ -93,16 +85,12 @@ And run:
 ```bash
   go build -o horus
 ```
-Now, you will be left with a `horus.sh`, which I recommend placing into the project directory. Then, you can run it by:
+Now, you will be left with a `horus.sh`, which I recommend placing into the project directory to prevent issues from GO_PATH & relative path issues. Then, you can run it by:
 ```bash
   sudo ./horus
 ```
 
 To prevent Linux for asking for sudoers password, or to prevent it from stopping `Horus` when disconnected from the `SSH` connection, please check the [RUN GUIDE](RUNGUIDE.md).
-
-
-## ⚖️ License
-This project is open source under the terms of the [MIT License](https://github.com/keelus/horus/blob/main/LICENSE)
 
 
 ## 📸 Screenshots
@@ -111,8 +99,11 @@ This project is open source under the terms of the [MIT License](https://github.
 
 ## 🤔 FAQ
 #### Why do Horus need sudo privileges?
-
 To be able to control ws281x Led strip, Horus needs access to the Raspberry Pi's GPIO, where the strip is connected. Also, the web server is initialized by default on port 80 (which is a privileged port on linux).
+
+
+## ⚖️ License
+This project is open source under the terms of the [MIT License](https://github.com/keelus/horus/blob/main/LICENSE)
 
 
 ## 📬Feedback
