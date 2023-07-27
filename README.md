@@ -122,4 +122,4 @@ If you have any feedback, please reach out to me at hugomoreda@hotmail.com
 
 <br><br>
 
-Made with ❤️ by me, [@keelus](https://github.com/keelus)
+Made by [@keelus](https://github.com/keelus)
