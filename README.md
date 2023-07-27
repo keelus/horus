@@ -31,7 +31,7 @@ Horus has a well made user interface (compatible with mobile devices) that lets 
 
 
 ## ▶️ Demo
-![Horus demo GIF](https://via.placeholder.com/468x300?text=Horus+GIF)
+![Horus Demo](https://i.imgur.com/gMdqeiE.gif)
 
 
 ## ✨ Features
@@ -98,6 +98,9 @@ To prevent Linux for asking for sudoers password, or to prevent it from stopping
 
 
 ## 🤔 FAQ
+#### Where should I connect my sw281X Led strip?
+The led strip is connected via GPIO to the Raspberry Pi. You should connect the led strip data line (usually green) to the pin 12 (GPIO 18) (as seen [here](https://i.imgur.com/nncVgoZ.png). It can vary where that pin is located depending on your Raspberry Pi model)
+
 #### Why do Horus need sudo privileges?
 To be able to control ws281x Led strip, Horus needs access to the Raspberry Pi's GPIO, where the strip is connected. Also, the web server is initialized by default on port 80 (which is a privileged port on linux).
 
