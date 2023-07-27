@@ -93,8 +93,11 @@ Now, you will be left with a `horus.sh`, which I recommend placing into the proj
 To prevent Linux for asking for sudoers password, or to prevent it from stopping `Horus` when disconnected from the `SSH` connection, please check the [RUN GUIDE](RUNGUIDE.md).
 
 
-## 📸 Screenshots
-![App Screenshot](https://via.placeholder.com/468x300?text=App+Screenshot+Here)
+## 📸 Screenshots (big & small screen)
+<p float="left">
+  <img src="https://i.imgur.com/pA497dQ.gif" height="400"/>
+  <img src="https://i.imgur.com/pRKPjEP.gif" height="400"/>
+</p>
 
 
 ## 🤔 FAQ
