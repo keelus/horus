@@ -17,11 +17,6 @@ import (
 )
 
 func Add(c *gin.Context) {
-	if !internal.IsLogged(c) {
-		c.JSON(http.StatusForbidden, gin.H{"details": "User not logged in."})
-		return
-	}
-
 	mode := c.Param("mode")
 
 	if mode == "StaticGradient" {
@@ -134,11 +129,6 @@ func Add(c *gin.Context) {
 }
 
 func Delete(c *gin.Context) {
-	if !internal.IsLogged(c) {
-		c.JSON(http.StatusForbidden, gin.H{"details": "User not logged in."})
-		return
-	}
-
 	mode := c.Param("mode")
 
 	if mode == "StaticGradient" {
@@ -223,10 +213,6 @@ func Delete(c *gin.Context) {
 }
 
 func Activate(c *gin.Context) {
-	if !internal.IsLogged(c) {
-		c.JSON(http.StatusForbidden, gin.H{"details": "User not logged in."})
-		return
-	}
 	mode := c.Param("mode")
 
 	if mode == "StaticGradient" {
@@ -301,11 +287,6 @@ func Activate(c *gin.Context) {
 }
 
 func SetBrightness(c *gin.Context) {
-	if !internal.IsLogged(c) {
-		c.JSON(http.StatusForbidden, gin.H{"details": "User not logged in."})
-		return
-	}
-
 	if led.ApplyingBrightness {
 		convertedBrightness := int(math.Ceil(float64(config.LedActive.Brightness) * 100 / 255)) // We return brightness 100% to set the slider value again.
 		c.JSON(http.StatusBadGateway, gin.H{"details": "Brightness is being applied, please wait.", "brightness": convertedBrightness})
@@ -328,11 +309,6 @@ func SetBrightness(c *gin.Context) {
 }
 
 func SetCooldown(c *gin.Context) {
-	if !internal.IsLogged(c) {
-		c.JSON(http.StatusForbidden, gin.H{"details": "User not logged in."})
-		return
-	}
-
 	amountStr := c.Param("amount")
 	mode := c.Param("mode")
 	amount, err := strconv.Atoi(amountStr)
@@ -365,11 +341,6 @@ func SetCooldown(c *gin.Context) {
 }
 
 func SetLedAmount(c *gin.Context) {
-	if !internal.IsLogged(c) {
-		c.JSON(http.StatusForbidden, gin.H{"details": "User not logged in."})
-		return
-	}
-
 	ledAmountStr := c.Param("amount")
 
 	ledAmount, err := strconv.Atoi(ledAmountStr)

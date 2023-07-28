@@ -4,6 +4,7 @@ import (
 	"net/http"
 
 	"horus/config"
+	"horus/internal"
 	"horus/server/handlers/apiHandler"
 	"horus/server/handlers/apiHandler/ledHandler"
 	"horus/server/handlers/apiHandler/settingsHandler"
@@ -74,6 +75,7 @@ func SetupRouter() *gin.Engine {
 
 		ledControlGroup := apiGroup.Group("/ledControl")
 		{
+			ledControlGroup.Use(requireAuthentication())
 			ledControlGroup.POST("/add/:mode", ledHandler.Add)
 			ledControlGroup.POST("/delete/:mode", ledHandler.Delete)
 			ledControlGroup.POST("/activate/:mode", ledHandler.Activate)
@@ -84,8 +86,21 @@ func SetupRouter() *gin.Engine {
 
 		settingsGroup := apiGroup.Group("/settings")
 		{
+			settingsGroup.Use(requireAuthentication())
 			settingsGroup.POST("/saveConfiguration/:category", settingsHandler.SaveConfiguration)
 		}
 	}
 	return r
+}
+
+func requireAuthentication() gin.HandlerFunc {
+	return func(c *gin.Context) {
+
+		if !internal.IsLogged(c) {
+			c.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{"details": "User not logged in."})
+			return
+		}
+
+		c.Next()
+	}
 }

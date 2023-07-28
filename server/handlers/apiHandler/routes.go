@@ -79,7 +79,7 @@ func HandleLogout(c *gin.Context) {
 
 func HandleGetStats(c *gin.Context) {
 	if !internal.IsLogged(c) {
-		c.JSON(http.StatusForbidden, gin.H{"details": "User not logged in."})
+		c.JSON(http.StatusUnauthorized, gin.H{"details": "User not logged in."})
 		return
 	}
 
