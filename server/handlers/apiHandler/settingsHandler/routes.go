@@ -68,9 +68,7 @@ func SaveConfiguration(c *gin.Context) {
 
 		allowedUnits := []string{"min", "hour", "day", ""}
 
-		fmt.Printf("lifespan:'%s'\n", lifespanString)
-		fmt.Printf("unit:'%s'\n", unit)
-		if !sliceutil.Contains(allowedUnits, unit) { // Replace to array instead of slice TODO
+		if !sliceutil.Contains(allowedUnits, unit) {
 			returnError = append(returnError, map[string]string{"details": "Unexpected time unit.", "field": "sessionDuration3"})
 		}
 
@@ -142,9 +140,7 @@ func SaveConfiguration(c *gin.Context) {
 	case "Units":
 		temperature := c.PostForm("Temperature")
 
-		allowedTemperature := []string{"C", "F"}
-
-		if !sliceutil.Contains(allowedTemperature, temperature) { // Replace to array instead of slice TODO
+		if temperature != "C" && temperature != "F" {
 			returnError = append(returnError, map[string]string{"details": "Unexpected temperature unit.", "field": "units1"})
 		}
 
