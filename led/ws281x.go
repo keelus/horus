@@ -38,7 +38,7 @@ func Init() {
 
 	options := ws2811.DefaultOptions
 	options.Channels[0].Brightness = config.LedActive.Brightness
-	options.Channels[0].LedCount = config.LedActive.LedAmount // TODO: Led amount given by client
+	options.Channels[0].LedCount = config.LedActive.LedAmount
 
 	LedStrip, err = ws2811.MakeWS2811(&options)
 	if err != nil {
@@ -81,7 +81,7 @@ func SetColor(color []string) {
 	Draw()
 }
 
-func SetBrightness(brightness int) { // TODO: Will return true once transition is finished to avoid glitching while sending multiple SetBrightness from client
+func SetBrightness(brightness int) {
 	if LedStrip == nil {
 		RedColor.Println("⨉ LED Strip not initialized... Check sudo privileges.")
 		return
@@ -139,7 +139,7 @@ func Draw() {
 
 	LedStrip.SetBrightness(0, config.LedActive.Brightness)
 
-	colorHex, err := strconv.ParseUint(config.LedActive.Color[0], 16, 32) // TODO
+	colorHex, err := strconv.ParseUint(config.LedActive.Color[0], 16, 32)
 	if err != nil {
 		fmt.Printf("error parsing color hex code: %v\n", err)
 	}
@@ -157,7 +157,7 @@ func ForceDraw(color []string, brightness int) {
 		return
 	}
 
-	colorHex, err := strconv.ParseUint(config.LedActive.Color[0], 16, 32) // TODO
+	colorHex, err := strconv.ParseUint(config.LedActive.Color[0], 16, 32)
 	if err != nil {
 		fmt.Printf("error parsing color hex code: %v\n", err)
 	}
@@ -197,7 +197,7 @@ func Rainbow() {
 				LedStrip.Leds(0)[i] = wheel((i + j) & 255)
 			}
 
-			if config.LedActive.ActiveMode != "FadingRainbow" || StopRainbow { // TODO: Better way
+			if config.LedActive.ActiveMode != "FadingRainbow" || StopRainbow {
 				StopRainbow = false
 				return
 			}
@@ -215,7 +215,7 @@ func gaussVal(x int, speed int) int {
 	return int(val)
 }
 
-func BreathingColor() { // TODO: Be able to invert (255 - val)
+func BreathingColor() { // TODO: Be able to invert (255 - val) & Change cooldown system to speed or duration of breath
 	if LedStrip == nil {
 		RedColor.Println("⨉ LED Strip not initialized... Check sudo privileges.")
 		return
