@@ -69,14 +69,20 @@ func HandleLogout(c *gin.Context) {
 	logger.Log(c, logger.LOGIN, "User logout.")
 	c.Redirect(http.StatusTemporaryRedirect, "/")
 }
+
 func HandleGetStats(c *gin.Context) {
+	if !internal.IsLogged(c) {
+		c.JSON(http.StatusForbidden, gin.H{"details": "User not logged in."})
+		return
+	}
+
 	var temperature float64
 	var cpuUsage float64
 	var ramUsage float64
 	var diskUsage [2]float64
 	var sysUptime float64
 
-	if CUR_RASP {
+	if CUR_RASP { // TODO: Move functions to a single file dedicated for that only.
 		temperature, _ = getTemp()
 		cpuUsage, _ = getCpuUsage()
 		ramUsage, _ = getRamUsage()

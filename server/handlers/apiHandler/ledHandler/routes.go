@@ -321,6 +321,11 @@ func SetBrightness(c *gin.Context) {
 }
 
 func SetCooldown(c *gin.Context) {
+	if !internal.IsLogged(c) {
+		c.JSON(http.StatusForbidden, gin.H{"details": "User not logged in."})
+		return
+	}
+
 	amountStr := c.Param("amount")
 	mode := c.Param("mode")
 	amount, err := strconv.Atoi(amountStr)
@@ -350,6 +355,11 @@ func SetCooldown(c *gin.Context) {
 }
 
 func SetLedAmount(c *gin.Context) {
+	if !internal.IsLogged(c) {
+		c.JSON(http.StatusForbidden, gin.H{"details": "User not logged in."})
+		return
+	}
+
 	ledAmountStr := c.Param("amount")
 
 	ledAmount, err := strconv.Atoi(ledAmountStr)
