@@ -104,12 +104,11 @@ $(".color .delete").on("click", (e) => {
 			let option = $(e.target).closest(".option")
 			
 			$(".color.selected").removeClass("selected")
+			$($(".color")[0]).addClass("selected")
 			$(e.target).closest(".color").remove()
-
-			if(mode != "StaticGradient")
-				$($(option).find(".color")[0]).addClass("selected")
 			
-				showPopup(`Color removed.`, 3000, "success")
+			
+			showPopup(`Color removed.`, 3000, "success")
 		},
 		error: function(r) {
 			showPopup(r.responseJSON.details, 3000, "error")

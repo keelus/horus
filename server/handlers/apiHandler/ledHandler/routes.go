@@ -188,6 +188,8 @@ func Delete(c *gin.Context) {
 			}
 
 			config.LedPresets.StaticColor = newPreset
+			config.LedActive.Color = []string{config.LedPresets.StaticColor[0]}
+			led.Draw()
 		} else if mode == "BreathingColor" {
 			if len(config.LedPresets.BreathingColor.Colors) == 1 {
 				c.JSON(http.StatusBadRequest, gin.H{"details": "There must be at least 1 preset color."})
