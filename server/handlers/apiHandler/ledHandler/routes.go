@@ -93,7 +93,7 @@ func Add(c *gin.Context) {
 	hex := strings.ToUpper(c.PostForm("hexValue"))
 	_, err := strconv.ParseUint(hex, 16, 32)
 	if err != nil {
-		c.JSON(http.StatusForbidden, gin.H{"details": "Bad hex format."})
+		c.JSON(http.StatusBadRequest, gin.H{"details": "Bad hex format."})
 		return
 	}
 
