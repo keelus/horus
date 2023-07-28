@@ -60,7 +60,11 @@ Clone the project
 ```bash
   git clone https://github.com/keelus/horus
 ```
-or download the latest release
+or download the latest release. If you don't have GUI/screen and have to do it via terminal:
+```bash
+	wget https://github.com/keelus/horus/releases/download/vX.X.X/horus.zip # Replace X.X.X with the version of the release you want to install
+```
+
 <br>
 
 Then, go to the project directory

@@ -6,7 +6,7 @@ Also, keep in mind that Horus needs `sudo` privileges to access to GPIO Pins to 
 <br>
 
 ### 📜 Make the script that opens Horus from it's directory folder
-First, check where you cloned `Horus` repository (or where you placed the release folder `horus_vX.X.X`), for example, in my case, it's in my home folder (`/home/YOUR_USERNAME/horus`) (replace `YOUR_USERNAME` with your Linux username). The first thing we want to do is to create a small `bash` script to run `Horus` easily (you can place this file wherever you want).
+First, check where you cloned `horus` repository; for example, in my case, it's in my home folder (`/home/YOUR_USERNAME/horus`) (replace `YOUR_USERNAME` with your Linux username). The first thing we want to do is to create a small `bash` script to run `Horus` easily (you can place this file wherever you want).
 
 Let's call it, `horusStartup.sh`. I will place it in my home folder (`/home/YOUR_USERNAME/horusStartup.sh`):
 ```bash
@@ -16,7 +16,7 @@ Then, write this:
 ```bash
 #!/bin/bash
 
-cd /home/YOUR_USERNAME/horus   # If downloaded a release, "/home/YOUR_USERNAME/horus_X.X.X"
+cd /home/YOUR_USERNAME/horus   # We set horus directory location (directory that contains all the folders and files)
 sudo ./horus                   # Executes Horus script
 ```
 Then we can save and close the file (if using `nano`, CTRL+X -> Y -> And press enter)
