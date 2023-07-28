@@ -10,7 +10,7 @@ First, check where you cloned `horus` repository; for example, in my case, it's 
 
 Let's call it, `horusStartup.sh`. I will place it in my home folder (`/home/YOUR_USERNAME/horusStartup.sh`):
 ```bash
-  nano /home/YOUR_USERNAME/horusStartup.sh
+nano /home/YOUR_USERNAME/horusStartup.sh
 ```
 Then, write this:
 ```bash
@@ -22,7 +22,7 @@ sudo ./horus                   # Executes Horus script
 Then we can save and close the file (if using `nano`, CTRL+X -> Y -> And press enter)
 Once that done, we have to make that script we created an executable:
 ```bash
-  chmod +x horusStartup.sh
+chmod +x horusStartup.sh
 ```
 
 <br>
@@ -30,7 +30,7 @@ Once that done, we have to make that script we created an executable:
 ### 🔌 Make Linux execute that script in power on/startup
 Now, we have to make Linux execute that script when we power on our Raspberry Pi. First, we create a systemd service file:
 ```bash
-  sudo nano /etc/systemd/system/horusStartup.service
+sudo nano /etc/systemd/system/horusStartup.service
 ```
 Then, we write the following:
 ```bash
@@ -47,7 +47,7 @@ WantedBy=multi-user.target
 ```
 Once saved, we have to enable the shortcut, so once we reboot, it will be executed:
 ```bash
-  sudo systemctl enable horusStartup.service
+sudo systemctl enable horusStartup.service
 ```
 
 <br>
@@ -55,12 +55,12 @@ Once saved, we have to enable the shortcut, so once we reboot, it will be execut
 ### 🧙 Prevent Linux from asking for a sudo password on background/startup
 Now, here's the problem; Once the Raspberry Pi turns on, you will be asked for sudo privileges while executing that script, and if you have your Raspberry Pi not easily accessible (like I do), It won't execute Horus. To prevent that, we have to prevent that golang command with sudo privileges not to ask for a password. It's easy. First, open sudoers configuration file:
 ```bash
-  sudo visudo
+sudo visudo
 ```
 Then, go to the last line, and place this:
 ```bash
-  YOUR_USERNAME ALL=(ALL) NOPASSWD: /usr/bin/nohup /home/YOUR_USERNAME/horusStartup.sh # Make the script executable without password
-  YOUR_USERNAME ALL=(ALL) NOPASSWD: /home/YOUR_USERNAME/horus/horus                    # Make Horus executable without passwod
+YOUR_USERNAME ALL=(ALL) NOPASSWD: /usr/bin/nohup /home/YOUR_USERNAME/horusStartup.sh # Make the script executable without password
+YOUR_USERNAME ALL=(ALL) NOPASSWD: /home/YOUR_USERNAME/horus/horus                    # Make Horus executable without passwod
 ```
 Save the file, and we should be ready to go.
 

@@ -58,23 +58,23 @@ Horus has a well-made user interface (compatible with mobile devices) that lets 
 ## ️🚀 Installation
 Clone the project
 ```bash
-  git clone https://github.com/keelus/horus
+git clone https://github.com/keelus/horus
 ```
 or download the latest release. If you don't have GUI/screen and have to do it via terminal:
 ```bash
-	wget https://github.com/keelus/horus/releases/download/vX.X.X/horus.zip # Replace X.X.X with the version of the release you want to install
+wget https://github.com/keelus/horus/releases/download/vX.X.X/horus.zip # Replace X.X.X with the version of the release you want to install
 ```
 
 <br>
 
 Then, go to the project directory
 ```bash
-  cd horus
+cd horus
 ```
 
 And simply run
 ```bash
-  sudo ./horus
+sudo ./horus
 ```
 On the first time execution, you will be asked to enter a username and password, which will be used to log in.
 
@@ -83,19 +83,19 @@ Also, to prevent Linux from asking for sudoers password, or to prevent it from s
 ## 📦 Build it yourself
 After cloning the repo and entering the project directory, install the dependencies:
 ```bash
-  go mod tidy
+go mod tidy
 ```
 then, go into the `cmd` folder:
 ```bash
-  cd ./cmd
+cd ./cmd
 ```
 And run:
 ```bash
-  go build -o horus
+go build -o horus
 ```
 Now, you will be left with a `horus.sh`, which I recommend placing into the project directory to prevent issues from GO_PATH & relative path issues. Then, you can run it by:
 ```bash
-  sudo ./horus
+sudo ./horus
 ```
 
 To prevent Linux from asking for sudoers password, or to prevent it from stopping `Horus` when disconnected from the `SSH` connection, please check the [RUN GUIDE](RUNGUIDE.md).
