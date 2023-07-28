@@ -27,6 +27,13 @@ const CUR_RASP = true
 func HandleLogin(c *gin.Context) {
 	session := sessions.Default(c)
 
+	if internal.IsLogged(c) {
+		c.JSON(http.StatusOK, gin.H{
+			"Status": "OK",
+		})
+		return
+	}
+
 	username := c.PostForm("Username")
 	password := c.PostForm("Password")
 
