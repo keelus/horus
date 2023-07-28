@@ -30,8 +30,6 @@ func Add(c *gin.Context) {
 		var previousHexValues []string
 		hexValuesStr := strings.ToUpper(c.PostForm("hexValues"))
 		previousHexValuesStr := strings.ToUpper(c.PostForm("previousHexValues"))
-		fmt.Println(hexValuesStr)
-		fmt.Println(previousHexValuesStr)
 
 		editingGradient = false
 		if previousHexValuesStr != "[]" {
@@ -51,6 +49,7 @@ func Add(c *gin.Context) {
 				c.JSON(http.StatusInternalServerError, gin.H{"details": "Error with the old gradient JSON format."})
 				return
 			}
+
 			// Check if the gradient we want to edit actually exists
 			rawPreviousGradient := internal.GetGradientStr(previousHexValues)
 			if !internal.GradientExists(rawPreviousGradient, config.LedPresets.StaticGradient) {
@@ -84,58 +83,56 @@ func Add(c *gin.Context) {
 			led.DrawGradient()
 		}
 
-	} else {
-		// TODO: Better overall code
-		hex := strings.ToUpper(c.PostForm("hexValue"))
-		hexChars := []byte{'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'}
+		logger.Log(c, logger.LED, "Led gradient added to mode='StaticGradient'")
+		internal.SaveFile(&config.LedPresets)
+		internal.SaveFile(&config.LedActive)
+		c.Status(http.StatusOK)
+		return
+	}
 
-		bytes := []byte(hex)
+	hex := strings.ToUpper(c.PostForm("hexValue"))
+	_, err := strconv.ParseUint(hex, 16, 32)
+	if err != nil {
+		c.JSON(http.StatusForbidden, gin.H{"details": "Bad hex format."})
+		return
+	}
 
-		for _, b := range bytes {
-			if !sliceutil.Contains(hexChars, b) {
-				c.JSON(http.StatusForbidden, gin.H{"details": fmt.Sprintf("Hex byte '%c' not allowed.", b)})
-				return
-			}
-		}
-
-		if mode == "StaticGradient" {
-			c.JSON(http.StatusBadRequest, gin.H{"details": "Unexpected mode static gradient."})
+	switch mode {
+	case "StaticColor":
+		if sliceutil.Contains(config.LedPresets.StaticColor, hex) {
+			c.JSON(http.StatusBadRequest, gin.H{"details": "That color has been already added to this mode."})
 			return
 		}
 
-		if mode == "StaticColor" {
-			if sliceutil.Contains(config.LedPresets.StaticColor, hex) {
-				c.JSON(http.StatusBadRequest, gin.H{"details": "That color has been already added to this mode."})
-				return
-			}
+		newPreset := config.LedPresets.StaticColor
+		newPreset = append(newPreset, hex)
 
-			newPreset := config.LedPresets.StaticColor
-			newPreset = append(newPreset, hex)
-
-			config.LedActive.Color = []string{hex}
-			config.LedPresets.StaticColor = newPreset
-			led.Draw()
-
-		} else if mode == "BreathingColor" {
-			if sliceutil.Contains(config.LedPresets.BreathingColor, hex) {
-				c.JSON(http.StatusBadRequest, gin.H{"details": "That color has been already added to this mode."})
-				return
-			}
-
-			newPreset := config.LedPresets.BreathingColor.Colors
-			newPreset = append(newPreset, hex)
-
-			config.LedActive.Color = []string{hex}
-			config.LedPresets.BreathingColor.Colors = newPreset
+		config.LedActive.Color = []string{hex}
+		config.LedPresets.StaticColor = newPreset
+		led.Draw()
+	case "FadingRainbow":
+		c.JSON(http.StatusBadRequest, gin.H{"details": "You can't add colors to fading rainbow."})
+		return
+	case "BreathingColor":
+		if sliceutil.Contains(config.LedPresets.BreathingColor, hex) {
+			c.JSON(http.StatusBadRequest, gin.H{"details": "That color has been already added to this mode."})
+			return
 		}
+
+		newPreset := config.LedPresets.BreathingColor.Colors
+		newPreset = append(newPreset, hex)
+
+		config.LedActive.Color = []string{hex}
+		config.LedPresets.BreathingColor.Colors = newPreset
 	}
 
-	logger.Log(c, logger.LED, fmt.Sprintf("Led hex/gradient added to mode='%s'", mode))
+	logger.Log(c, logger.LED, fmt.Sprintf("Led color added to mode='%s'", mode))
 	internal.SaveFile(&config.LedPresets)
-	internal.SaveFile(&config.LedActive) // TODO activate new gradient
+	internal.SaveFile(&config.LedActive)
 	c.Status(http.StatusOK)
 
 }
+
 func Delete(c *gin.Context) {
 	if !internal.IsLogged(c) {
 		c.JSON(http.StatusForbidden, gin.H{"details": "User not logged in."})
@@ -167,51 +164,59 @@ func Delete(c *gin.Context) {
 		config.LedPresets.StaticGradient = newGradientSlice
 		config.LedActive.Color = config.LedPresets.StaticGradient[0]
 		led.DrawGradient()
-	} else { // TODO: Better overall code
-		hex := c.PostForm("hexValue")
 
-		if mode == "StaticColor" {
-			if len(config.LedPresets.StaticColor) == 1 {
-				c.JSON(http.StatusBadRequest, gin.H{"details": "There must be at least 1 preset color."})
-				return
-			}
-			newPreset := []string{}
-
-			for _, color := range config.LedPresets.StaticColor {
-				if color != hex {
-					newPreset = append(newPreset, color)
-				}
-			}
-
-			if config.LedActive.Color[0] == hex {
-				config.LedActive.Color[0] = newPreset[0]
-			}
-
-			config.LedPresets.StaticColor = newPreset
-			config.LedActive.Color = []string{config.LedPresets.StaticColor[0]}
-			led.Draw()
-		} else if mode == "BreathingColor" {
-			if len(config.LedPresets.BreathingColor.Colors) == 1 {
-				c.JSON(http.StatusBadRequest, gin.H{"details": "There must be at least 1 preset color."})
-				return
-			}
-			newPreset := []string{}
-
-			for _, color := range config.LedPresets.BreathingColor.Colors {
-				if color != hex {
-					newPreset = append(newPreset, color)
-				}
-			}
-
-			if config.LedActive.Color[0] == hex {
-				config.LedActive.Color[0] = newPreset[0]
-			}
-
-			config.LedPresets.BreathingColor.Colors = newPreset
+		logger.Log(c, logger.LED, "Led gradient deleted from mode='StaticGradient'")
+		internal.SaveFile(&config.LedActive)
+		internal.SaveFile(&config.LedPresets)
+		c.Status(http.StatusOK)
+		return
+	}
+	hex := c.PostForm("hexValue")
+	switch mode {
+	case "StaticColor":
+		if len(config.LedPresets.StaticColor) == 1 {
+			c.JSON(http.StatusBadRequest, gin.H{"details": "There must be at least 1 preset color."})
+			return
 		}
+		newPreset := []string{}
+
+		for _, color := range config.LedPresets.StaticColor {
+			if color != hex {
+				newPreset = append(newPreset, color)
+			}
+		}
+
+		if config.LedActive.Color[0] == hex {
+			config.LedActive.Color[0] = newPreset[0]
+		}
+
+		config.LedPresets.StaticColor = newPreset
+		config.LedActive.Color = []string{config.LedPresets.StaticColor[0]}
+		led.Draw()
+	case "FadingRainbow":
+		c.JSON(http.StatusBadRequest, gin.H{"details": "You can't remove colors from fading rainbow."})
+		return
+	case "BreathingColor":
+		if len(config.LedPresets.BreathingColor.Colors) == 1 {
+			c.JSON(http.StatusBadRequest, gin.H{"details": "There must be at least 1 preset color."})
+			return
+		}
+		newPreset := []string{}
+
+		for _, color := range config.LedPresets.BreathingColor.Colors {
+			if color != hex {
+				newPreset = append(newPreset, color)
+			}
+		}
+
+		if config.LedActive.Color[0] == hex {
+			config.LedActive.Color[0] = newPreset[0]
+		}
+
+		config.LedPresets.BreathingColor.Colors = newPreset
 	}
 
-	logger.Log(c, logger.LED, fmt.Sprintf("Led hex/gradient deleted from mode='%s'", mode))
+	logger.Log(c, logger.LED, fmt.Sprintf("Led hex color deleted from mode='%s'", mode))
 	internal.SaveFile(&config.LedActive)
 	internal.SaveFile(&config.LedPresets)
 	c.Status(http.StatusOK)
@@ -248,7 +253,8 @@ func Activate(c *gin.Context) {
 	} else {
 		hex := c.PostForm("hexValue")
 
-		if mode == "StaticColor" {
+		switch mode {
+		case "StaticColor":
 			// By default first color is activated. Always will be one at least.
 			if hex == "" {
 				led.SetColor([]string{config.LedPresets.StaticColor[0]}) // By default first color will be initialized
@@ -258,7 +264,7 @@ func Activate(c *gin.Context) {
 
 			config.LedActive.ActiveMode = "StaticColor"
 			config.LedActive.Cooldown = 0
-		} else if mode == "FadingRainbow" {
+		case "FadingRainbow":
 			previousMode := config.LedActive.ActiveMode
 			config.LedActive.ActiveMode = "FadingRainbow"
 			config.LedActive.Color = []string{"000000"}
@@ -270,7 +276,7 @@ func Activate(c *gin.Context) {
 				}
 				go led.Rainbow()
 			}
-		} else if mode == "BreathingColor" {
+		case "BreathingColor":
 			previousMode := config.LedActive.ActiveMode
 			config.LedActive.ActiveMode = "BreathingColor"
 			config.LedActive.Cooldown = config.LedPresets.BreathingColor.Cooldown
@@ -288,10 +294,9 @@ func Activate(c *gin.Context) {
 				go led.BreathingColor()
 			}
 		}
-
 	}
 	internal.SaveFile(&config.LedActive)
-	logger.Log(c, logger.LED, fmt.Sprintf("Led hex/gradient activated. Mode='%s'", mode))
+	logger.Log(c, logger.LED, fmt.Sprintf("Mode '%s' has been activated.", mode))
 	c.Status(http.StatusOK)
 }
 
@@ -336,17 +341,20 @@ func SetCooldown(c *gin.Context) {
 		return
 	}
 
-	if mode == "BreathingColor" {
-		config.LedPresets.BreathingColor.Cooldown = amount
-		if config.LedActive.ActiveMode != "BreathingColor" {
-			go led.BreathingColor()
-		}
-
-	} else if mode == "FadingRainbow" {
+	switch mode {
+	case "FadingRainbow":
 		config.LedPresets.FadingRainbow = amount
 		if config.LedActive.ActiveMode != "FadingRainbow" {
 			go led.Rainbow()
 		}
+	case "BreathingColor":
+		config.LedPresets.BreathingColor.Cooldown = amount
+		if config.LedActive.ActiveMode != "BreathingColor" {
+			go led.BreathingColor()
+		}
+	default:
+		c.JSON(http.StatusBadRequest, gin.H{"details": "Unexpected led mode."})
+		return
 	}
 
 	config.LedActive.Cooldown = amount

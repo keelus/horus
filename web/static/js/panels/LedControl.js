@@ -159,7 +159,7 @@ $(document).on("click", "#addColor", (e) => {
 	let mode = $("#newColorModal > .modal").attr("activeMode")
 	let hsv =  hexPicker.getColor()
 	let hex = hsvToHex(hsv)
-	
+
 	$.ajax({
 		type: "POST",
 		url: `/api/ledControl/add/${mode}`,
