@@ -128,6 +128,7 @@ $(".gradient .delete").on("click", (e) => {
 		},
 		success: function (r) {
 			$(e.target).closest(".gradient").remove()
+			$($(".gradient")[0]).addClass("selected")
 			showPopup(`Gradient deleted.`, 3000, "success")
 		},
 		error: function(r) {

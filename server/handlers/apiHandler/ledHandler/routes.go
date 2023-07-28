@@ -165,6 +165,8 @@ func Delete(c *gin.Context) {
 		}
 
 		config.LedPresets.StaticGradient = newGradientSlice
+		config.LedActive.Color = config.LedPresets.StaticGradient[0]
+		led.DrawGradient()
 	} else { // TODO: Better overall code
 		hex := c.PostForm("hexValue")
 
