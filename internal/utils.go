@@ -40,18 +40,8 @@ func RandomValue(min, max int) int {
 	return rand.Intn(max-min+1) + min
 }
 
-// TODO: Optimisation
 func GetGradientStr(gradientColors []string) string {
-	gradientStr := ""
-	last := len(gradientColors) - 1
-	for i, hexStr := range gradientColors {
-		gradientStr += "#" + hexStr
-		if i != last {
-			gradientStr += ","
-		}
-	}
-
-	return gradientStr
+	return "#" + strings.Join(gradientColors, ",#")
 }
 
 func GradientExists(gradientToCheck string, gradientsSlice [][]string) bool {

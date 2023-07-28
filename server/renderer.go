@@ -7,6 +7,7 @@ import (
 	"html/template"
 	"math"
 	"math/rand"
+	"strings"
 	"time"
 
 	"github.com/gin-contrib/multitemplate"
@@ -38,14 +39,7 @@ func Renderer() multitemplate.Renderer {
 			return show
 		},
 		"gradientString": func(gradientColors []string) string {
-			finalString := ""
-			for i, color := range gradientColors {
-				finalString += "#" + color
-				if i != len(gradientColors)-1 {
-					finalString += ","
-				}
-			}
-			return finalString
+			return "#" + strings.Join(gradientColors, ",#")
 		},
 		"isActiveColor": func(color string) bool {
 			activeColor := config.LedActive.Color[0]
