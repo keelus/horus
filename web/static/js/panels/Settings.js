@@ -90,18 +90,21 @@ $(".saveButton").on("click", (e) => {
 		},
 		error: function(r) {
 			console.error(r)
-			let popupMessage = ""
-			for(i=0;i<r.responseJSON.length;i++){
-				console.error(r.responseJSON[i].details)
-				popupMessage += `• ${r.responseJSON[i].details}<br>`
+			if (r.status == 401) { // Unauthorized
+				showPopup(r.responseJSON.details, 3000, "error")
+			} else {
+				let popupMessage = ""
+				for(i=0;i<r.responseJSON.length;i++){
+					console.error(r.responseJSON[i].details)
+					popupMessage += `• ${r.responseJSON[i].details}<br>`
 
-				let field = r.responseJSON[i].field
-				if(field != "") {
-					$(`#${field}`).addClass("hasError")
+					let field = r.responseJSON[i].field
+					if(field != "") {
+						$(`#${field}`).addClass("hasError")
+					}
 				}
+				showPopup(popupMessage, 3000, "error")
 			}
-
-			showPopup(popupMessage, 3000, "error")
 		}
 	});
 })
