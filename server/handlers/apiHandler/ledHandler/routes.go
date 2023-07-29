@@ -165,6 +165,7 @@ func Delete(c *gin.Context) {
 		c.Status(http.StatusOK)
 		return
 	}
+
 	hex := c.PostForm("hexValue")
 	switch mode {
 	case "StaticColor":
@@ -178,10 +179,6 @@ func Delete(c *gin.Context) {
 			if color != hex {
 				newPreset = append(newPreset, color)
 			}
-		}
-
-		if config.LedActive.Color[0] == hex {
-			config.LedActive.Color[0] = newPreset[0]
 		}
 
 		config.LedPresets.StaticColor = newPreset
