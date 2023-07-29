@@ -109,7 +109,7 @@ func Add(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, gin.H{"details": "You can't add colors to fading rainbow."})
 		return
 	case "BreathingColor":
-		if sliceutil.Contains(config.LedPresets.BreathingColor, hex) {
+		if sliceutil.Contains(config.LedPresets.BreathingColor.Colors, hex) {
 			c.JSON(http.StatusBadRequest, gin.H{"details": "That color has been already added to this mode."})
 			return
 		}
