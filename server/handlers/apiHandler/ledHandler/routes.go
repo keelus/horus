@@ -152,7 +152,11 @@ func Delete(c *gin.Context) {
 		}
 
 		config.LedPresets.StaticGradient = newGradientSlice
-		config.LedActive.Color = config.LedPresets.StaticGradient[0]
+
+		if internal.GetGradientStr(config.LedActive.Color) == rawGradient { // If we delete gradient that is currently activated, activate first
+			config.LedActive.Color = config.LedPresets.StaticGradient[0]
+		}
+
 		led.DrawGradient()
 
 		logger.Log(c, logger.LED, "Led gradient deleted from mode='StaticGradient'")
@@ -181,8 +185,11 @@ func Delete(c *gin.Context) {
 		}
 
 		config.LedPresets.StaticColor = newPreset
-		config.LedActive.Color = []string{config.LedPresets.StaticColor[0]}
-		led.Draw()
+
+		if config.LedActive.Color[0] == hex { // If we delete hex that is currently activated, activate first
+			config.LedActive.Color = []string{config.LedPresets.StaticColor[0]}
+			led.Draw()
+		}
 	case "FadingRainbow":
 		c.JSON(http.StatusBadRequest, gin.H{"details": "You can't remove colors from fading rainbow."})
 		return
@@ -199,7 +206,7 @@ func Delete(c *gin.Context) {
 			}
 		}
 
-		if config.LedActive.Color[0] == hex {
+		if config.LedActive.Color[0] == hex { // If we delete hex that is currently activated, activate first
 			config.LedActive.Color[0] = newPreset[0]
 		}
 

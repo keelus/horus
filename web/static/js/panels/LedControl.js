@@ -101,11 +101,14 @@ $(".color .delete").on("click", (e) => {
 			"hexValue":hex
 		},
 		success: function (r) {
-			let option = $(e.target).closest(".option")
+			let colorParent = $(e.target).closest(".color")
 			
-			$(".color.selected").removeClass("selected")
-			$($(".color")[0]).addClass("selected")
-			$(e.target).closest(".color").remove()
+			if ($(colorParent).hasClass("selected")) { // If deleted is the activated
+				$(".color.selected").removeClass("selected")
+				$($(`[mode='${mode}'] .color`)[0]).addClass("selected")
+			}
+
+			$(colorParent).remove()
 			
 			
 			showPopup(`Color removed.`, 3000, "success")
@@ -126,8 +129,15 @@ $(".gradient .delete").on("click", (e) => {
 			"rawGradient": rawGradient
 		},
 		success: function (r) {
-			$(e.target).closest(".gradient").remove()
-			$($(".gradient")[0]).addClass("selected")
+			let gradientParent = $(e.target).closest(".gradient")
+			
+			if ($(gradientParent).hasClass("selected")) { // If deleted is the activated
+				$(".gradient.selected").removeClass("selected")
+				$($(".gradient")[0]).addClass("selected")
+			}
+
+			$(gradientParent).remove()
+
 			showPopup(`Gradient deleted.`, 3000, "success")
 		},
 		error: function(r) {
