@@ -36,7 +36,7 @@ $(".checkLine").on("click", (e) => {
 $(".color:not(.color.new)").on("click", (e) => {
 	e.preventDefault()
 
-	if($(e.target).hasClass("delete") || $(e.target).is("svg")){
+	if($(e.target).hasClass("delete") || $(e.target).is("svg") || $(e.target).is("path")){
 		return false
 	}
 
