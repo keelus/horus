@@ -102,13 +102,15 @@ $(".color .delete").on("click", (e) => {
 		},
 		success: function (r) {
 			let colorParent = $(e.target).closest(".color")
+
 			
 			if ($(colorParent).hasClass("selected")) { // If deleted is the activated
 				$(".color.selected").removeClass("selected")
+				$(colorParent).remove()
 				$($(`[mode='${mode}'] .color`)[0]).addClass("selected")
+			} else {
+				$(colorParent).remove()
 			}
-
-			$(colorParent).remove()
 			
 			
 			showPopup(`Color removed.`, 3000, "success")
@@ -130,13 +132,15 @@ $(".gradient .delete").on("click", (e) => {
 		},
 		success: function (r) {
 			let gradientParent = $(e.target).closest(".gradient")
+
 			
 			if ($(gradientParent).hasClass("selected")) { // If deleted is the activated
 				$(".gradient.selected").removeClass("selected")
+				$(gradientParent).remove()
 				$($(".gradient")[0]).addClass("selected")
+			} else {
+				$(gradientParent).remove()
 			}
-
-			$(gradientParent).remove()
 
 			showPopup(`Gradient deleted.`, 3000, "success")
 		},
