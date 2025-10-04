@@ -119,11 +119,6 @@ To be able to control your ws281x Led strip, Horus needs access to the Raspberry
 ## ⚖️ License
 This project is open source under the terms of the [MIT License](https://github.com/keelus/horus/blob/main/LICENSE)
 
-
-## 📬Feedback
-
-If you have any feedback, please reach out to me at hugomoreda@hotmail.com
-
 <br><br>
 
 Made by [@keelus](https://github.com/keelus)
